@@ -11,14 +11,14 @@ namespace BE_SWP391_OnDemandTutor.DataAccess.Data
         {
         }
 
-        public DbSet<Account> Accounts { get; set; }
-        public DbSet<Tutor> Tutors { get; set; }
-        public DbSet<Parent> Parents { get; set; }
-        public DbSet<Class> Classes { get; set; }
-        public DbSet<Schedule> Schedules { get; set; }
-        public DbSet<Subject> Subjects { get; set; }
-        public DbSet<Feedback> Feedbacks { get; set; }
-     
+        public virtual DbSet<Account> Accounts { get; set; }
+        public virtual DbSet<Tutor> Tutors { get; set; }
+        public virtual DbSet<Parent> Parents { get; set; }
+        public virtual DbSet<Class> Classes { get; set; }
+        public virtual DbSet<Schedule> Schedules { get; set; }
+        public virtual DbSet<Subject> Subjects { get; set; }
+        public virtual DbSet<Feedback> Feedbacks { get; set; }
+
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

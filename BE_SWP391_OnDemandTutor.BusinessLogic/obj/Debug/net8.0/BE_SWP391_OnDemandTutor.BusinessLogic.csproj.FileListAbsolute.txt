@@ -1,15 +1,31 @@
-C:\Users\Hau Giang\Documents\Zalo Received Files\BE_SWP391_OnDemandTutor\BE_SWP391_OnDemandTutor.BusinessLogic\obj\Debug\net8.0\BE_SWP391_OnDemandTutor.BusinessLogic.csproj.AssemblyReference.cache
-C:\Users\Hau Giang\Documents\Zalo Received Files\BE_SWP391_OnDemandTutor\BE_SWP391_OnDemandTutor.BusinessLogic\obj\Debug\net8.0\BE_SWP391_OnDemandTutor.BusinessLogic.GeneratedMSBuildEditorConfig.editorconfig
-C:\Users\Hau Giang\Documents\Zalo Received Files\BE_SWP391_OnDemandTutor\BE_SWP391_OnDemandTutor.BusinessLogic\obj\Debug\net8.0\BE_SWP391_OnDemandTutor.BusinessLogic.AssemblyInfoInputs.cache
-C:\Users\Hau Giang\Documents\Zalo Received Files\BE_SWP391_OnDemandTutor\BE_SWP391_OnDemandTutor.BusinessLogic\obj\Debug\net8.0\BE_SWP391_OnDemandTutor.BusinessLogic.AssemblyInfo.cs
-C:\Users\Hau Giang\Documents\Zalo Received Files\BE_SWP391_OnDemandTutor\BE_SWP391_OnDemandTutor.BusinessLogic\obj\Debug\net8.0\BE_SWP391_OnDemandTutor.BusinessLogic.csproj.CoreCompileInputs.cache
-C:\Users\Hau Giang\Documents\Zalo Received Files\BE_SWP391_OnDemandTutor\BE_SWP391_OnDemandTutor.BusinessLogic\bin\Debug\net8.0\BE_SWP391_OnDemandTutor.BusinessLogic.deps.json
-C:\Users\Hau Giang\Documents\Zalo Received Files\BE_SWP391_OnDemandTutor\BE_SWP391_OnDemandTutor.BusinessLogic\bin\Debug\net8.0\BE_SWP391_OnDemandTutor.BusinessLogic.dll
-C:\Users\Hau Giang\Documents\Zalo Received Files\BE_SWP391_OnDemandTutor\BE_SWP391_OnDemandTutor.BusinessLogic\bin\Debug\net8.0\BE_SWP391_OnDemandTutor.BusinessLogic.pdb
-C:\Users\Hau Giang\Documents\Zalo Received Files\BE_SWP391_OnDemandTutor\BE_SWP391_OnDemandTutor.BusinessLogic\bin\Debug\net8.0\BE_SWP391_OnDemandTutor.DataAccess.dll
-C:\Users\Hau Giang\Documents\Zalo Received Files\BE_SWP391_OnDemandTutor\BE_SWP391_OnDemandTutor.BusinessLogic\bin\Debug\net8.0\BE_SWP391_OnDemandTutor.DataAccess.pdb
-C:\Users\Hau Giang\Documents\Zalo Received Files\BE_SWP391_OnDemandTutor\BE_SWP391_OnDemandTutor.BusinessLogic\obj\Debug\net8.0\BE_SWP39.AD154A39.Up2Date
-C:\Users\Hau Giang\Documents\Zalo Received Files\BE_SWP391_OnDemandTutor\BE_SWP391_OnDemandTutor.BusinessLogic\obj\Debug\net8.0\BE_SWP391_OnDemandTutor.BusinessLogic.dll
-C:\Users\Hau Giang\Documents\Zalo Received Files\BE_SWP391_OnDemandTutor\BE_SWP391_OnDemandTutor.BusinessLogic\obj\Debug\net8.0\refint\BE_SWP391_OnDemandTutor.BusinessLogic.dll
-C:\Users\Hau Giang\Documents\Zalo Received Files\BE_SWP391_OnDemandTutor\BE_SWP391_OnDemandTutor.BusinessLogic\obj\Debug\net8.0\BE_SWP391_OnDemandTutor.BusinessLogic.pdb
-C:\Users\Hau Giang\Documents\Zalo Received Files\BE_SWP391_OnDemandTutor\BE_SWP391_OnDemandTutor.BusinessLogic\obj\Debug\net8.0\ref\BE_SWP391_OnDemandTutor.BusinessLogic.dll
+C:/Users/Hau Giang/Documents/Zalo Received Files/BE_SWP391_OnDemandTutor/BE_SWP391_OnDemandTutor.BusinessLogic/obj/Debug/net8.0/BE_SWP391_OnDemandTutor.BusinessLogic.csproj.AssemblyReference.cache
+C:/Users/Hau Giang/Documents/Zalo Received Files/BE_SWP391_OnDemandTutor/BE_SWP391_OnDemandTutor.BusinessLogic/obj/Debug/net8.0/BE_SWP391_OnDemandTutor.BusinessLogic.GeneratedMSBuildEditorConfig.editorconfig
+C:/Users/Hau Giang/Documents/Zalo Received Files/BE_SWP391_OnDemandTutor/BE_SWP391_OnDemandTutor.BusinessLogic/obj/Debug/net8.0/BE_SWP391_OnDemandTutor.BusinessLogic.AssemblyInfoInputs.cache
+C:/Users/Hau Giang/Documents/Zalo Received Files/BE_SWP391_OnDemandTutor/BE_SWP391_OnDemandTutor.BusinessLogic/obj/Debug/net8.0/BE_SWP391_OnDemandTutor.BusinessLogic.AssemblyInfo.cs
+C:/Users/Hau Giang/Documents/Zalo Received Files/BE_SWP391_OnDemandTutor/BE_SWP391_OnDemandTutor.BusinessLogic/obj/Debug/net8.0/BE_SWP391_OnDemandTutor.BusinessLogic.csproj.CoreCompileInputs.cache
+C:/Users/Hau Giang/Documents/Zalo Received Files/BE_SWP391_OnDemandTutor/BE_SWP391_OnDemandTutor.BusinessLogic/bin/Debug/net8.0/BE_SWP391_OnDemandTutor.BusinessLogic.deps.json
+C:/Users/Hau Giang/Documents/Zalo Received Files/BE_SWP391_OnDemandTutor/BE_SWP391_OnDemandTutor.BusinessLogic/bin/Debug/net8.0/BE_SWP391_OnDemandTutor.BusinessLogic.dll
+C:/Users/Hau Giang/Documents/Zalo Received Files/BE_SWP391_OnDemandTutor/BE_SWP391_OnDemandTutor.BusinessLogic/bin/Debug/net8.0/BE_SWP391_OnDemandTutor.BusinessLogic.pdb
+C:/Users/Hau Giang/Documents/Zalo Received Files/BE_SWP391_OnDemandTutor/BE_SWP391_OnDemandTutor.BusinessLogic/bin/Debug/net8.0/BE_SWP391_OnDemandTutor.DataAccess.dll
+C:/Users/Hau Giang/Documents/Zalo Received Files/BE_SWP391_OnDemandTutor/BE_SWP391_OnDemandTutor.BusinessLogic/bin/Debug/net8.0/BE_SWP391_OnDemandTutor.DataAccess.pdb
+C:/Users/Hau Giang/Documents/Zalo Received Files/BE_SWP391_OnDemandTutor/BE_SWP391_OnDemandTutor.BusinessLogic/obj/Debug/net8.0/BE_SWP39.AD154A39.Up2Date
+C:/Users/Hau Giang/Documents/Zalo Received Files/BE_SWP391_OnDemandTutor/BE_SWP391_OnDemandTutor.BusinessLogic/obj/Debug/net8.0/BE_SWP391_OnDemandTutor.BusinessLogic.dll
+C:/Users/Hau Giang/Documents/Zalo Received Files/BE_SWP391_OnDemandTutor/BE_SWP391_OnDemandTutor.BusinessLogic/obj/Debug/net8.0/refint/BE_SWP391_OnDemandTutor.BusinessLogic.dll
+C:/Users/Hau Giang/Documents/Zalo Received Files/BE_SWP391_OnDemandTutor/BE_SWP391_OnDemandTutor.BusinessLogic/obj/Debug/net8.0/BE_SWP391_OnDemandTutor.BusinessLogic.pdb
+C:/Users/Hau Giang/Documents/Zalo Received Files/BE_SWP391_OnDemandTutor/BE_SWP391_OnDemandTutor.BusinessLogic/obj/Debug/net8.0/ref/BE_SWP391_OnDemandTutor.BusinessLogic.dll
+/Users/phamnhatlinh/SWP291/BE_SWP391_OnDemandTutor/BE_SWP391_OnDemandTutor.BusinessLogic/obj/Debug/net8.0/BE_SWP391_OnDemandTutor.BusinessLogic.csproj.AssemblyReference.cache
+/Users/phamnhatlinh/SWP291/BE_SWP391_OnDemandTutor/BE_SWP391_OnDemandTutor.BusinessLogic/obj/Debug/net8.0/BE_SWP391_OnDemandTutor.BusinessLogic.GeneratedMSBuildEditorConfig.editorconfig
+/Users/phamnhatlinh/SWP291/BE_SWP391_OnDemandTutor/BE_SWP391_OnDemandTutor.BusinessLogic/obj/Debug/net8.0/BE_SWP391_OnDemandTutor.BusinessLogic.AssemblyInfoInputs.cache
+/Users/phamnhatlinh/SWP291/BE_SWP391_OnDemandTutor/BE_SWP391_OnDemandTutor.BusinessLogic/obj/Debug/net8.0/BE_SWP391_OnDemandTutor.BusinessLogic.AssemblyInfo.cs
+/Users/phamnhatlinh/SWP291/BE_SWP391_OnDemandTutor/BE_SWP391_OnDemandTutor.BusinessLogic/obj/Debug/net8.0/BE_SWP391_OnDemandTutor.BusinessLogic.csproj.CoreCompileInputs.cache
+/Users/phamnhatlinh/SWP291/BE_SWP391_OnDemandTutor/BE_SWP391_OnDemandTutor.BusinessLogic/obj/Debug/net8.0/BE_SWP391_OnDemandTutor.BusinessLogic.sourcelink.json
+/Users/phamnhatlinh/SWP291/BE_SWP391_OnDemandTutor/BE_SWP391_OnDemandTutor.BusinessLogic/bin/Debug/net8.0/BE_SWP391_OnDemandTutor.BusinessLogic.deps.json
+/Users/phamnhatlinh/SWP291/BE_SWP391_OnDemandTutor/BE_SWP391_OnDemandTutor.BusinessLogic/bin/Debug/net8.0/BE_SWP391_OnDemandTutor.BusinessLogic.dll
+/Users/phamnhatlinh/SWP291/BE_SWP391_OnDemandTutor/BE_SWP391_OnDemandTutor.BusinessLogic/bin/Debug/net8.0/BE_SWP391_OnDemandTutor.BusinessLogic.pdb
+/Users/phamnhatlinh/SWP291/BE_SWP391_OnDemandTutor/BE_SWP391_OnDemandTutor.BusinessLogic/bin/Debug/net8.0/BE_SWP391_OnDemandTutor.DataAccess.dll
+/Users/phamnhatlinh/SWP291/BE_SWP391_OnDemandTutor/BE_SWP391_OnDemandTutor.BusinessLogic/bin/Debug/net8.0/BE_SWP391_OnDemandTutor.DataAccess.pdb
+/Users/phamnhatlinh/SWP291/BE_SWP391_OnDemandTutor/BE_SWP391_OnDemandTutor.BusinessLogic/obj/Debug/net8.0/BE_SWP39.AD154A39.Up2Date
+/Users/phamnhatlinh/SWP291/BE_SWP391_OnDemandTutor/BE_SWP391_OnDemandTutor.BusinessLogic/obj/Debug/net8.0/BE_SWP391_OnDemandTutor.BusinessLogic.dll
+/Users/phamnhatlinh/SWP291/BE_SWP391_OnDemandTutor/BE_SWP391_OnDemandTutor.BusinessLogic/obj/Debug/net8.0/refint/BE_SWP391_OnDemandTutor.BusinessLogic.dll
+/Users/phamnhatlinh/SWP291/BE_SWP391_OnDemandTutor/BE_SWP391_OnDemandTutor.BusinessLogic/obj/Debug/net8.0/BE_SWP391_OnDemandTutor.BusinessLogic.pdb
+/Users/phamnhatlinh/SWP291/BE_SWP391_OnDemandTutor/BE_SWP391_OnDemandTutor.BusinessLogic/obj/Debug/net8.0/ref/BE_SWP391_OnDemandTutor.BusinessLogic.dll

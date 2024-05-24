@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("BE_SWP391_OnDemandTutor.DataAccess")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+c9fd95358769de4f836c878f8f326061c13be891")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+cb64cf2a8c895bedf0cb9f5446ea87c6b89c1b3f")]
 [assembly: System.Reflection.AssemblyProductAttribute("BE_SWP391_OnDemandTutor.DataAccess")]
 [assembly: System.Reflection.AssemblyTitleAttribute("BE_SWP391_OnDemandTutor.DataAccess")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
