@@ -17,6 +17,7 @@ namespace BE_SWP391_OnDemandTutor.DataAccess.Models
         public virtual Tutor Tutor { get; set; }
         public virtual Subject Subject { get; set; }
         public virtual ICollection<Schedule> Schedules { get; set; }
+        public ICollection<ClassParent> ClassParents { get; set; }
     }
 }
 
