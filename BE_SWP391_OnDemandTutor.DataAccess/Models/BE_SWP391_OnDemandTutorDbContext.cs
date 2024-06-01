@@ -136,47 +136,8 @@ public class BE_SWP391_OnDemandTutorDbContext : DbContext
                 ClassLevel = "Advanced",
                 ClassFee = 299.99f,
                 StudentId = 2,
-                TutorId = 3
-            }, new Class
-            {
-                ClassId = 3,
-                ClassName = "Introduction to Web Development",
-                ClassTime = new DateTime(2023, 8, 1, 19, 0, 0),
-                ClassInfo = "This course provides an overview of the fundamentals of web development, including HTML, CSS, and JavaScript.",
-                ClassRequire = "No prior web development experience required.",
-                ClassAddress = "789 Elm Street, Anytown USA",
-                ClassMethod = "Hybrid",
-                ClassLevel = "Beginner",
-                ClassFee = 149.99f,
-                StudentId = 5,
                 TutorId = 4
-            }, new Class
-            {
-                ClassId = 4,
-                ClassName = "Machine Learning Fundamentals",
-                ClassTime = new DateTime(2023, 11, 1, 10, 0, 0),
-                ClassInfo = "This course introduces the fundamental concepts and techniques of machine learning.",
-                ClassRequire = "Prerequisite: Calculus and Linear Algebra",
-                ClassAddress = "321 Oak Street, Anytown USA",
-                ClassMethod = "Online",
-                ClassLevel = "Intermediate",
-                ClassFee = 349.99f,
-                StudentId = 5,
-                TutorId = 4
-            },
-            new Class
-            {
-                ClassId = 5,
-                ClassName = "Mobile App Development",
-                ClassTime = new DateTime(2023, 7, 1, 18, 0, 0),
-                ClassInfo = "This course covers the basics of mobile app development using a popular framework.",
-                ClassRequire = "Prerequisite: Intermediate programming experience.",
-                ClassAddress = "654 Maple Avenue, Anytown USA",
-                ClassMethod = "Hybrid",
-                ClassLevel = "Intermediate",
-                ClassFee = 249.99f,
-                StudentId = 5,
-                TutorId = 4
+
             }
             );
     }

@@ -21,6 +21,17 @@ namespace BE_SWP391_OnDemandTutor.Presentation.Controllers
 
         [MapToApiVersion("1")]
         [HttpPost]
+        [Route("login")]
+        public async Task<ActionResult<string>> Login(LoginRequestModel request)
+        {
+            var result = await _userService.Login(request);
+
+            return result;
+        }
+
+        [MapToApiVersion("1")]
+        [HttpPost]
+        [Route("register")]
         public async Task<ActionResult<UserViewModel>> CreateUser(RegisterRequestModel userCreate)
         {
             var userCreated = await _userService.Register(userCreate);

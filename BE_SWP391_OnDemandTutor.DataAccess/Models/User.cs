@@ -17,6 +17,5 @@
         public List<Rate> TutorReceiveRatings { get; set; }
         public List<Feedback> StudentGivenFeedbacks { get; set; }
         public List<Feedback> TutorReceiveFeedbacks { get; set; }
-        public Class Class { get; set; }
     }
 }

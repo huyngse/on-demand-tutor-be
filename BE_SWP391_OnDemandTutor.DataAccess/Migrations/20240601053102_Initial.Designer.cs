@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BE_SWP391_OnDemandTutor.DataAccess.Migrations
 {
     [DbContext(typeof(BE_SWP391_OnDemandTutorDbContext))]
-    partial class BE_SWP391_OnDemandTutorDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240601053102_Initial")]
+    partial class Initial
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -82,36 +85,6 @@ namespace BE_SWP391_OnDemandTutor.DataAccess.Migrations
                         .IsUnique();
 
                     b.ToTable("Classes", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            ClassId = 1,
-                            ClassAddress = "123 Main Street, Anytown USA",
-                            ClassFee = 199.99m,
-                            ClassInfo = "This course introduces the fundamental concepts of programming, including data types, control structures, and algorithms.",
-                            ClassLevel = "Beginner",
-                            ClassMethod = "In-person",
-                            ClassName = "Introduction to Programming",
-                            ClassRequire = "No prior programming experience required.",
-                            ClassTime = new DateTime(2023, 9, 1, 18, 30, 0, 0, DateTimeKind.Unspecified),
-                            StudentId = 1,
-                            TutorId = 3
-                        },
-                        new
-                        {
-                            ClassId = 2,
-                            ClassAddress = "456 Oak Avenue, Anytown USA",
-                            ClassFee = 299.99m,
-                            ClassInfo = "This course explores advanced data structures and their implementation in various programming languages.",
-                            ClassLevel = "Advanced",
-                            ClassMethod = "Online",
-                            ClassName = "Advanced Data Structures",
-                            ClassRequire = "Prerequisite: Data Structures and Algorithms",
-                            ClassTime = new DateTime(2023, 10, 15, 14, 0, 0, 0, DateTimeKind.Unspecified),
-                            StudentId = 2,
-                            TutorId = 4
-                        });
                 });
 
             modelBuilder.Entity("BE_SWP391_OnDemandTutor.DataAccess.Models.Feedback", b =>
@@ -392,68 +365,6 @@ namespace BE_SWP391_OnDemandTutor.DataAccess.Migrations
                     b.HasKey("UserId");
 
                     b.ToTable("Users", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            UserId = 1,
-                            DateOfBirth = new DateTime(1985, 6, 15, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            EmailAddress = "john.doe@example.com",
-                            Gender = "Male",
-                            Password = "password123",
-                            PhoneNumber = "555-1234",
-                            ProfileImage = "https://example.com/profile_image_1.jpg",
-                            Role = "Student",
-                            Username = "JohnDoe"
-                        },
-                        new
-                        {
-                            UserId = 2,
-                            DateOfBirth = new DateTime(1992, 3, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            EmailAddress = "jane.doe@example.com",
-                            Gender = "Female",
-                            Password = "securepassword",
-                            PhoneNumber = "555-5678",
-                            ProfileImage = "https://example.com/profile_image_2.jpg",
-                            Role = "Student",
-                            Username = "JaneDoe"
-                        },
-                        new
-                        {
-                            UserId = 3,
-                            DateOfBirth = new DateTime(1978, 11, 20, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            EmailAddress = "bob.smith@example.com",
-                            Gender = "Male",
-                            Password = "mypassword456",
-                            PhoneNumber = "555-9012",
-                            ProfileImage = "https://example.com/profile_image_3.jpg",
-                            Role = "Tutor",
-                            Username = "BobSmith"
-                        },
-                        new
-                        {
-                            UserId = 4,
-                            DateOfBirth = new DateTime(1990, 8, 5, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            EmailAddress = "sarah.johnson@example.com",
-                            Gender = "Female",
-                            Password = "strongpassword",
-                            PhoneNumber = "555-3456",
-                            ProfileImage = "https://example.com/profile_image_4.jpg",
-                            Role = "Tutor",
-                            Username = "SarahJohnson"
-                        },
-                        new
-                        {
-                            UserId = 5,
-                            DateOfBirth = new DateTime(1982, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            EmailAddress = "michael.davis@example.com",
-                            Gender = "Male",
-                            Password = "123456789",
-                            PhoneNumber = "555-7890",
-                            ProfileImage = "https://example.com/profile_image_5.jpg",
-                            Role = "Student",
-                            Username = "MichaelDavis"
-                        });
                 });
 
             modelBuilder.Entity("BE_SWP391_OnDemandTutor.DataAccess.Models.Class", b =>
