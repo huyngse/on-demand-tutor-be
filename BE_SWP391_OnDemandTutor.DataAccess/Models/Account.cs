@@ -3,7 +3,7 @@ namespace BE_SWP391_OnDemandTutor.DataAccess.Models
 {
 	public class Account
 	{
-        public int AccountID { get; set; }
+        public Guid AccountID { get; set; }
         public string Username { get; set; }
         public string Password { get; set; }
         public string ProfileImage { get; set; }
@@ -12,8 +12,12 @@ namespace BE_SWP391_OnDemandTutor.DataAccess.Models
         public DateTime DateOfBirth { get; set; }
         public string Gender { get; set; }
 
-        public virtual ICollection<Parent> Parents { get; set; }
-        public virtual ICollection<Tutor> Tutors { get; set; }
+        public Tutor Tutor { get; set; }
+        public Parent Parent { get; set; }
+
+        public ICollection<Tutor> Tutors { get; set; }
+        public ICollection<Parent> Parents { get; set; }
+
 
     }
 } 

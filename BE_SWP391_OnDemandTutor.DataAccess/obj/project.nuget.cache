@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "9RLi/sqiPjA=",
+  "dgSpecHash": "3J5BCrgc8Nw=",
   "success": true,
   "projectFilePath": "/Users/phamnhatlinh/SWP291/BE_SWP391_OnDemandTutor/BE_SWP391_OnDemandTutor.DataAccess/BE_SWP391_OnDemandTutor.DataAccess.csproj",
   "expectedPackageFiles": [
@@ -24,6 +24,7 @@
     "/Users/phamnhatlinh/.nuget/packages/microsoft.entityframeworkcore.design/8.0.4/microsoft.entityframeworkcore.design.8.0.4.nupkg.sha512",
     "/Users/phamnhatlinh/.nuget/packages/microsoft.entityframeworkcore.relational/8.0.5/microsoft.entityframeworkcore.relational.8.0.5.nupkg.sha512",
     "/Users/phamnhatlinh/.nuget/packages/microsoft.entityframeworkcore.sqlserver/8.0.5/microsoft.entityframeworkcore.sqlserver.8.0.5.nupkg.sha512",
+    "/Users/phamnhatlinh/.nuget/packages/microsoft.entityframeworkcore.tools/8.0.4/microsoft.entityframeworkcore.tools.8.0.4.nupkg.sha512",
     "/Users/phamnhatlinh/.nuget/packages/microsoft.extensions.apidescription.server/3.0.0/microsoft.extensions.apidescription.server.3.0.0.nupkg.sha512",
     "/Users/phamnhatlinh/.nuget/packages/microsoft.extensions.caching.abstractions/8.0.0/microsoft.extensions.caching.abstractions.8.0.0.nupkg.sha512",
     "/Users/phamnhatlinh/.nuget/packages/microsoft.extensions.caching.memory/8.0.0/microsoft.extensions.caching.memory.8.0.0.nupkg.sha512",
