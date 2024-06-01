@@ -1,0 +1,29 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="13.0.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\BE_SWP391_OnDemandTutor.DataAccess\BE_SWP391_OnDemandTutor.DataAccess.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="ViewModels\Class\" />
+    <Folder Include="ViewModels\Feedback\" />
+    <Folder Include="ViewModels\Rate\" />
+    <Folder Include="ViewModels\Schedule\" />
+    <Folder Include="ViewModels\Slot\" />
+    <Folder Include="ViewModels\Subject\" />
+    <Folder Include="ViewModels\TutorDegree\" />
+    <Folder Include="ViewModels\TutorFreeTimeSchedule\" />
+    <Folder Include="ViewModels\User\" />
+  </ItemGroup>
+
+</Project>
