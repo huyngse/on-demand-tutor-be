@@ -15,6 +15,8 @@
         public User Student { get; set; }
         public int TutorId { get; set; }
         public User Tutor { get; set; }
-        public Slot Slot { get; set; }
+        public Feedback Feedback { get; set; }
+        public int ScheduleId { get; set; }
+        public Schedule Schedule { get; set; }
     }
 }

@@ -23,7 +23,7 @@ namespace BE_SWP391_OnDemandTutor.DataAccess.Configurations
 
             builder.HasOne(r => r.Tutor).WithMany(u => u.TutorReceiveRatings).HasForeignKey(u => u.TutorId).OnDelete(DeleteBehavior.NoAction);
 
-            builder.HasOne(r=>r.Subject).WithOne(s=>s.Rate).HasForeignKey<Rate>(r=>r.SubjectId).OnDelete(DeleteBehavior.NoAction);
+            
         }
     }
 }

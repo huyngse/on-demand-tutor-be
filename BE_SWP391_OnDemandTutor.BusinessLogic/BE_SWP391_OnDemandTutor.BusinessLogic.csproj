@@ -15,15 +15,18 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="ViewModels\Class\" />
-    <Folder Include="ViewModels\Feedback\" />
-    <Folder Include="ViewModels\Rate\" />
-    <Folder Include="ViewModels\Schedule\" />
-    <Folder Include="ViewModels\Slot\" />
-    <Folder Include="ViewModels\Subject\" />
-    <Folder Include="ViewModels\TutorDegree\" />
-    <Folder Include="ViewModels\TutorFreeTimeSchedule\" />
-    <Folder Include="ViewModels\User\" />
+    <Folder Include="Enums\" />
+    <Folder Include="BusinessModel\" />
+    <Folder Include="RequestModels\" />
+    <Folder Include="ViewModels\" />
+    <Folder Include="ViewModels\Booking\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Remove="Enums\" />
+    <None Remove="BusinessModel\" />
+    <None Remove="RequestModels\" />
+    <None Remove="ViewModels\" />
+    <None Remove="ViewModels\Booking\" />
+  </ItemGroup>
 </Project>

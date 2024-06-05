@@ -20,7 +20,6 @@ namespace BE_SWP391_OnDemandTutor.DataAccess.Configurations
 
             builder.Property(s => s.EndDate).IsRequired();
 
-            builder.Property(s => s.SlotId).IsRequired();
         }
     }
 }

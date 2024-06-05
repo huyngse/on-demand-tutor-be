@@ -28,9 +28,12 @@ namespace BE_SWP391_OnDemandTutor.DataAccess.Configurations
 
             builder.Property(c => c.ClassFee).HasColumnType("decimal(18,2)").HasDefaultValue(0.0m).IsRequired();
 
-            builder.HasOne(c => c.Student).WithOne().HasForeignKey<Class>(c => c.StudentId).OnDelete(DeleteBehavior.NoAction);
+            builder.HasOne(c => c.Student).WithOne(u=>u.ClassStudent).HasForeignKey<Class>(c => c.StudentId).OnDelete(DeleteBehavior.NoAction);
 
-            builder.HasOne(c => c.Tutor).WithOne().HasForeignKey<Class>(c => c.TutorId).OnDelete(DeleteBehavior.NoAction);
+            builder.HasOne(c => c.Tutor).WithOne(u=>u.ClassTutor).HasForeignKey<Class>(c => c.TutorId).OnDelete(DeleteBehavior.NoAction);
+
+            builder.HasOne(c => c.Schedule).WithOne(s=>s.Class).HasForeignKey<Class>(c => c.ScheduleId).OnDelete(DeleteBehavior.NoAction);
+
         }
     }
 }

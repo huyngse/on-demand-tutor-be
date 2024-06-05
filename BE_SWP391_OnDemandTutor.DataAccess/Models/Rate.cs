@@ -9,6 +9,6 @@
         public User Tutor { get; set; }
         public int NumberStars { get; set; }
         public int SubjectId { get; set; }
-        public Subject Subject { get; set; }
+        
     }
 }

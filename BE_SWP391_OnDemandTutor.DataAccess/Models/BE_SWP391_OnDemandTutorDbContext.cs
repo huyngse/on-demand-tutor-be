@@ -15,13 +15,11 @@ public class BE_SWP391_OnDemandTutorDbContext : DbContext
 
     public DbSet<User> Users { get; set; }
     public DbSet<Schedule> Schedules { get; set; }
-    public DbSet<Slot> Slots { get; set; }
     public DbSet<Class> Classes { get; set; }
-    public DbSet<Subject> Subjects { get; set; }
     public DbSet<Feedback> Feedbacks { get; set; }
     public DbSet<Rate> Rates { get; set; }
     public DbSet<TutorDegree> TutorDegrees { get; set; }
-    public DbSet<TutorFreeTimeSchedule> TutorFreeTimeSchedules { get; set; }
+    public DbSet<TutorDegree> BookingConfiguration { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
@@ -39,15 +37,29 @@ public class BE_SWP391_OnDemandTutorDbContext : DbContext
     {
         modelBuilder.ApplyConfiguration(new UserConfiguration());
         modelBuilder.ApplyConfiguration(new ScheduleConfiguration());
-        modelBuilder.ApplyConfiguration(new SlotConfiguration());
         modelBuilder.ApplyConfiguration(new ClassConfiguration());
-        modelBuilder.ApplyConfiguration(new SubjectConfiguration());
         modelBuilder.ApplyConfiguration(new FeedbackConfiguration());
         modelBuilder.ApplyConfiguration(new RateConfiguration());
         modelBuilder.ApplyConfiguration(new TutorDegreeConfiguration());
-        modelBuilder.ApplyConfiguration(new TutorFreeTimeScheduleConfiguration());
+        modelBuilder.ApplyConfiguration(new BookingConfiguration());
 
+        modelBuilder.Entity<Schedule>().HasData
+            ( new Schedule
+            {
+                ScheduleID = 1,
+                Title = "Math Class",
+                Description = "Advanced Calculus",
+                StartDate = new DateTime(2024, 6, 10, 9, 0, 0),
+                EndDate = new DateTime(2024, 6, 10, 12, 0, 0),
+            },new Schedule{
+                ScheduleID = 2,
+                Title = "Physics Lecture",
+                Description = "Quantum Mechanics",
+                StartDate = new DateTime(2024, 6, 12, 14, 0, 0),
+                EndDate = new DateTime(2024, 6, 12, 16, 0, 0),
+            }
 
+            );
         modelBuilder.Entity<User>().HasData
             (
                 new User
@@ -71,7 +83,7 @@ public class BE_SWP391_OnDemandTutorDbContext : DbContext
                     EmailAddress = "jane.doe@example.com",
                     DateOfBirth = new DateTime(1992, 3, 10),
                     Gender = "Female",
-                    Role = "Student",
+                    Role = "Student"
                 }, new User
                 {
                     UserId = 3,
@@ -82,7 +94,7 @@ public class BE_SWP391_OnDemandTutorDbContext : DbContext
                     EmailAddress = "bob.smith@example.com",
                     DateOfBirth = new DateTime(1978, 11, 20),
                     Gender = "Male",
-                    Role = "Tutor",
+                    Role = "Tutor"
                 }, new User
                 {
                     UserId = 4,
@@ -93,7 +105,7 @@ public class BE_SWP391_OnDemandTutorDbContext : DbContext
                     EmailAddress = "sarah.johnson@example.com",
                     DateOfBirth = new DateTime(1990, 8, 5),
                     Gender = "Female",
-                    Role = "Tutor",
+                    Role = "Tutor"
                 }, new User
                 {
                     UserId = 5,
@@ -104,7 +116,7 @@ public class BE_SWP391_OnDemandTutorDbContext : DbContext
                     EmailAddress = "michael.davis@example.com",
                     DateOfBirth = new DateTime(1982, 2, 28),
                     Gender = "Male",
-                    Role = "Student",
+                    Role = "Student"
                 }
             );
 
@@ -113,6 +125,7 @@ public class BE_SWP391_OnDemandTutorDbContext : DbContext
             new Class
             {
                 ClassId = 1,
+                ScheduleId = 1,
                 ClassName = "Introduction to Programming",
                 ClassTime = new DateTime(2023, 9, 1, 18, 30, 0),
                 ClassInfo = "This course introduces the fundamental concepts of programming, including data types, control structures, and algorithms.",
@@ -123,10 +136,12 @@ public class BE_SWP391_OnDemandTutorDbContext : DbContext
                 ClassFee = 199.99f,
                 StudentId = 1,
                 TutorId = 3
+                
             },
             new Class
             {
                 ClassId = 2,
+                ScheduleId = 2,
                 ClassName = "Advanced Data Structures",
                 ClassTime = new DateTime(2023, 10, 15, 14, 0, 0),
                 ClassInfo = "This course explores advanced data structures and their implementation in various programming languages.",
@@ -140,5 +155,6 @@ public class BE_SWP391_OnDemandTutorDbContext : DbContext
 
             }
             );
+      
     }
 }

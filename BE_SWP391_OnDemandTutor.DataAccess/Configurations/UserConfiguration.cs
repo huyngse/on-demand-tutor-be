@@ -29,9 +29,8 @@ namespace BE_SWP391_OnDemandTutor.DataAccess.Configurations
 
             builder.Property(a => a.Role).IsRequired().HasMaxLength(50);
 
-            //builder.HasOne().WithOne().HasForeignKey<Class>(c => c.StudentId).OnDelete(DeleteBehavior.NoAction);
+            builder.HasMany(u=>u.Feedbacks).WithOne(f=>f.Student).HasForeignKey(f=>f.StudentId).OnDelete(DeleteBehavior.NoAction);
 
-            //builder.HasOne().WithOne().HasForeignKey<Class>(c => c.TutorId).OnDelete(DeleteBehavior.NoAction);
         }
     }
 }
