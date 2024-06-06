@@ -20,6 +20,7 @@
     <Folder Include="RequestModels\" />
     <Folder Include="ViewModels\" />
     <Folder Include="ViewModels\Booking\" />
+    <Folder Include="RequestModels\Booking\" />
   </ItemGroup>
 
   <ItemGroup>
@@ -28,5 +29,6 @@
     <None Remove="RequestModels\" />
     <None Remove="ViewModels\" />
     <None Remove="ViewModels\Booking\" />
+    <None Remove="RequestModels\Booking\" />
   </ItemGroup>
 </Project>

@@ -17,71 +17,70 @@ namespace BE_SWP391_OnDemandTutor.Presentation.Controllers
         {
             _scheduleService = scheduleService;
         }
-
         [MapToApiVersion("1")]
-        [HttpPost]
-        public ActionResult<ScheduleViewModel> CreateSchedule(CreateScheduleRequestModel scheduleCreate)
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetById(int id)
         {
-            var scheduleCreated = _scheduleService.CreateSchedule(scheduleCreate);
-
-            if (scheduleCreated == null)
+            var schedule = await _scheduleService.GetById(id);
+            if (schedule == null)
             {
-                return NotFound("");
+                return NotFound();
             }
-            return scheduleCreated;
-        }
 
+            return Ok(schedule);
+        }
         [MapToApiVersion("1")]
         [HttpGet]
-        public ActionResult<List<ScheduleViewModel>> GetAll()
+        public async Task<IActionResult> GetAll()
         {
-            var scheduleList = _scheduleService.GetAll();
-
-            if (scheduleList == null)
-            {
-                return NotFound("");
-            }
-            return scheduleList;
+            var schedules = await _scheduleService.GetAll();
+            return Ok(schedules);
         }
-
         [MapToApiVersion("1")]
-        [HttpGet("idTmp")]
-        public ActionResult<ScheduleViewModel> GetById(int idTmp)
+        [HttpPost]
+        public async Task<IActionResult> Create(CreateScheduleRequestModel scheduleCreate)
         {
-            var scheduleDetail = _scheduleService.GetById(idTmp);
-
-            if (scheduleDetail == null)
+            try
             {
-                return NotFound("");
+                var createdSchedule = await _scheduleService.CreateSchedule(scheduleCreate);
+                return CreatedAtAction(nameof(GetById), new { id = createdSchedule.ScheduleID }, createdSchedule);
             }
-            return scheduleDetail;
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
-
         [MapToApiVersion("1")]
-        [HttpDelete]
-        public ActionResult<bool> DeleteSchedule(int idTmp)
+        [HttpPut("{id}")]
+        public async Task<IActionResult> Update(int id, UpdateScheduleRequestModel scheduleUpdate)
         {
-            var check = _scheduleService.DeleteSchedule(idTmp);
-
-            if (check == false)
+            if (id != scheduleUpdate.ScheduleID)
             {
-                return NotFound("");
+                return BadRequest("ID in the request body does not match the route parameter.");
             }
-            return check;
-        }
 
+            var updatedSchedule = await _scheduleService.UpdateSchedule(scheduleUpdate);
+            if (updatedSchedule == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(updatedSchedule);
+        }
         [MapToApiVersion("1")]
-        [HttpPut]
-        public ActionResult<ScheduleViewModel> UpdateSchedule(UpdateScheduleRequestModel scheduleCreate)
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> Delete(int id)
         {
-            var scheduleUpdated = _scheduleService.UpdateSchedule(scheduleCreate);
-
-            if (scheduleUpdated == null)
+            var success = await _scheduleService.DeleteSchedule(id);
+            if (!success)
             {
-                return NotFound("");
+                return NotFound();
             }
-            return scheduleUpdated;
+
+            return Ok(new { Message = $"Schedule with ID '{id}' deleted successfully." });
         }
+
+
     }
 
 }
