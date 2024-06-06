@@ -18,5 +18,7 @@
         public Feedback Feedback { get; set; }
         public int ScheduleId { get; set; }
         public Schedule Schedule { get; set; }
+        public bool IsActive { get; set; }
+        public DateTime CreatedDate { get; set; }
     }
 }

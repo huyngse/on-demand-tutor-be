@@ -14,13 +14,7 @@ namespace BE_SWP391_OnDemandTutor.BusinessLogic.Generations.DependencyInjection
         
             services.AddScoped<IScheduleService, ScheduleService>();
         
-            services.AddScoped<ISlotService, SlotService>();
-        
-            services.AddScoped<ISubjectService, SubjectService>();
-        
             services.AddScoped<ITutorDegreeService, TutorDegreeService>();
-        
-            services.AddScoped<ITutorFreeTimeScheduleService, TutorFreeTimeScheduleService>();
         
             services.AddScoped<IUserService, UserService>();
         }

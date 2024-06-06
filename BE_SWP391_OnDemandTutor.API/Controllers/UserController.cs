@@ -1,87 +1,90 @@
-using BE_SWP391_OnDemandTutor.BusinessLogic.RequestModels.User;
+using System.Security.Claims;
+using BE_SWP391_OnDemandTutor.BusinessLogic.RequestModels.Class;
 using BE_SWP391_OnDemandTutor.BusinessLogic.Services;
 using BE_SWP391_OnDemandTutor.BusinessLogic.ViewModels;
+using System.IdentityModel.Tokens.Jwt;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Security;
 
-namespace BE_SWP391_OnDemandTutor.Presentation.Controllers
+namespace BE_SWP391_OnDemandTutor.Controllers
 {
-
     [ApiController]
-    [ApiVersion("1")]
-    [Route("/api/v1/users")]
-    public class UserController : ControllerBase
+    [Route("api/[controller]")]
+    public class ClassController : ControllerBase
     {
+        private readonly IClassService _classService;
 
-        private IUserService _userService;
-
-        public UserController(IUserService userService)
+        public ClassController(IClassService classService)
         {
-            _userService = userService;
+            _classService = classService;
         }
 
         [MapToApiVersion("1")]
-        [HttpPost]
-        [Route("login")]
-        public async Task<ActionResult<string>> Login(LoginRequestModel request)
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetById(int id)
         {
-            var result = await _userService.Login(request);
-
-            return result;
-        }
-
-        [MapToApiVersion("1")]
-        [HttpPost]
-        [Route("register")]
-        public async Task<ActionResult<UserViewModel>> CreateUser(RegisterRequestModel userCreate)
-        {
-            var userCreated = await _userService.Register(userCreate);
-
-            if (userCreated == null)
+            var classViewModel = await _classService.GetById(id);
+            if (classViewModel == null)
             {
-                return NotFound("");
+                return NotFound();
             }
-            return userCreated;
+
+            return Ok(classViewModel);
         }
 
         [MapToApiVersion("1")]
-        [HttpGet]
-        public async Task<ActionResult<List<UserViewModel>>> GetAll()
+        [HttpPost("CreateClass")]
+        public async Task<IActionResult> Create(CreateClassRequestModel classCreate)
         {
-            var userList =  await _userService.GetAll();
-
-            if (userList == null)
+            try
             {
-                return NotFound("");
+
+                Random random = new Random();
+                int userId = random.Next();
+
+                var createdClass = await _classService.CreateClass(classCreate, userId);
+                return CreatedAtAction(nameof(GetById), new { id = createdClass.ClassId }, createdClass);
             }
-            return userList;
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
+        
         [MapToApiVersion("1")]
-        [HttpGet("idTmp")]
-        public async Task<ActionResult<UserViewModel>> GetById(int idTmp)
+        [HttpPut]
+        [Route("UpdateInforClass/classId")]
+        [Authorize]
+        public async Task<IActionResult> Update(int id, UpdateClassRequestModel classUpdate)
         {
-            var userDetail = await _userService.GetById(idTmp);
-
-            if (userDetail == null)
+            if (id != classUpdate.ClassId)
             {
-                return NotFound("");
+                return BadRequest("ID in the request body does not match the route parameter.");
             }
-            return userDetail;
-        }
 
+            var success = await _classService.UpdateInforClass(classUpdate);
+            if (!success)
+            {
+                return NotFound();
+            }
+
+            return NoContent();
+        }
 
         [MapToApiVersion("1")]
         [HttpPut]
-        public async Task<ActionResult<UserViewModel>> UpdateUser(UpdateUserRequestModel userCreate)
+        [Route("deactivateClass/{classId}")]
+        public async Task<IActionResult> Deactivate(int id)
         {
-            var userUpdated = await _userService.UpdateUser(userCreate);
-
-            if (userUpdated == null)
+            var (success, className) = await _classService.DeactivateClass(id);
+            if (!success)
             {
-                return NotFound("");
+                return NotFound();
             }
-            return userUpdated;
+
+            return Ok(new { Message = $"Class '{className}' deactivated successfully." });
         }
     }
-
 }
