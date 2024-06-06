@@ -7,10 +7,9 @@
         public DateTime CreateDate { get; set; }
         public int StudentId { get; set; }
         public User Student { get; set; }
-        public int TutorId { get; set; }
-        public User Tutor { get; set; }
-        public int SlotId { get; set; }
-        public Slot Slot { get; set; }
+        public int ClassId { get; set; }
+        public Class Class { get; set; }
+
     }
 }
 

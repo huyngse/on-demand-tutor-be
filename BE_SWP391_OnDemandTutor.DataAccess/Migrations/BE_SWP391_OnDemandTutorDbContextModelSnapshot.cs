@@ -21,6 +21,41 @@ namespace BE_SWP391_OnDemandTutor.DataAccess.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
+            modelBuilder.Entity("BE_SWP391_OnDemandTutor.DataAccess.Models.Booking", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("CreateDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
+
+                    b.Property<int>("ScheduleId")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("Status")
+                        .HasMaxLength(50)
+                        .HasColumnType("bit");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ScheduleId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Booking", (string)null);
+                });
+
             modelBuilder.Entity("BE_SWP391_OnDemandTutor.DataAccess.Models.Class", b =>
                 {
                     b.Property<int>("ClassId")
@@ -67,6 +102,9 @@ namespace BE_SWP391_OnDemandTutor.DataAccess.Migrations
                     b.Property<DateTime>("ClassTime")
                         .HasColumnType("datetime2");
 
+                    b.Property<int>("ScheduleId")
+                        .HasColumnType("int");
+
                     b.Property<int>("StudentId")
                         .HasColumnType("int");
 
@@ -74,6 +112,9 @@ namespace BE_SWP391_OnDemandTutor.DataAccess.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("ClassId");
+
+                    b.HasIndex("ScheduleId")
+                        .IsUnique();
 
                     b.HasIndex("StudentId")
                         .IsUnique();
@@ -95,6 +136,7 @@ namespace BE_SWP391_OnDemandTutor.DataAccess.Migrations
                             ClassName = "Introduction to Programming",
                             ClassRequire = "No prior programming experience required.",
                             ClassTime = new DateTime(2023, 9, 1, 18, 30, 0, 0, DateTimeKind.Unspecified),
+                            ScheduleId = 1,
                             StudentId = 1,
                             TutorId = 3
                         },
@@ -109,6 +151,7 @@ namespace BE_SWP391_OnDemandTutor.DataAccess.Migrations
                             ClassName = "Advanced Data Structures",
                             ClassRequire = "Prerequisite: Data Structures and Algorithms",
                             ClassTime = new DateTime(2023, 10, 15, 14, 0, 0, 0, DateTimeKind.Unspecified),
+                            ScheduleId = 2,
                             StudentId = 2,
                             TutorId = 4
                         });
@@ -122,29 +165,24 @@ namespace BE_SWP391_OnDemandTutor.DataAccess.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("FeedbackID"));
 
+                    b.Property<int>("ClassId")
+                        .HasColumnType("int");
+
                     b.Property<DateTime>("CreateDate")
                         .HasColumnType("datetime2");
 
                     b.Property<int>("Evaluation")
                         .HasColumnType("int");
 
-                    b.Property<int>("SlotId")
-                        .HasColumnType("int");
-
                     b.Property<int>("StudentId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("TutorId")
                         .HasColumnType("int");
 
                     b.HasKey("FeedbackID");
 
-                    b.HasIndex("SlotId")
+                    b.HasIndex("ClassId")
                         .IsUnique();
 
                     b.HasIndex("StudentId");
-
-                    b.HasIndex("TutorId");
 
                     b.ToTable("Feedbacks", (string)null);
                 });
@@ -173,9 +211,6 @@ namespace BE_SWP391_OnDemandTutor.DataAccess.Migrations
 
                     b.HasIndex("StudentId");
 
-                    b.HasIndex("SubjectId")
-                        .IsUnique();
-
                     b.HasIndex("TutorId");
 
                     b.ToTable("Rates", (string)null);
@@ -197,9 +232,6 @@ namespace BE_SWP391_OnDemandTutor.DataAccess.Migrations
                     b.Property<DateTime>("EndDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("SlotId")
-                        .HasColumnType("int");
-
                     b.Property<DateTime>("StartDate")
                         .HasColumnType("datetime2");
 
@@ -211,69 +243,24 @@ namespace BE_SWP391_OnDemandTutor.DataAccess.Migrations
                     b.HasKey("ScheduleID");
 
                     b.ToTable("Schedules", (string)null);
-                });
 
-            modelBuilder.Entity("BE_SWP391_OnDemandTutor.DataAccess.Models.Slot", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("ClassId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Description")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("EndTime")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("ScheduleId")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("StartTime")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("SubjectId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ClassId")
-                        .IsUnique();
-
-                    b.HasIndex("ScheduleId")
-                        .IsUnique();
-
-                    b.HasIndex("SubjectId")
-                        .IsUnique();
-
-                    b.ToTable("Slots", (string)null);
-                });
-
-            modelBuilder.Entity("BE_SWP391_OnDemandTutor.DataAccess.Models.Subject", b =>
-                {
-                    b.Property<int>("SubjectId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("SubjectId"));
-
-                    b.Property<string>("Description")
-                        .IsRequired()
-                        .HasMaxLength(500)
-                        .HasColumnType("nvarchar(500)");
-
-                    b.Property<string>("SubjectName")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
-
-                    b.HasKey("SubjectId");
-
-                    b.ToTable("Subjects", (string)null);
+                    b.HasData(
+                        new
+                        {
+                            ScheduleID = 1,
+                            Description = "Advanced Calculus",
+                            EndDate = new DateTime(2024, 6, 10, 12, 0, 0, 0, DateTimeKind.Unspecified),
+                            StartDate = new DateTime(2024, 6, 10, 9, 0, 0, 0, DateTimeKind.Unspecified),
+                            Title = "Math Class"
+                        },
+                        new
+                        {
+                            ScheduleID = 2,
+                            Description = "Quantum Mechanics",
+                            EndDate = new DateTime(2024, 6, 12, 16, 0, 0, 0, DateTimeKind.Unspecified),
+                            StartDate = new DateTime(2024, 6, 12, 14, 0, 0, 0, DateTimeKind.Unspecified),
+                            Title = "Physics Lecture"
+                        });
                 });
 
             modelBuilder.Entity("BE_SWP391_OnDemandTutor.DataAccess.Models.TutorDegree", b =>
@@ -308,39 +295,6 @@ namespace BE_SWP391_OnDemandTutor.DataAccess.Migrations
                         .IsUnique();
 
                     b.ToTable("TutorDegrees", (string)null);
-                });
-
-            modelBuilder.Entity("BE_SWP391_OnDemandTutor.DataAccess.Models.TutorFreeTimeSchedule", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("DateOfWeek")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
-
-                    b.Property<TimeSpan>("EndTimeTime")
-                        .HasColumnType("time");
-
-                    b.Property<TimeSpan>("StartTime")
-                        .HasColumnType("time");
-
-                    b.Property<bool>("Status")
-                        .HasColumnType("bit");
-
-                    b.Property<int>("TutorId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("TutorId")
-                        .IsUnique();
-
-                    b.ToTable("TutorFreeTimeSchedules", (string)null);
                 });
 
             modelBuilder.Entity("BE_SWP391_OnDemandTutor.DataAccess.Models.User", b =>
@@ -456,19 +410,46 @@ namespace BE_SWP391_OnDemandTutor.DataAccess.Migrations
                         });
                 });
 
+            modelBuilder.Entity("BE_SWP391_OnDemandTutor.DataAccess.Models.Booking", b =>
+                {
+                    b.HasOne("BE_SWP391_OnDemandTutor.DataAccess.Models.Schedule", "Schedule")
+                        .WithMany("Bookings")
+                        .HasForeignKey("ScheduleId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.HasOne("BE_SWP391_OnDemandTutor.DataAccess.Models.User", "User")
+                        .WithMany("Bookings")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.Navigation("Schedule");
+
+                    b.Navigation("User");
+                });
+
             modelBuilder.Entity("BE_SWP391_OnDemandTutor.DataAccess.Models.Class", b =>
                 {
+                    b.HasOne("BE_SWP391_OnDemandTutor.DataAccess.Models.Schedule", "Schedule")
+                        .WithOne("Class")
+                        .HasForeignKey("BE_SWP391_OnDemandTutor.DataAccess.Models.Class", "ScheduleId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
                     b.HasOne("BE_SWP391_OnDemandTutor.DataAccess.Models.User", "Student")
-                        .WithOne()
+                        .WithOne("ClassStudent")
                         .HasForeignKey("BE_SWP391_OnDemandTutor.DataAccess.Models.Class", "StudentId")
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.HasOne("BE_SWP391_OnDemandTutor.DataAccess.Models.User", "Tutor")
-                        .WithOne()
+                        .WithOne("ClassTutor")
                         .HasForeignKey("BE_SWP391_OnDemandTutor.DataAccess.Models.Class", "TutorId")
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
+
+                    b.Navigation("Schedule");
 
                     b.Navigation("Student");
 
@@ -477,29 +458,21 @@ namespace BE_SWP391_OnDemandTutor.DataAccess.Migrations
 
             modelBuilder.Entity("BE_SWP391_OnDemandTutor.DataAccess.Models.Feedback", b =>
                 {
-                    b.HasOne("BE_SWP391_OnDemandTutor.DataAccess.Models.Slot", "Slot")
+                    b.HasOne("BE_SWP391_OnDemandTutor.DataAccess.Models.Class", "Class")
                         .WithOne("Feedback")
-                        .HasForeignKey("BE_SWP391_OnDemandTutor.DataAccess.Models.Feedback", "SlotId")
+                        .HasForeignKey("BE_SWP391_OnDemandTutor.DataAccess.Models.Feedback", "ClassId")
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.HasOne("BE_SWP391_OnDemandTutor.DataAccess.Models.User", "Student")
-                        .WithMany("StudentGivenFeedbacks")
+                        .WithMany("Feedbacks")
                         .HasForeignKey("StudentId")
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
-                    b.HasOne("BE_SWP391_OnDemandTutor.DataAccess.Models.User", "Tutor")
-                        .WithMany("TutorReceiveFeedbacks")
-                        .HasForeignKey("TutorId")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired();
-
-                    b.Navigation("Slot");
+                    b.Navigation("Class");
 
                     b.Navigation("Student");
-
-                    b.Navigation("Tutor");
                 });
 
             modelBuilder.Entity("BE_SWP391_OnDemandTutor.DataAccess.Models.Rate", b =>
@@ -507,12 +480,6 @@ namespace BE_SWP391_OnDemandTutor.DataAccess.Migrations
                     b.HasOne("BE_SWP391_OnDemandTutor.DataAccess.Models.User", "Student")
                         .WithMany("StudentSendRatings")
                         .HasForeignKey("StudentId")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired();
-
-                    b.HasOne("BE_SWP391_OnDemandTutor.DataAccess.Models.Subject", "Subject")
-                        .WithOne("Rate")
-                        .HasForeignKey("BE_SWP391_OnDemandTutor.DataAccess.Models.Rate", "SubjectId")
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
@@ -524,36 +491,7 @@ namespace BE_SWP391_OnDemandTutor.DataAccess.Migrations
 
                     b.Navigation("Student");
 
-                    b.Navigation("Subject");
-
                     b.Navigation("Tutor");
-                });
-
-            modelBuilder.Entity("BE_SWP391_OnDemandTutor.DataAccess.Models.Slot", b =>
-                {
-                    b.HasOne("BE_SWP391_OnDemandTutor.DataAccess.Models.Class", "Class")
-                        .WithOne("Slot")
-                        .HasForeignKey("BE_SWP391_OnDemandTutor.DataAccess.Models.Slot", "ClassId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("BE_SWP391_OnDemandTutor.DataAccess.Models.Schedule", "Schedule")
-                        .WithOne("Slot")
-                        .HasForeignKey("BE_SWP391_OnDemandTutor.DataAccess.Models.Slot", "ScheduleId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("BE_SWP391_OnDemandTutor.DataAccess.Models.Subject", "Subject")
-                        .WithOne("Slot")
-                        .HasForeignKey("BE_SWP391_OnDemandTutor.DataAccess.Models.Slot", "SubjectId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Class");
-
-                    b.Navigation("Schedule");
-
-                    b.Navigation("Subject");
                 });
 
             modelBuilder.Entity("BE_SWP391_OnDemandTutor.DataAccess.Models.TutorDegree", b =>
@@ -567,57 +505,36 @@ namespace BE_SWP391_OnDemandTutor.DataAccess.Migrations
                     b.Navigation("Tutor");
                 });
 
-            modelBuilder.Entity("BE_SWP391_OnDemandTutor.DataAccess.Models.TutorFreeTimeSchedule", b =>
-                {
-                    b.HasOne("BE_SWP391_OnDemandTutor.DataAccess.Models.User", "Tutor")
-                        .WithOne("TutorFreeTimeSchedule")
-                        .HasForeignKey("BE_SWP391_OnDemandTutor.DataAccess.Models.TutorFreeTimeSchedule", "TutorId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Tutor");
-                });
-
             modelBuilder.Entity("BE_SWP391_OnDemandTutor.DataAccess.Models.Class", b =>
-                {
-                    b.Navigation("Slot")
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("BE_SWP391_OnDemandTutor.DataAccess.Models.Schedule", b =>
-                {
-                    b.Navigation("Slot")
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("BE_SWP391_OnDemandTutor.DataAccess.Models.Slot", b =>
                 {
                     b.Navigation("Feedback")
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("BE_SWP391_OnDemandTutor.DataAccess.Models.Subject", b =>
+            modelBuilder.Entity("BE_SWP391_OnDemandTutor.DataAccess.Models.Schedule", b =>
                 {
-                    b.Navigation("Rate")
-                        .IsRequired();
+                    b.Navigation("Bookings");
 
-                    b.Navigation("Slot")
+                    b.Navigation("Class")
                         .IsRequired();
                 });
 
             modelBuilder.Entity("BE_SWP391_OnDemandTutor.DataAccess.Models.User", b =>
                 {
-                    b.Navigation("StudentGivenFeedbacks");
+                    b.Navigation("Bookings");
+
+                    b.Navigation("ClassStudent")
+                        .IsRequired();
+
+                    b.Navigation("ClassTutor")
+                        .IsRequired();
+
+                    b.Navigation("Feedbacks");
 
                     b.Navigation("StudentSendRatings");
 
                     b.Navigation("TutorDegree")
                         .IsRequired();
-
-                    b.Navigation("TutorFreeTimeSchedule")
-                        .IsRequired();
-
-                    b.Navigation("TutorReceiveFeedbacks");
 
                     b.Navigation("TutorReceiveRatings");
                 });

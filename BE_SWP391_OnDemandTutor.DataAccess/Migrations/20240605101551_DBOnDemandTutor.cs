@@ -3,10 +3,12 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
+#pragma warning disable CA1814 // Prefer jagged arrays over multidimensional
+
 namespace BE_SWP391_OnDemandTutor.DataAccess.Migrations
 {
     /// <inheritdoc />
-    public partial class Initial : Migration
+    public partial class DBOnDemandTutor : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -20,26 +22,11 @@ namespace BE_SWP391_OnDemandTutor.DataAccess.Migrations
                     Title = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: false),
                     Description = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: false),
                     StartDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    EndDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    SlotId = table.Column<int>(type: "int", nullable: false)
+                    EndDate = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Schedules", x => x.ScheduleID);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Subjects",
-                columns: table => new
-                {
-                    SubjectId = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    SubjectName = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
-                    Description = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Subjects", x => x.SubjectId);
                 });
 
             migrationBuilder.CreateTable(
@@ -63,6 +50,33 @@ namespace BE_SWP391_OnDemandTutor.DataAccess.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Booking",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    UserId = table.Column<int>(type: "int", nullable: false),
+                    ScheduleId = table.Column<int>(type: "int", nullable: false),
+                    CreateDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    Description = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: false),
+                    Status = table.Column<bool>(type: "bit", maxLength: 50, nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Booking", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Booking_Schedules_ScheduleId",
+                        column: x => x.ScheduleId,
+                        principalTable: "Schedules",
+                        principalColumn: "ScheduleID");
+                    table.ForeignKey(
+                        name: "FK_Booking_Users_UserId",
+                        column: x => x.UserId,
+                        principalTable: "Users",
+                        principalColumn: "UserId");
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Classes",
                 columns: table => new
                 {
@@ -77,11 +91,17 @@ namespace BE_SWP391_OnDemandTutor.DataAccess.Migrations
                     ClassLevel = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     ClassFee = table.Column<decimal>(type: "decimal(18,2)", nullable: false, defaultValue: 0m),
                     StudentId = table.Column<int>(type: "int", nullable: false),
-                    TutorId = table.Column<int>(type: "int", nullable: false)
+                    TutorId = table.Column<int>(type: "int", nullable: false),
+                    ScheduleId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Classes", x => x.ClassId);
+                    table.ForeignKey(
+                        name: "FK_Classes_Schedules_ScheduleId",
+                        column: x => x.ScheduleId,
+                        principalTable: "Schedules",
+                        principalColumn: "ScheduleID");
                     table.ForeignKey(
                         name: "FK_Classes_Users_StudentId",
                         column: x => x.StudentId,
@@ -108,11 +128,6 @@ namespace BE_SWP391_OnDemandTutor.DataAccess.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Rates", x => x.RatingId);
-                    table.ForeignKey(
-                        name: "FK_Rates_Subjects_SubjectId",
-                        column: x => x.SubjectId,
-                        principalTable: "Subjects",
-                        principalColumn: "SubjectId");
                     table.ForeignKey(
                         name: "FK_Rates_Users_StudentId",
                         column: x => x.StudentId,
@@ -148,65 +163,6 @@ namespace BE_SWP391_OnDemandTutor.DataAccess.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "TutorFreeTimeSchedules",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    StartTime = table.Column<TimeSpan>(type: "time", nullable: false),
-                    EndTimeTime = table.Column<TimeSpan>(type: "time", nullable: false),
-                    DateOfWeek = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
-                    Status = table.Column<bool>(type: "bit", nullable: false),
-                    TutorId = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_TutorFreeTimeSchedules", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_TutorFreeTimeSchedules_Users_TutorId",
-                        column: x => x.TutorId,
-                        principalTable: "Users",
-                        principalColumn: "UserId",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Slots",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Description = table.Column<int>(type: "int", nullable: false),
-                    StartTime = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    EndTime = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    ClassId = table.Column<int>(type: "int", nullable: false),
-                    SubjectId = table.Column<int>(type: "int", nullable: false),
-                    ScheduleId = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Slots", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Slots_Classes_ClassId",
-                        column: x => x.ClassId,
-                        principalTable: "Classes",
-                        principalColumn: "ClassId",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_Slots_Schedules_ScheduleId",
-                        column: x => x.ScheduleId,
-                        principalTable: "Schedules",
-                        principalColumn: "ScheduleID",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_Slots_Subjects_SubjectId",
-                        column: x => x.SubjectId,
-                        principalTable: "Subjects",
-                        principalColumn: "SubjectId",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Feedbacks",
                 columns: table => new
                 {
@@ -215,28 +171,68 @@ namespace BE_SWP391_OnDemandTutor.DataAccess.Migrations
                     Evaluation = table.Column<int>(type: "int", nullable: false),
                     CreateDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     StudentId = table.Column<int>(type: "int", nullable: false),
-                    TutorId = table.Column<int>(type: "int", nullable: false),
-                    SlotId = table.Column<int>(type: "int", nullable: false)
+                    ClassId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Feedbacks", x => x.FeedbackID);
                     table.ForeignKey(
-                        name: "FK_Feedbacks_Slots_SlotId",
-                        column: x => x.SlotId,
-                        principalTable: "Slots",
-                        principalColumn: "Id");
+                        name: "FK_Feedbacks_Classes_ClassId",
+                        column: x => x.ClassId,
+                        principalTable: "Classes",
+                        principalColumn: "ClassId");
                     table.ForeignKey(
                         name: "FK_Feedbacks_Users_StudentId",
                         column: x => x.StudentId,
                         principalTable: "Users",
                         principalColumn: "UserId");
-                    table.ForeignKey(
-                        name: "FK_Feedbacks_Users_TutorId",
-                        column: x => x.TutorId,
-                        principalTable: "Users",
-                        principalColumn: "UserId");
                 });
+
+            migrationBuilder.InsertData(
+                table: "Schedules",
+                columns: new[] { "ScheduleID", "Description", "EndDate", "StartDate", "Title" },
+                values: new object[,]
+                {
+                    { 1, "Advanced Calculus", new DateTime(2024, 6, 10, 12, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2024, 6, 10, 9, 0, 0, 0, DateTimeKind.Unspecified), "Math Class" },
+                    { 2, "Quantum Mechanics", new DateTime(2024, 6, 12, 16, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2024, 6, 12, 14, 0, 0, 0, DateTimeKind.Unspecified), "Physics Lecture" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Users",
+                columns: new[] { "UserId", "DateOfBirth", "EmailAddress", "Gender", "Password", "PhoneNumber", "ProfileImage", "Role", "Username" },
+                values: new object[,]
+                {
+                    { 1, new DateTime(1985, 6, 15, 0, 0, 0, 0, DateTimeKind.Unspecified), "john.doe@example.com", "Male", "password123", "555-1234", "https://example.com/profile_image_1.jpg", "Student", "JohnDoe" },
+                    { 2, new DateTime(1992, 3, 10, 0, 0, 0, 0, DateTimeKind.Unspecified), "jane.doe@example.com", "Female", "securepassword", "555-5678", "https://example.com/profile_image_2.jpg", "Student", "JaneDoe" },
+                    { 3, new DateTime(1978, 11, 20, 0, 0, 0, 0, DateTimeKind.Unspecified), "bob.smith@example.com", "Male", "mypassword456", "555-9012", "https://example.com/profile_image_3.jpg", "Tutor", "BobSmith" },
+                    { 4, new DateTime(1990, 8, 5, 0, 0, 0, 0, DateTimeKind.Unspecified), "sarah.johnson@example.com", "Female", "strongpassword", "555-3456", "https://example.com/profile_image_4.jpg", "Tutor", "SarahJohnson" },
+                    { 5, new DateTime(1982, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "michael.davis@example.com", "Male", "123456789", "555-7890", "https://example.com/profile_image_5.jpg", "Student", "MichaelDavis" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Classes",
+                columns: new[] { "ClassId", "ClassAddress", "ClassFee", "ClassInfo", "ClassLevel", "ClassMethod", "ClassName", "ClassRequire", "ClassTime", "ScheduleId", "StudentId", "TutorId" },
+                values: new object[,]
+                {
+                    { 1, "123 Main Street, Anytown USA", 199.99m, "This course introduces the fundamental concepts of programming, including data types, control structures, and algorithms.", "Beginner", "In-person", "Introduction to Programming", "No prior programming experience required.", new DateTime(2023, 9, 1, 18, 30, 0, 0, DateTimeKind.Unspecified), 1, 1, 3 },
+                    { 2, "456 Oak Avenue, Anytown USA", 299.99m, "This course explores advanced data structures and their implementation in various programming languages.", "Advanced", "Online", "Advanced Data Structures", "Prerequisite: Data Structures and Algorithms", new DateTime(2023, 10, 15, 14, 0, 0, 0, DateTimeKind.Unspecified), 2, 2, 4 }
+                });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Booking_ScheduleId",
+                table: "Booking",
+                column: "ScheduleId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Booking_UserId",
+                table: "Booking",
+                column: "UserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Classes_ScheduleId",
+                table: "Classes",
+                column: "ScheduleId",
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_Classes_StudentId",
@@ -251,9 +247,9 @@ namespace BE_SWP391_OnDemandTutor.DataAccess.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_Feedbacks_SlotId",
+                name: "IX_Feedbacks_ClassId",
                 table: "Feedbacks",
-                column: "SlotId",
+                column: "ClassId",
                 unique: true);
 
             migrationBuilder.CreateIndex(
@@ -262,20 +258,9 @@ namespace BE_SWP391_OnDemandTutor.DataAccess.Migrations
                 column: "StudentId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Feedbacks_TutorId",
-                table: "Feedbacks",
-                column: "TutorId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Rates_StudentId",
                 table: "Rates",
                 column: "StudentId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Rates_SubjectId",
-                table: "Rates",
-                column: "SubjectId",
-                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_Rates_TutorId",
@@ -283,32 +268,8 @@ namespace BE_SWP391_OnDemandTutor.DataAccess.Migrations
                 column: "TutorId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Slots_ClassId",
-                table: "Slots",
-                column: "ClassId",
-                unique: true);
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Slots_ScheduleId",
-                table: "Slots",
-                column: "ScheduleId",
-                unique: true);
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Slots_SubjectId",
-                table: "Slots",
-                column: "SubjectId",
-                unique: true);
-
-            migrationBuilder.CreateIndex(
                 name: "IX_TutorDegrees_TutorId",
                 table: "TutorDegrees",
-                column: "TutorId",
-                unique: true);
-
-            migrationBuilder.CreateIndex(
-                name: "IX_TutorFreeTimeSchedules_TutorId",
-                table: "TutorFreeTimeSchedules",
                 column: "TutorId",
                 unique: true);
         }
@@ -316,6 +277,9 @@ namespace BE_SWP391_OnDemandTutor.DataAccess.Migrations
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropTable(
+                name: "Booking");
+
             migrationBuilder.DropTable(
                 name: "Feedbacks");
 
@@ -326,19 +290,10 @@ namespace BE_SWP391_OnDemandTutor.DataAccess.Migrations
                 name: "TutorDegrees");
 
             migrationBuilder.DropTable(
-                name: "TutorFreeTimeSchedules");
-
-            migrationBuilder.DropTable(
-                name: "Slots");
-
-            migrationBuilder.DropTable(
                 name: "Classes");
 
             migrationBuilder.DropTable(
                 name: "Schedules");
-
-            migrationBuilder.DropTable(
-                name: "Subjects");
 
             migrationBuilder.DropTable(
                 name: "Users");

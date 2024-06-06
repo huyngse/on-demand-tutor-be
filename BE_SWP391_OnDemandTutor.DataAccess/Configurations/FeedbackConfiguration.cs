@@ -16,11 +16,12 @@ namespace BE_SWP391_OnDemandTutor.DataAccess.Configurations
 
             builder.Property(f => f.CreateDate).IsRequired();
 
-            builder.HasOne(r => r.Student).WithMany(u => u.StudentGivenFeedbacks).HasForeignKey(u => u.StudentId).OnDelete(DeleteBehavior.NoAction);
+            builder.HasOne(r => r.Student).WithMany(u => u.Feedbacks).HasForeignKey(u => u.StudentId).OnDelete(DeleteBehavior.NoAction);
 
-            builder.HasOne(r => r.Tutor).WithMany(u => u.TutorReceiveFeedbacks).HasForeignKey(u => u.TutorId).OnDelete(DeleteBehavior.NoAction);
+            builder.HasOne(f=>f.Class).WithOne(c=>c.Feedback).HasForeignKey<Feedback>(f=>f.ClassId).OnDelete(DeleteBehavior.NoAction);
 
-            builder.HasOne(f=>f.Slot).WithOne(s=>s.Feedback).HasForeignKey<Feedback>(f=>f.SlotId).OnDelete(DeleteBehavior.NoAction);
+
+
         }
     }
 }
