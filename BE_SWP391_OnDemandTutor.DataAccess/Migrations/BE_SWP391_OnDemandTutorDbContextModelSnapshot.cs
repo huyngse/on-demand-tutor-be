@@ -64,6 +64,9 @@ namespace BE_SWP391_OnDemandTutor.DataAccess.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ClassId"));
 
+                    b.Property<bool>("Active")
+                        .HasColumnType("bit");
+
                     b.Property<string>("ClassAddress")
                         .IsRequired()
                         .HasMaxLength(200)
@@ -102,6 +105,9 @@ namespace BE_SWP391_OnDemandTutor.DataAccess.Migrations
                     b.Property<DateTime>("ClassTime")
                         .HasColumnType("datetime2");
 
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
+
                     b.Property<int>("ScheduleId")
                         .HasColumnType("int");
 
@@ -128,6 +134,7 @@ namespace BE_SWP391_OnDemandTutor.DataAccess.Migrations
                         new
                         {
                             ClassId = 1,
+                            Active = false,
                             ClassAddress = "123 Main Street, Anytown USA",
                             ClassFee = 199.99m,
                             ClassInfo = "This course introduces the fundamental concepts of programming, including data types, control structures, and algorithms.",
@@ -136,6 +143,7 @@ namespace BE_SWP391_OnDemandTutor.DataAccess.Migrations
                             ClassName = "Introduction to Programming",
                             ClassRequire = "No prior programming experience required.",
                             ClassTime = new DateTime(2023, 9, 1, 18, 30, 0, 0, DateTimeKind.Unspecified),
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             ScheduleId = 1,
                             StudentId = 1,
                             TutorId = 3
@@ -143,6 +151,7 @@ namespace BE_SWP391_OnDemandTutor.DataAccess.Migrations
                         new
                         {
                             ClassId = 2,
+                            Active = false,
                             ClassAddress = "456 Oak Avenue, Anytown USA",
                             ClassFee = 299.99m,
                             ClassInfo = "This course explores advanced data structures and their implementation in various programming languages.",
@@ -151,6 +160,7 @@ namespace BE_SWP391_OnDemandTutor.DataAccess.Migrations
                             ClassName = "Advanced Data Structures",
                             ClassRequire = "Prerequisite: Data Structures and Algorithms",
                             ClassTime = new DateTime(2023, 10, 15, 14, 0, 0, 0, DateTimeKind.Unspecified),
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             ScheduleId = 2,
                             StudentId = 2,
                             TutorId = 4
@@ -167,6 +177,10 @@ namespace BE_SWP391_OnDemandTutor.DataAccess.Migrations
 
                     b.Property<int>("ClassId")
                         .HasColumnType("int");
+
+                    b.Property<string>("Content")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("CreateDate")
                         .HasColumnType("datetime2");

@@ -10,6 +10,8 @@
         public string ClassAddress { get; set; }
         public string ClassMethod { get; set; }
         public string ClassLevel { get; set; }
+        public DateTime CreatedDate { get; set; }
+        public bool Active { get; set; }
         public float ClassFee { get; set; }
         public int StudentId { get; set; }
         public User Student { get; set; }

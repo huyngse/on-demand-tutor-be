@@ -138,8 +138,9 @@ public class BE_SWP391_OnDemandTutorDbContext : DbContext
                 ClassLevel = "Beginner",
                 ClassFee = 199.99f,
                 StudentId = 1,
-                TutorId = 3
-                
+                TutorId = 3,
+                Active= true,
+                CreatedDate = new DateTime(2023, 7, 1, 18, 30, 0),
             },
             new Class
             {
@@ -154,8 +155,9 @@ public class BE_SWP391_OnDemandTutorDbContext : DbContext
                 ClassLevel = "Advanced",
                 ClassFee = 299.99f,
                 StudentId = 2,
-                TutorId = 4
-
+                TutorId = 4,
+                Active = false,
+                CreatedDate = new DateTime(2023, 7, 1, 18, 30, 0),
             }
             );
       

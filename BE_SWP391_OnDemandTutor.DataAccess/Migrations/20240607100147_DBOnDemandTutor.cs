@@ -90,6 +90,8 @@ namespace BE_SWP391_OnDemandTutor.DataAccess.Migrations
                     ClassAddress = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: false),
                     ClassMethod = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     ClassLevel = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    Active = table.Column<bool>(type: "bit", nullable: false),
                     ClassFee = table.Column<decimal>(type: "decimal(18,2)", nullable: false, defaultValue: 0m),
                     StudentId = table.Column<int>(type: "int", nullable: false),
                     TutorId = table.Column<int>(type: "int", nullable: false),
@@ -170,6 +172,7 @@ namespace BE_SWP391_OnDemandTutor.DataAccess.Migrations
                     FeedbackID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Evaluation = table.Column<int>(type: "int", nullable: false),
+                    Content = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     CreateDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     StudentId = table.Column<int>(type: "int", nullable: false),
                     ClassId = table.Column<int>(type: "int", nullable: false)
@@ -212,11 +215,11 @@ namespace BE_SWP391_OnDemandTutor.DataAccess.Migrations
 
             migrationBuilder.InsertData(
                 table: "Classes",
-                columns: new[] { "ClassId", "ClassAddress", "ClassFee", "ClassInfo", "ClassLevel", "ClassMethod", "ClassName", "ClassRequire", "ClassTime", "ScheduleId", "StudentId", "TutorId" },
+                columns: new[] { "ClassId", "Active", "ClassAddress", "ClassFee", "ClassInfo", "ClassLevel", "ClassMethod", "ClassName", "ClassRequire", "ClassTime", "CreatedDate", "ScheduleId", "StudentId", "TutorId" },
                 values: new object[,]
                 {
-                    { 1, "123 Main Street, Anytown USA", 199.99m, "This course introduces the fundamental concepts of programming, including data types, control structures, and algorithms.", "Beginner", "In-person", "Introduction to Programming", "No prior programming experience required.", new DateTime(2023, 9, 1, 18, 30, 0, 0, DateTimeKind.Unspecified), 1, 1, 3 },
-                    { 2, "456 Oak Avenue, Anytown USA", 299.99m, "This course explores advanced data structures and their implementation in various programming languages.", "Advanced", "Online", "Advanced Data Structures", "Prerequisite: Data Structures and Algorithms", new DateTime(2023, 10, 15, 14, 0, 0, 0, DateTimeKind.Unspecified), 2, 2, 4 }
+                    { 1, false, "123 Main Street, Anytown USA", 199.99m, "This course introduces the fundamental concepts of programming, including data types, control structures, and algorithms.", "Beginner", "In-person", "Introduction to Programming", "No prior programming experience required.", new DateTime(2023, 9, 1, 18, 30, 0, 0, DateTimeKind.Unspecified), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, 1, 3 },
+                    { 2, false, "456 Oak Avenue, Anytown USA", 299.99m, "This course explores advanced data structures and their implementation in various programming languages.", "Advanced", "Online", "Advanced Data Structures", "Prerequisite: Data Structures and Algorithms", new DateTime(2023, 10, 15, 14, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 2, 2, 4 }
                 });
 
             migrationBuilder.CreateIndex(

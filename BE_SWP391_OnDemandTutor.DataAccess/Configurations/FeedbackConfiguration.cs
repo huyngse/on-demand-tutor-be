@@ -16,6 +16,8 @@ namespace BE_SWP391_OnDemandTutor.DataAccess.Configurations
 
             builder.Property(f => f.CreateDate).IsRequired();
 
+            builder.Property(f => f.Content).IsRequired();
+
             builder.HasOne(r => r.Student).WithMany(u => u.Feedbacks).HasForeignKey(u => u.StudentId).OnDelete(DeleteBehavior.NoAction);
 
             builder.HasOne(f=>f.Class).WithOne(c=>c.Feedback).HasForeignKey<Feedback>(f=>f.ClassId).OnDelete(DeleteBehavior.NoAction);
