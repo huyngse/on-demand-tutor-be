@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BE_SWP391_OnDemandTutor.DataAccess.Migrations
 {
     [DbContext(typeof(BE_SWP391_OnDemandTutorDbContext))]
-    [Migration("20240605101551_DBOnDemandTutor")]
+    [Migration("20240607084634_DBOnDemandTutor")]
     partial class DBOnDemandTutor
     {
         /// <inheritdoc />
@@ -227,15 +227,21 @@ namespace BE_SWP391_OnDemandTutor.DataAccess.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ScheduleID"));
 
+                    b.Property<string>("DateOfWeek")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Description")
                         .IsRequired()
                         .HasMaxLength(500)
                         .HasColumnType("nvarchar(500)");
 
-                    b.Property<DateTime>("EndDate")
+                    b.Property<DateTime?>("EndTime")
+                        .IsRequired()
                         .HasColumnType("datetime2");
 
-                    b.Property<DateTime>("StartDate")
+                    b.Property<DateTime?>("StartTime")
+                        .IsRequired()
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Title")
@@ -251,18 +257,20 @@ namespace BE_SWP391_OnDemandTutor.DataAccess.Migrations
                         new
                         {
                             ScheduleID = 1,
-                            Description = "Advanced Calculus",
-                            EndDate = new DateTime(2024, 6, 10, 12, 0, 0, 0, DateTimeKind.Unspecified),
-                            StartDate = new DateTime(2024, 6, 10, 9, 0, 0, 0, DateTimeKind.Unspecified),
-                            Title = "Math Class"
+                            DateOfWeek = "MonWedFri",
+                            Description = "Lớp học môn Toán vào các ngày trong tuần",
+                            EndTime = new DateTime(2024, 6, 7, 10, 0, 0, 0, DateTimeKind.Unspecified),
+                            StartTime = new DateTime(2024, 6, 7, 8, 0, 0, 0, DateTimeKind.Unspecified),
+                            Title = "Lịch học môn Toán"
                         },
                         new
                         {
                             ScheduleID = 2,
-                            Description = "Quantum Mechanics",
-                            EndDate = new DateTime(2024, 6, 12, 16, 0, 0, 0, DateTimeKind.Unspecified),
-                            StartDate = new DateTime(2024, 6, 12, 14, 0, 0, 0, DateTimeKind.Unspecified),
-                            Title = "Physics Lecture"
+                            DateOfWeek = "TueThuSat",
+                            Description = "Lớp học môn Văn vào các ngày trong tuần",
+                            EndTime = new DateTime(2024, 6, 8, 11, 0, 0, 0, DateTimeKind.Unspecified),
+                            StartTime = new DateTime(2024, 6, 8, 9, 0, 0, 0, DateTimeKind.Unspecified),
+                            Title = "Lịch học môn Văn"
                         });
                 });
 

@@ -21,8 +21,9 @@ namespace BE_SWP391_OnDemandTutor.DataAccess.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Title = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: false),
                     Description = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: false),
-                    StartDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    EndDate = table.Column<DateTime>(type: "datetime2", nullable: false)
+                    DateOfWeek = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    StartTime = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    EndTime = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -190,11 +191,11 @@ namespace BE_SWP391_OnDemandTutor.DataAccess.Migrations
 
             migrationBuilder.InsertData(
                 table: "Schedules",
-                columns: new[] { "ScheduleID", "Description", "EndDate", "StartDate", "Title" },
+                columns: new[] { "ScheduleID", "DateOfWeek", "Description", "EndTime", "StartTime", "Title" },
                 values: new object[,]
                 {
-                    { 1, "Advanced Calculus", new DateTime(2024, 6, 10, 12, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2024, 6, 10, 9, 0, 0, 0, DateTimeKind.Unspecified), "Math Class" },
-                    { 2, "Quantum Mechanics", new DateTime(2024, 6, 12, 16, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2024, 6, 12, 14, 0, 0, 0, DateTimeKind.Unspecified), "Physics Lecture" }
+                    { 1, "MonWedFri", "Lớp học môn Toán vào các ngày trong tuần", new DateTime(2024, 6, 7, 10, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2024, 6, 7, 8, 0, 0, 0, DateTimeKind.Unspecified), "Lịch học môn Toán" },
+                    { 2, "TueThuSat", "Lớp học môn Văn vào các ngày trong tuần", new DateTime(2024, 6, 8, 11, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2024, 6, 8, 9, 0, 0, 0, DateTimeKind.Unspecified), "Lịch học môn Văn" }
                 });
 
             migrationBuilder.InsertData(

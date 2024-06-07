@@ -44,21 +44,24 @@ public class BE_SWP391_OnDemandTutorDbContext : DbContext
         modelBuilder.ApplyConfiguration(new BookingConfiguration());
 
         modelBuilder.Entity<Schedule>().HasData
-            ( new Schedule
+            (new Schedule
             {
                 ScheduleID = 1,
-                Title = "Math Class",
-                Description = "Advanced Calculus",
-                StartDate = new DateTime(2024, 6, 10, 9, 0, 0),
-                EndDate = new DateTime(2024, 6, 10, 12, 0, 0),
-            },new Schedule{
+                Title = "Lịch học môn Toán",
+                Description = "Lớp học môn Toán vào các ngày trong tuần",
+                DateOfWeek = DayGroup.MonWedFri, // Thứ 2, 4, 6
+                StartTime = new DateTime(2024, 6, 7, 8, 0, 0), // 8:00 AM
+                EndTime = new DateTime(2024, 6, 7, 10, 0, 0), // 10:00 AM
+            },
+            new Schedule
+            {
                 ScheduleID = 2,
-                Title = "Physics Lecture",
-                Description = "Quantum Mechanics",
-                StartDate = new DateTime(2024, 6, 12, 14, 0, 0),
-                EndDate = new DateTime(2024, 6, 12, 16, 0, 0),
+                Title = "Lịch học môn Văn",
+                Description = "Lớp học môn Văn vào các ngày trong tuần",
+                DateOfWeek = DayGroup.TueThuSat, // Thứ 3, 5, 7
+                StartTime = new DateTime(2024, 6, 8, 9, 0, 0), // 9:00 AM
+                EndTime = new DateTime(2024, 6, 8, 11, 0, 0), // 11:00 AM
             }
-
             );
         modelBuilder.Entity<User>().HasData
             (

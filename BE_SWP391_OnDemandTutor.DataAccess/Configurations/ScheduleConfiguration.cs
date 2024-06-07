@@ -16,9 +16,12 @@ namespace BE_SWP391_OnDemandTutor.DataAccess.Configurations
 
             builder.Property(s => s.Description).HasMaxLength(500);
 
-            builder.Property(s => s.StartDate).IsRequired();
+            builder.Property(s => s.StartTime).IsRequired();
 
-            builder.Property(s => s.EndDate).IsRequired();
+            builder.Property(s => s.EndTime).IsRequired();
+
+            builder.Property(s => s.DateOfWeek).IsRequired().HasConversion<string>();
+
 
         }
     }
