@@ -16,8 +16,11 @@ namespace BE_SWP391_OnDemandTutor.BusinessLogic.Services
         Task<string> Login(LoginRequestModel request);
         Task<UserViewModel> Register(RegisterRequestModel request);
         Task<UserViewModel> UpdateUser(UpdateUserRequestModel request);
+        Task<UserViewModel> DeleteUser(DeleteUserModel request);
+
         Task<List<UserViewModel>> GetAll();
         Task<UserViewModel> GetById(int id);
+
     }
 
     public class UserService : IUserService
@@ -175,6 +178,21 @@ namespace BE_SWP391_OnDemandTutor.BusinessLogic.Services
                 UserId = user.UserId,
                 Username = user.Username
             };
+        }
+
+        public async Task<UserViewModel> DeleteUser(DeleteUserModel request)
+        {
+            var user = await _context.Users.FindAsync(request.UserId);
+
+
+            var usernameAvailable = await _context.Users.AnyAsync(u => u.UserId != user.UserId);
+            if (usernameAvailable == null)
+            {
+                throw new Exception("Username available.");
+            }
+            await _context.RemoveUserAsync(user);
+
+            return null;
         }
     }
 

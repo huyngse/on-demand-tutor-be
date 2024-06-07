@@ -21,6 +21,11 @@ public class BE_SWP391_OnDemandTutorDbContext : DbContext
     public DbSet<TutorDegree> TutorDegrees { get; set; }
     public DbSet<TutorDegree> BookingConfiguration { get; set; }
 
+    public async Task RemoveUserAsync(User? user)
+    {
+        throw new NotImplementedException();
+    }
+
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
         string root = Directory.GetParent(Directory.GetCurrentDirectory())?.FullName;

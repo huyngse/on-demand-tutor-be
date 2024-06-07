@@ -83,15 +83,14 @@ namespace BE_SWP391_OnDemandTutor.Presentation.Controllers
             return userUpdated;
         }
 
-
-
         [MapToApiVersion("1")]
         [HttpDelete]
-        public async Task<ActionResult<UserViewModel>> DeleteUser(DeleteUserModel userDelete)
+        public async Task<ActionResult<UserViewModel>> DeleteUser(DeleteUserModel userDelete, int idTmp)
         {
             var userRemove = await _userService.DeleteUser(userDelete);
+            var userDetail = await _userService.GetById(idTmp);
 
-            if (userDelete == null)
+            if (userDetail == null)
             {
                 return NotFound("");
             }
