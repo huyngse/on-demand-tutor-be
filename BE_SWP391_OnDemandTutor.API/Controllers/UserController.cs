@@ -47,7 +47,7 @@ namespace BE_SWP391_OnDemandTutor.Presentation.Controllers
         [HttpGet]
         public async Task<ActionResult<List<UserViewModel>>> GetAll()
         {
-            var userList =  await _userService.GetAll();
+            var userList = await _userService.GetAll();
 
             if (userList == null)
             {
@@ -81,6 +81,21 @@ namespace BE_SWP391_OnDemandTutor.Presentation.Controllers
                 return NotFound("");
             }
             return userUpdated;
+        }
+
+
+
+        [MapToApiVersion("1")]
+        [HttpDelete]
+        public async Task<ActionResult<UserViewModel>> DeleteUser(DeleteUserModel userDelete)
+        {
+            var userRemove = await _userService.DeleteUser(userDelete);
+
+            if (userDelete == null)
+            {
+                return NotFound("");
+            }
+            return Ok(userRemove);
         }
     }
 
