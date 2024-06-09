@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BE_SWP391_OnDemandTutor.DataAccess.Migrations
 {
     [DbContext(typeof(BE_SWP391_OnDemandTutorDbContext))]
-    [Migration("20240607100147_DBOnDemandTutor")]
+    [Migration("20240609083350_DBOnDemandTutor")]
     partial class DBOnDemandTutor
     {
         /// <inheritdoc />
@@ -137,7 +137,7 @@ namespace BE_SWP391_OnDemandTutor.DataAccess.Migrations
                         new
                         {
                             ClassId = 1,
-                            Active = false,
+                            Active = true,
                             ClassAddress = "123 Main Street, Anytown USA",
                             ClassFee = 199.99m,
                             ClassInfo = "This course introduces the fundamental concepts of programming, including data types, control structures, and algorithms.",
@@ -146,7 +146,7 @@ namespace BE_SWP391_OnDemandTutor.DataAccess.Migrations
                             ClassName = "Introduction to Programming",
                             ClassRequire = "No prior programming experience required.",
                             ClassTime = new DateTime(2023, 9, 1, 18, 30, 0, 0, DateTimeKind.Unspecified),
-                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            CreatedDate = new DateTime(2023, 7, 1, 18, 30, 0, 0, DateTimeKind.Unspecified),
                             ScheduleId = 1,
                             StudentId = 1,
                             TutorId = 3
@@ -163,7 +163,7 @@ namespace BE_SWP391_OnDemandTutor.DataAccess.Migrations
                             ClassName = "Advanced Data Structures",
                             ClassRequire = "Prerequisite: Data Structures and Algorithms",
                             ClassTime = new DateTime(2023, 10, 15, 14, 0, 0, 0, DateTimeKind.Unspecified),
-                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            CreatedDate = new DateTime(2023, 7, 1, 18, 30, 0, 0, DateTimeKind.Unspecified),
                             ScheduleId = 2,
                             StudentId = 2,
                             TutorId = 4
@@ -330,8 +330,18 @@ namespace BE_SWP391_OnDemandTutor.DataAccess.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("UserId"));
 
+                    b.Property<string>("City")
+                        .IsRequired()
+                        .HasMaxLength(150)
+                        .HasColumnType("nvarchar(150)");
+
                     b.Property<DateTime>("DateOfBirth")
                         .HasColumnType("datetime2");
+
+                    b.Property<string>("District")
+                        .IsRequired()
+                        .HasMaxLength(150)
+                        .HasColumnType("nvarchar(150)");
 
                     b.Property<string>("EmailAddress")
                         .IsRequired()
@@ -360,13 +370,37 @@ namespace BE_SWP391_OnDemandTutor.DataAccess.Migrations
 
                     b.Property<string>("Role")
                         .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                        .HasMaxLength(150)
+                        .HasColumnType("nvarchar(150)");
+
+                    b.Property<string>("School")
+                        .IsRequired()
+                        .HasMaxLength(150)
+                        .HasColumnType("nvarchar(150)");
+
+                    b.Property<string>("Street")
+                        .IsRequired()
+                        .HasMaxLength(150)
+                        .HasColumnType("nvarchar(150)");
+
+                    b.Property<string>("TutorDescription")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("TutorType")
+                        .IsRequired()
+                        .HasMaxLength(150)
+                        .HasColumnType("nvarchar(150)");
 
                     b.Property<string>("Username")
                         .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
+
+                    b.Property<string>("Ward")
+                        .IsRequired()
+                        .HasMaxLength(150)
+                        .HasColumnType("nvarchar(150)");
 
                     b.HasKey("UserId");
 
@@ -376,62 +410,97 @@ namespace BE_SWP391_OnDemandTutor.DataAccess.Migrations
                         new
                         {
                             UserId = 1,
+                            City = "New York",
                             DateOfBirth = new DateTime(1985, 6, 15, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            District = "Manhattan",
                             EmailAddress = "john.doe@example.com",
                             Gender = "Male",
                             Password = "password123",
                             PhoneNumber = "555-1234",
                             ProfileImage = "https://example.com/profile_image_1.jpg",
                             Role = "Student",
-                            Username = "JohnDoe"
+                            School = "C",
+                            Street = "B",
+                            TutorDescription = "Experienced in mathematics tutoring.",
+                            TutorType = "A",
+                            Username = "JohnDoe",
+                            Ward = "A"
                         },
                         new
                         {
                             UserId = 2,
+                            City = "Los Angeles",
                             DateOfBirth = new DateTime(1992, 3, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            District = "Hollywood",
                             EmailAddress = "jane.doe@example.com",
                             Gender = "Female",
                             Password = "securepassword",
                             PhoneNumber = "555-5678",
                             ProfileImage = "https://example.com/profile_image_2.jpg",
                             Role = "Student",
-                            Username = "JaneDoe"
+                            School = "D",
+                            Street = "D",
+                            TutorDescription = "Specializes in English and literature.",
+                            TutorType = "B",
+                            Username = "JaneDoe",
+                            Ward = "C"
                         },
                         new
                         {
                             UserId = 3,
+                            City = "Chicago",
                             DateOfBirth = new DateTime(1978, 11, 20, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            District = "Downtown",
                             EmailAddress = "bob.smith@example.com",
                             Gender = "Male",
                             Password = "mypassword456",
                             PhoneNumber = "555-9012",
                             ProfileImage = "https://example.com/profile_image_3.jpg",
                             Role = "Tutor",
-                            Username = "BobSmith"
+                            School = "A",
+                            Street = "A",
+                            TutorDescription = "Interested in science and technology.",
+                            TutorType = "C",
+                            Username = "BobSmith",
+                            Ward = "B"
                         },
                         new
                         {
                             UserId = 4,
+                            City = "San Francisco",
                             DateOfBirth = new DateTime(1990, 8, 5, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            District = "Bay Area",
                             EmailAddress = "sarah.johnson@example.com",
                             Gender = "Female",
                             Password = "strongpassword",
                             PhoneNumber = "555-3456",
                             ProfileImage = "https://example.com/profile_image_4.jpg",
                             Role = "Tutor",
-                            Username = "SarahJohnson"
+                            School = "B",
+                            Street = "C",
+                            TutorDescription = "Provides tutoring in history and social studies.",
+                            TutorType = "A",
+                            Username = "SarahJohnson",
+                            Ward = "D"
                         },
                         new
                         {
                             UserId = 5,
+                            City = "Seattle",
                             DateOfBirth = new DateTime(1982, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            District = "Downtown",
                             EmailAddress = "michael.davis@example.com",
                             Gender = "Male",
                             Password = "123456789",
                             PhoneNumber = "555-7890",
                             ProfileImage = "https://example.com/profile_image_5.jpg",
                             Role = "Student",
-                            Username = "MichaelDavis"
+                            School = "C",
+                            Street = "B",
+                            TutorDescription = "Enjoys learning about languages and cultures.",
+                            TutorType = "B",
+                            Username = "MichaelDavis",
+                            Ward = "A"
                         });
                 });
 

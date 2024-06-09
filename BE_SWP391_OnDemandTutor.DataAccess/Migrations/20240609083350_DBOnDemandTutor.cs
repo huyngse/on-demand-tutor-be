@@ -43,7 +43,14 @@ namespace BE_SWP391_OnDemandTutor.DataAccess.Migrations
                     EmailAddress = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     DateOfBirth = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Gender = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
-                    Role = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false)
+                    Role = table.Column<string>(type: "nvarchar(150)", maxLength: 150, nullable: false),
+                    City = table.Column<string>(type: "nvarchar(150)", maxLength: 150, nullable: false),
+                    District = table.Column<string>(type: "nvarchar(150)", maxLength: 150, nullable: false),
+                    Ward = table.Column<string>(type: "nvarchar(150)", maxLength: 150, nullable: false),
+                    Street = table.Column<string>(type: "nvarchar(150)", maxLength: 150, nullable: false),
+                    TutorType = table.Column<string>(type: "nvarchar(150)", maxLength: 150, nullable: false),
+                    School = table.Column<string>(type: "nvarchar(150)", maxLength: 150, nullable: false),
+                    TutorDescription = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -203,14 +210,14 @@ namespace BE_SWP391_OnDemandTutor.DataAccess.Migrations
 
             migrationBuilder.InsertData(
                 table: "Users",
-                columns: new[] { "UserId", "DateOfBirth", "EmailAddress", "Gender", "Password", "PhoneNumber", "ProfileImage", "Role", "Username" },
+                columns: new[] { "UserId", "City", "DateOfBirth", "District", "EmailAddress", "Gender", "Password", "PhoneNumber", "ProfileImage", "Role", "School", "Street", "TutorDescription", "TutorType", "Username", "Ward" },
                 values: new object[,]
                 {
-                    { 1, new DateTime(1985, 6, 15, 0, 0, 0, 0, DateTimeKind.Unspecified), "john.doe@example.com", "Male", "password123", "555-1234", "https://example.com/profile_image_1.jpg", "Student", "JohnDoe" },
-                    { 2, new DateTime(1992, 3, 10, 0, 0, 0, 0, DateTimeKind.Unspecified), "jane.doe@example.com", "Female", "securepassword", "555-5678", "https://example.com/profile_image_2.jpg", "Student", "JaneDoe" },
-                    { 3, new DateTime(1978, 11, 20, 0, 0, 0, 0, DateTimeKind.Unspecified), "bob.smith@example.com", "Male", "mypassword456", "555-9012", "https://example.com/profile_image_3.jpg", "Tutor", "BobSmith" },
-                    { 4, new DateTime(1990, 8, 5, 0, 0, 0, 0, DateTimeKind.Unspecified), "sarah.johnson@example.com", "Female", "strongpassword", "555-3456", "https://example.com/profile_image_4.jpg", "Tutor", "SarahJohnson" },
-                    { 5, new DateTime(1982, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "michael.davis@example.com", "Male", "123456789", "555-7890", "https://example.com/profile_image_5.jpg", "Student", "MichaelDavis" }
+                    { 1, "New York", new DateTime(1985, 6, 15, 0, 0, 0, 0, DateTimeKind.Unspecified), "Manhattan", "john.doe@example.com", "Male", "password123", "555-1234", "https://example.com/profile_image_1.jpg", "Student", "C", "B", "Experienced in mathematics tutoring.", "A", "JohnDoe", "A" },
+                    { 2, "Los Angeles", new DateTime(1992, 3, 10, 0, 0, 0, 0, DateTimeKind.Unspecified), "Hollywood", "jane.doe@example.com", "Female", "securepassword", "555-5678", "https://example.com/profile_image_2.jpg", "Student", "D", "D", "Specializes in English and literature.", "B", "JaneDoe", "C" },
+                    { 3, "Chicago", new DateTime(1978, 11, 20, 0, 0, 0, 0, DateTimeKind.Unspecified), "Downtown", "bob.smith@example.com", "Male", "mypassword456", "555-9012", "https://example.com/profile_image_3.jpg", "Tutor", "A", "A", "Interested in science and technology.", "C", "BobSmith", "B" },
+                    { 4, "San Francisco", new DateTime(1990, 8, 5, 0, 0, 0, 0, DateTimeKind.Unspecified), "Bay Area", "sarah.johnson@example.com", "Female", "strongpassword", "555-3456", "https://example.com/profile_image_4.jpg", "Tutor", "B", "C", "Provides tutoring in history and social studies.", "A", "SarahJohnson", "D" },
+                    { 5, "Seattle", new DateTime(1982, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Downtown", "michael.davis@example.com", "Male", "123456789", "555-7890", "https://example.com/profile_image_5.jpg", "Student", "C", "B", "Enjoys learning about languages and cultures.", "B", "MichaelDavis", "A" }
                 });
 
             migrationBuilder.InsertData(
@@ -218,8 +225,8 @@ namespace BE_SWP391_OnDemandTutor.DataAccess.Migrations
                 columns: new[] { "ClassId", "Active", "ClassAddress", "ClassFee", "ClassInfo", "ClassLevel", "ClassMethod", "ClassName", "ClassRequire", "ClassTime", "CreatedDate", "ScheduleId", "StudentId", "TutorId" },
                 values: new object[,]
                 {
-                    { 1, false, "123 Main Street, Anytown USA", 199.99m, "This course introduces the fundamental concepts of programming, including data types, control structures, and algorithms.", "Beginner", "In-person", "Introduction to Programming", "No prior programming experience required.", new DateTime(2023, 9, 1, 18, 30, 0, 0, DateTimeKind.Unspecified), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, 1, 3 },
-                    { 2, false, "456 Oak Avenue, Anytown USA", 299.99m, "This course explores advanced data structures and their implementation in various programming languages.", "Advanced", "Online", "Advanced Data Structures", "Prerequisite: Data Structures and Algorithms", new DateTime(2023, 10, 15, 14, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 2, 2, 4 }
+                    { 1, true, "123 Main Street, Anytown USA", 199.99m, "This course introduces the fundamental concepts of programming, including data types, control structures, and algorithms.", "Beginner", "In-person", "Introduction to Programming", "No prior programming experience required.", new DateTime(2023, 9, 1, 18, 30, 0, 0, DateTimeKind.Unspecified), new DateTime(2023, 7, 1, 18, 30, 0, 0, DateTimeKind.Unspecified), 1, 1, 3 },
+                    { 2, false, "456 Oak Avenue, Anytown USA", 299.99m, "This course explores advanced data structures and their implementation in various programming languages.", "Advanced", "Online", "Advanced Data Structures", "Prerequisite: Data Structures and Algorithms", new DateTime(2023, 10, 15, 14, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2023, 7, 1, 18, 30, 0, 0, DateTimeKind.Unspecified), 2, 2, 4 }
                 });
 
             migrationBuilder.CreateIndex(

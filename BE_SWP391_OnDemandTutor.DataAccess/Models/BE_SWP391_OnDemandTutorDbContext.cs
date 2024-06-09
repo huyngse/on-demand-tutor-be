@@ -65,62 +65,101 @@ public class BE_SWP391_OnDemandTutorDbContext : DbContext
             );
         modelBuilder.Entity<User>().HasData
             (
-                new User
-                {
-                    UserId = 1,
-                    Username = "JohnDoe",
-                    Password = "password123",
-                    ProfileImage = "https://example.com/profile_image_1.jpg",
-                    PhoneNumber = "555-1234",
-                    EmailAddress = "john.doe@example.com",
-                    DateOfBirth = new DateTime(1985, 6, 15),
-                    Gender = "Male",
-                    Role = "Student"
-                }, new User
-                {
-                    UserId = 2,
-                    Username = "JaneDoe",
-                    Password = "securepassword",
-                    ProfileImage = "https://example.com/profile_image_2.jpg",
-                    PhoneNumber = "555-5678",
-                    EmailAddress = "jane.doe@example.com",
-                    DateOfBirth = new DateTime(1992, 3, 10),
-                    Gender = "Female",
-                    Role = "Student"
-                }, new User
-                {
-                    UserId = 3,
-                    Username = "BobSmith",
-                    Password = "mypassword456",
-                    ProfileImage = "https://example.com/profile_image_3.jpg",
-                    PhoneNumber = "555-9012",
-                    EmailAddress = "bob.smith@example.com",
-                    DateOfBirth = new DateTime(1978, 11, 20),
-                    Gender = "Male",
-                    Role = "Tutor"
-                }, new User
-                {
-                    UserId = 4,
-                    Username = "SarahJohnson",
-                    Password = "strongpassword",
-                    ProfileImage = "https://example.com/profile_image_4.jpg",
-                    PhoneNumber = "555-3456",
-                    EmailAddress = "sarah.johnson@example.com",
-                    DateOfBirth = new DateTime(1990, 8, 5),
-                    Gender = "Female",
-                    Role = "Tutor"
-                }, new User
-                {
-                    UserId = 5,
-                    Username = "MichaelDavis",
-                    Password = "123456789",
-                    ProfileImage = "https://example.com/profile_image_5.jpg",
-                    PhoneNumber = "555-7890",
-                    EmailAddress = "michael.davis@example.com",
-                    DateOfBirth = new DateTime(1982, 2, 28),
-                    Gender = "Male",
-                    Role = "Student"
-                }
+                 new User
+                 {
+                     UserId = 1,
+                     Username = "JohnDoe",
+                     Password = "password123",
+                     ProfileImage = "https://example.com/profile_image_1.jpg",
+                     PhoneNumber = "555-1234",
+                     EmailAddress = "john.doe@example.com",
+                     DateOfBirth = new DateTime(1985, 6, 15),
+                     Gender = "Male",
+                     Role = "Student",
+                     City = "New York",
+                     District = "Manhattan",
+                     Ward = 'A',
+                     Street = 'B',
+                     TutorType = 'A',
+                     School = 'C',
+                     TutorDescription = "Experienced in mathematics tutoring."
+                 },
+    new User
+    {
+        UserId = 2,
+        Username = "JaneDoe",
+        Password = "securepassword",
+        ProfileImage = "https://example.com/profile_image_2.jpg",
+        PhoneNumber = "555-5678",
+        EmailAddress = "jane.doe@example.com",
+        DateOfBirth = new DateTime(1992, 3, 10),
+        Gender = "Female",
+        Role = "Student",
+        City = "Los Angeles",
+        District = "Hollywood",
+        Ward = 'C',
+        Street = 'D',
+        TutorType = 'B',
+        School = 'D',
+        TutorDescription = "Specializes in English and literature."
+    },
+    new User
+    {
+        UserId = 3,
+        Username = "BobSmith",
+        Password = "mypassword456",
+        ProfileImage = "https://example.com/profile_image_3.jpg",
+        PhoneNumber = "555-9012",
+        EmailAddress = "bob.smith@example.com",
+        DateOfBirth = new DateTime(1978, 11, 20),
+        Gender = "Male",
+        Role = "Tutor",
+        City = "Chicago",
+        District = "Downtown",
+        Ward = 'B',
+        Street = 'A',
+        TutorType = 'C',
+        School = 'A',
+        TutorDescription = "Interested in science and technology."
+    },
+    new User
+    {
+        UserId = 4,
+        Username = "SarahJohnson",
+        Password = "strongpassword",
+        ProfileImage = "https://example.com/profile_image_4.jpg",
+        PhoneNumber = "555-3456",
+        EmailAddress = "sarah.johnson@example.com",
+        DateOfBirth = new DateTime(1990, 8, 5),
+        Gender = "Female",
+        Role = "Tutor",
+        City = "San Francisco",
+        District = "Bay Area",
+        Ward = 'D',
+        Street = 'C',
+        TutorType = 'A',
+        School = 'B',
+        TutorDescription = "Provides tutoring in history and social studies."
+    },
+    new User
+    {
+        UserId = 5,
+        Username = "MichaelDavis",
+        Password = "123456789",
+        ProfileImage = "https://example.com/profile_image_5.jpg",
+        PhoneNumber = "555-7890",
+        EmailAddress = "michael.davis@example.com",
+        DateOfBirth = new DateTime(1982, 2, 28),
+        Gender = "Male",
+        Role = "Student",
+        City = "Seattle",
+        District = "Downtown",
+        Ward = 'A',
+        Street = 'B',
+        TutorType = 'B',
+        School = 'C',
+        TutorDescription = "Enjoys learning about languages and cultures."
+    }
             );
 
         modelBuilder.Entity<Class>().HasData
