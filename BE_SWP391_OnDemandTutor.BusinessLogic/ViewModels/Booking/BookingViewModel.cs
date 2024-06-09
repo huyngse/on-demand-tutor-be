@@ -8,6 +8,7 @@ namespace BE_SWP391_OnDemandTutor.BusinessLogic.ViewModels.Booking
         public int UserId { get; set; }
         public DateTime createDate { get; set; }
         public string description { get; set; }
+        public string Address { get; set; }
 
     }
 }

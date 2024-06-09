@@ -24,6 +24,8 @@ namespace BE_SWP391_OnDemandTutor.BusinessLogic.ViewModels
         public string TutorName { get; set; }
         public int ScheduleId { get; set; }
         public string Feedback { get; set; }
+        public string District { get; set; }
+        public string Ward { get; set; }
 
     }
 

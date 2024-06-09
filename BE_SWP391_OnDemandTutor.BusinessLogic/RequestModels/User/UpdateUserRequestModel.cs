@@ -13,10 +13,10 @@ namespace BE_SWP391_OnDemandTutor.BusinessLogic.RequestModels.User
         public string Role { get; set; }
         public string City { get; set; }
         public string District { get; set; }
-        public char Ward { get; set; }
-        public char Street { get; set; }
-        public char TutorType { get; set; }
-        public char School { get; set; }
+        public string Ward { get; set; }
+        public string Street { get; set; }
+        public string TutorType { get; set; }
+        public string School { get; set; }
         public string TutorDescription { get; set; }
     }
 }

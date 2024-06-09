@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BE_SWP391_OnDemandTutor.DataAccess.Migrations
 {
     [DbContext(typeof(BE_SWP391_OnDemandTutorDbContext))]
-    [Migration("20240609083350_DBOnDemandTutor")]
+    [Migration("20240609161359_DBOnDemandTutor")]
     partial class DBOnDemandTutor
     {
         /// <inheritdoc />
@@ -31,6 +31,11 @@ namespace BE_SWP391_OnDemandTutor.DataAccess.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Address")
+                        .IsRequired()
+                        .HasMaxLength(150)
+                        .HasColumnType("nvarchar(150)");
 
                     b.Property<DateTime>("CreateDate")
                         .HasColumnType("datetime2");
@@ -69,6 +74,10 @@ namespace BE_SWP391_OnDemandTutor.DataAccess.Migrations
 
                     b.Property<bool>("Active")
                         .HasColumnType("bit");
+
+                    b.Property<string>("City")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ClassAddress")
                         .IsRequired()
@@ -111,8 +120,10 @@ namespace BE_SWP391_OnDemandTutor.DataAccess.Migrations
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("ScheduleId")
-                        .HasColumnType("int");
+                    b.Property<string>("District")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<int>("StudentId")
                         .HasColumnType("int");
@@ -120,10 +131,12 @@ namespace BE_SWP391_OnDemandTutor.DataAccess.Migrations
                     b.Property<int>("TutorId")
                         .HasColumnType("int");
 
-                    b.HasKey("ClassId");
+                    b.Property<string>("Ward")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
-                    b.HasIndex("ScheduleId")
-                        .IsUnique();
+                    b.HasKey("ClassId");
 
                     b.HasIndex("StudentId")
                         .IsUnique();
@@ -138,6 +151,7 @@ namespace BE_SWP391_OnDemandTutor.DataAccess.Migrations
                         {
                             ClassId = 1,
                             Active = true,
+                            City = "LA",
                             ClassAddress = "123 Main Street, Anytown USA",
                             ClassFee = 199.99m,
                             ClassInfo = "This course introduces the fundamental concepts of programming, including data types, control structures, and algorithms.",
@@ -147,14 +161,16 @@ namespace BE_SWP391_OnDemandTutor.DataAccess.Migrations
                             ClassRequire = "No prior programming experience required.",
                             ClassTime = new DateTime(2023, 9, 1, 18, 30, 0, 0, DateTimeKind.Unspecified),
                             CreatedDate = new DateTime(2023, 7, 1, 18, 30, 0, 0, DateTimeKind.Unspecified),
-                            ScheduleId = 1,
+                            District = "Downtown",
                             StudentId = 1,
-                            TutorId = 3
+                            TutorId = 3,
+                            Ward = "Go vap"
                         },
                         new
                         {
                             ClassId = 2,
                             Active = false,
+                            City = "LA",
                             ClassAddress = "456 Oak Avenue, Anytown USA",
                             ClassFee = 299.99m,
                             ClassInfo = "This course explores advanced data structures and their implementation in various programming languages.",
@@ -164,9 +180,10 @@ namespace BE_SWP391_OnDemandTutor.DataAccess.Migrations
                             ClassRequire = "Prerequisite: Data Structures and Algorithms",
                             ClassTime = new DateTime(2023, 10, 15, 14, 0, 0, 0, DateTimeKind.Unspecified),
                             CreatedDate = new DateTime(2023, 7, 1, 18, 30, 0, 0, DateTimeKind.Unspecified),
-                            ScheduleId = 2,
+                            District = "Downtown",
                             StudentId = 2,
-                            TutorId = 4
+                            TutorId = 4,
+                            Ward = "Go vap"
                         });
                 });
 
@@ -241,6 +258,9 @@ namespace BE_SWP391_OnDemandTutor.DataAccess.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ScheduleID"));
 
+                    b.Property<int>("ClassID")
+                        .HasColumnType("int");
+
                     b.Property<string>("DateOfWeek")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -265,12 +285,15 @@ namespace BE_SWP391_OnDemandTutor.DataAccess.Migrations
 
                     b.HasKey("ScheduleID");
 
+                    b.HasIndex("ClassID");
+
                     b.ToTable("Schedules", (string)null);
 
                     b.HasData(
                         new
                         {
                             ScheduleID = 1,
+                            ClassID = 1,
                             DateOfWeek = "MonWedFri",
                             Description = "Lớp học môn Toán vào các ngày trong tuần",
                             EndTime = new DateTime(2024, 6, 7, 10, 0, 0, 0, DateTimeKind.Unspecified),
@@ -280,6 +303,7 @@ namespace BE_SWP391_OnDemandTutor.DataAccess.Migrations
                         new
                         {
                             ScheduleID = 2,
+                            ClassID = 2,
                             DateOfWeek = "TueThuSat",
                             Description = "Lớp học môn Văn vào các ngày trong tuần",
                             EndTime = new DateTime(2024, 6, 8, 11, 0, 0, 0, DateTimeKind.Unspecified),
@@ -525,12 +549,6 @@ namespace BE_SWP391_OnDemandTutor.DataAccess.Migrations
 
             modelBuilder.Entity("BE_SWP391_OnDemandTutor.DataAccess.Models.Class", b =>
                 {
-                    b.HasOne("BE_SWP391_OnDemandTutor.DataAccess.Models.Schedule", "Schedule")
-                        .WithOne("Class")
-                        .HasForeignKey("BE_SWP391_OnDemandTutor.DataAccess.Models.Class", "ScheduleId")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired();
-
                     b.HasOne("BE_SWP391_OnDemandTutor.DataAccess.Models.User", "Student")
                         .WithOne("ClassStudent")
                         .HasForeignKey("BE_SWP391_OnDemandTutor.DataAccess.Models.Class", "StudentId")
@@ -542,8 +560,6 @@ namespace BE_SWP391_OnDemandTutor.DataAccess.Migrations
                         .HasForeignKey("BE_SWP391_OnDemandTutor.DataAccess.Models.Class", "TutorId")
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
-
-                    b.Navigation("Schedule");
 
                     b.Navigation("Student");
 
@@ -588,6 +604,17 @@ namespace BE_SWP391_OnDemandTutor.DataAccess.Migrations
                     b.Navigation("Tutor");
                 });
 
+            modelBuilder.Entity("BE_SWP391_OnDemandTutor.DataAccess.Models.Schedule", b =>
+                {
+                    b.HasOne("BE_SWP391_OnDemandTutor.DataAccess.Models.Class", "Class")
+                        .WithMany("Schedules")
+                        .HasForeignKey("ClassID")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.Navigation("Class");
+                });
+
             modelBuilder.Entity("BE_SWP391_OnDemandTutor.DataAccess.Models.TutorDegree", b =>
                 {
                     b.HasOne("BE_SWP391_OnDemandTutor.DataAccess.Models.User", "Tutor")
@@ -603,14 +630,13 @@ namespace BE_SWP391_OnDemandTutor.DataAccess.Migrations
                 {
                     b.Navigation("Feedback")
                         .IsRequired();
+
+                    b.Navigation("Schedules");
                 });
 
             modelBuilder.Entity("BE_SWP391_OnDemandTutor.DataAccess.Models.Schedule", b =>
                 {
                     b.Navigation("Bookings");
-
-                    b.Navigation("Class")
-                        .IsRequired();
                 });
 
             modelBuilder.Entity("BE_SWP391_OnDemandTutor.DataAccess.Models.User", b =>

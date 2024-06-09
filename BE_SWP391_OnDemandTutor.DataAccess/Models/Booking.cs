@@ -9,6 +9,7 @@ namespace BE_SWP391_OnDemandTutor.DataAccess.Models
 		public DateTime CreateDate { get; set; }
 		public string Description { get; set; }
 		public bool Status { get; set; }
+		public string Address { get; set; }
 
 		public User User { get; set; }
 		public Schedule Schedule { get; set; }

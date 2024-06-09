@@ -22,6 +22,7 @@ namespace BE_SWP391_OnDemandTutor.DataAccess.Configurations
 
             builder.Property(s => s.DateOfWeek).IsRequired().HasConversion<string>();
 
+            builder.HasOne(f => f.Class).WithMany(c=>c.Schedules).HasForeignKey(f => f.ClassID).OnDelete(DeleteBehavior.NoAction);
 
         }
     }
