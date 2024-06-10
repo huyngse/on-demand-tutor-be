@@ -54,7 +54,7 @@ namespace BE_SWP391_OnDemandTutor.DataAccess.Migrations
                     ClassMethod = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     ClassLevel = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    City = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    City = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     District = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     Ward = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     Active = table.Column<bool>(type: "bit", nullable: false),

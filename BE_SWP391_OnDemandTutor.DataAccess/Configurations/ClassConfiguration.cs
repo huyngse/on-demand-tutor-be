@@ -34,6 +34,8 @@ namespace BE_SWP391_OnDemandTutor.DataAccess.Configurations
 
             builder.Property(c => c.Ward).HasMaxLength(50).IsRequired();
 
+            builder.Property(c => c.City).HasMaxLength(50).IsRequired();
+
             builder.Property(c => c.ClassFee).HasColumnType("decimal(18,2)").HasDefaultValue(0.0m).IsRequired();
 
             builder.HasOne(c => c.Student).WithOne(u=>u.ClassStudent).HasForeignKey<Class>(c => c.StudentId).OnDelete(DeleteBehavior.NoAction);

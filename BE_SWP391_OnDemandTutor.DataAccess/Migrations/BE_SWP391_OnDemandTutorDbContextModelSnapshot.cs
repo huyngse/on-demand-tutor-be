@@ -74,7 +74,8 @@ namespace BE_SWP391_OnDemandTutor.DataAccess.Migrations
 
                     b.Property<string>("City")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<string>("ClassAddress")
                         .IsRequired()

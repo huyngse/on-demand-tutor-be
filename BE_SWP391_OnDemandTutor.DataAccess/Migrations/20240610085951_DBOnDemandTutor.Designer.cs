@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BE_SWP391_OnDemandTutor.DataAccess.Migrations
 {
     [DbContext(typeof(BE_SWP391_OnDemandTutorDbContext))]
-    [Migration("20240609161359_DBOnDemandTutor")]
+    [Migration("20240610085951_DBOnDemandTutor")]
     partial class DBOnDemandTutor
     {
         /// <inheritdoc />
@@ -77,7 +77,8 @@ namespace BE_SWP391_OnDemandTutor.DataAccess.Migrations
 
                     b.Property<string>("City")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<string>("ClassAddress")
                         .IsRequired()

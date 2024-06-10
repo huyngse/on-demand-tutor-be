@@ -66,8 +66,8 @@ namespace BE_SWP391_OnDemandTutor.BusinessLogic.Services
             {
                 Title = schedule.Title,
                 Description = schedule.Description,
-                StartTime = schedule.StartTime,
-                EndTime = schedule.EndTime,
+                StartTime = schedule.StartTime.Value,
+                EndTime = schedule.EndTime.Value,
                 DateOfWeek = schedule.DateOfWeek,
 
             }).ToList();
@@ -86,8 +86,8 @@ namespace BE_SWP391_OnDemandTutor.BusinessLogic.Services
                 ScheduleID = schedule.ScheduleID,
                 Title = schedule.Title,
                 Description = schedule.Description,
-                StartTime = schedule.StartTime,
-                EndTime = schedule.EndTime,
+                StartTime = schedule.StartTime.Value,
+                EndTime = schedule.EndTime.Value,
                 DateOfWeek = schedule.DateOfWeek,
             };
         }
@@ -110,8 +110,8 @@ namespace BE_SWP391_OnDemandTutor.BusinessLogic.Services
                 ScheduleID = schedule.ScheduleID,
                 Title = schedule.Title,
                 Description = schedule.Description,
-                StartTime = schedule.StartTime,
-                EndTime = schedule.EndTime,
+                StartTime = schedule.StartTime.Value,
+                EndTime = schedule.EndTime.Value,
                 DateOfWeek = schedule.DateOfWeek,
             };
         }

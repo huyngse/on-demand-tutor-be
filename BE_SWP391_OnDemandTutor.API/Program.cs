@@ -1,3 +1,5 @@
+using BE_SWP391_OnDemandTutor.API.AutoMapperConfig;
+using BE_SWP391_OnDemandTutor.API.GlobalExceptionHandler;
 using BE_SWP391_OnDemandTutor.BusinessLogic.Generations.DependencyInjection;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
@@ -42,7 +44,7 @@ builder.Services.AddSwaggerGen(option =>
         }
     });
 });
-
+builder.Services.ConfigureAutoMapper();
 
 builder.Services.AddDbContext<BE_SWP391_OnDemandTutorDbContext>(options =>
 {
@@ -67,7 +69,7 @@ if (app.Environment.IsDevelopment())
 app.UseCors();
 
 
-//app.UseMiddleware<UnauthourizeExceptionHandlingMiddleware>();
+app.UseMiddleware<UnauthourizeExceptionHandlingMiddleware>();
 
 app.UseHttpsRedirection();
 

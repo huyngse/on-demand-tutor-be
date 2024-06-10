@@ -12,7 +12,7 @@ namespace BE_SWP391_OnDemandTutor.BusinessLogic.Services
     {
         Task<ClassViewModel> GetDetail(int classId);
         Task<bool> UpdateInforClass(UpdateClassRequestModel classUpdate);
-        Task<ClassViewModel> CreateClass(CreateClassRequestModel classCreate, int userId);
+        Task<ClassViewModel> CreateClass(CreateClassRequestModel classCreate);
         Task<ClassViewModel> GetById(int idTmp);
         Task<(bool Success, string ClassName)> DeactivateClass(int idTmp);
     }
@@ -28,7 +28,7 @@ namespace BE_SWP391_OnDemandTutor.BusinessLogic.Services
             _context = context;
         }
 
-        public async Task<ClassViewModel> CreateClass(CreateClassRequestModel classCreate, int userId)
+        public async Task<ClassViewModel> CreateClass(CreateClassRequestModel classCreate)
         {
             var newClass = new Class
             {
@@ -42,15 +42,44 @@ namespace BE_SWP391_OnDemandTutor.BusinessLogic.Services
                 ClassFee = classCreate.ClassFee,
                 StudentId = classCreate.StudentId,
                 TutorId = classCreate.TutorId,
-                ScheduleId = classCreate.ScheduleId,
-                //IsActive = true,
+                City = classCreate.City,
+                District = classCreate.District,
+                Ward = classCreate.Ward,
                 CreatedDate = DateTime.UtcNow
             };
 
             _context.Classes.Add(newClass);
             await _context.SaveChangesAsync();
-            return _mapper.Map<ClassViewModel>(newClass);
-        }
+            // return _mapper.Map<ClassViewModel>(newClass);
+
+            var schedules = await _context.Schedules.Where(s => s.ClassID == newClass.ClassId)
+                            .Select(x=> new ScheduleViewModel()
+                            {
+        ScheduleID = x.ScheduleID,
+        Title = x.Title,
+        Description = x.Description,
+        DateOfWeek = x.DateOfWeek,
+        StartTime = x.StartTime.Value,
+        EndTime = x.EndTime.Value
+    }).ToListAsync();
+
+            return new ClassViewModel()
+            {
+                ClassName = newClass.ClassName,
+                ClassTime = newClass.ClassTime,
+                ClassInfo = newClass.ClassInfo,
+                ClassRequire = newClass.ClassRequire,
+                ClassAddress = newClass.ClassAddress,
+                ClassMethod = newClass.ClassMethod,
+                ClassLevel = newClass.ClassLevel,
+                ClassFee = newClass.ClassFee,
+                StudentId = newClass.StudentId,
+                TutorId = newClass.TutorId,
+                City = classCreate.City,
+                CreatedDate = DateTime.UtcNow,
+                Schedule = schedules
+            };
+                }
 
         public async Task<(bool Success, string ClassName)> DeactivateClass(int idTmp)
         {
@@ -73,7 +102,7 @@ namespace BE_SWP391_OnDemandTutor.BusinessLogic.Services
                 .Include(c => c.Student)
                 .Include(c => c.Tutor)
                 .Include(c => c.Feedback)
-                .Include(c => c.Schedule)
+                .Include(c => c.Schedules)
                 .FirstOrDefaultAsync(c => c.ClassId == idTmp);
 
             if (classEntity == null)
@@ -96,7 +125,7 @@ namespace BE_SWP391_OnDemandTutor.BusinessLogic.Services
                 StudentName = classEntity.Student.Username, // Assuming User has a Name property
                 TutorId = classEntity.TutorId,
                 TutorName = classEntity.Tutor.Username, // Assuming User has a Name property
-                ScheduleId = classEntity.ScheduleId,
+                
                 Feedback = classEntity.Feedback?.Content // Assuming Feedback has a Content property
             };
         }
@@ -107,7 +136,7 @@ namespace BE_SWP391_OnDemandTutor.BusinessLogic.Services
                 .Include(c => c.Student)
                 .Include(c => c.Tutor)
                 .Include(c => c.Feedback)
-                .Include(c => c.Schedule)
+                .Include(c => c.Schedules)
                 .FirstOrDefaultAsync(c => c.ClassId == classId);
 
             if (classEntity == null)
@@ -130,8 +159,7 @@ namespace BE_SWP391_OnDemandTutor.BusinessLogic.Services
                 StudentName = classEntity.Student.Username, // Assuming User has a Name property
                 TutorId = classEntity.TutorId,
                 TutorName = classEntity.Tutor.Username, // Assuming User has a Name property
-                ScheduleId = classEntity.ScheduleId,
-                Feedback = classEntity.Feedback.Content // Assuming Feedback has a Content property
+                             Feedback = classEntity.Feedback.Content // Assuming Feedback has a Content property
             };
         }
 
@@ -153,7 +181,7 @@ namespace BE_SWP391_OnDemandTutor.BusinessLogic.Services
             classEntity.ClassFee = classUpdate.ClassFee;
             classEntity.StudentId = classUpdate.StudentId;
             classEntity.TutorId = classUpdate.TutorId;
-            classEntity.ScheduleId = classUpdate.ScheduleId;
+            
 
             _context.Classes.Update(classEntity);
             await _context.SaveChangesAsync();
