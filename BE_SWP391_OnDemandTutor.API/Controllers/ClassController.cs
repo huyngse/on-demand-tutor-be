@@ -21,14 +21,14 @@ namespace BE_SWP391_OnDemandTutor.Presentation.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateClass([FromBody] CreateClassRequestModel classCreate, [FromQuery] int userId)
+        public async Task<IActionResult> CreateClass([FromBody] CreateClassRequestModel classCreate)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            var result = await _classService.CreateClass(classCreate, userId);
+            var result = await _classService.CreateClass(classCreate);
             return CreatedAtAction(nameof(GetClassById), new { id = result.ClassId }, result);
         }
 
