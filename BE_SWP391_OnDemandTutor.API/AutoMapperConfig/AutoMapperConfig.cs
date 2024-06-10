@@ -13,11 +13,9 @@ namespace BE_SWP391_OnDemandTutor.API.AutoMapperConfig
                 mc.ConfigFeedbackModule();
                 mc.ConfigRateModule();
                 mc.ConfigScheduleModule();
-                mc.ConfigSlotModule();
-                mc.ConfigSubjectModule();
                 mc.ConfigTutorDegreeModule();
-                mc.ConfigTutorFreeTimeScheduleModule();
                 mc.ConfigUserModule();
+                mc.ConfigBookingModule();
 
             });
             IMapper mapper = mapperConfiguration.CreateMapper();
