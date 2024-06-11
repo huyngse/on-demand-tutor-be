@@ -29,6 +29,11 @@ namespace BE_SWP391_OnDemandTutor.DataAccess.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<string>("Address")
+                        .IsRequired()
+                        .HasMaxLength(150)
+                        .HasColumnType("nvarchar(150)");
+
                     b.Property<DateTime>("CreateDate")
                         .HasColumnType("datetime2");
 
@@ -66,6 +71,11 @@ namespace BE_SWP391_OnDemandTutor.DataAccess.Migrations
 
                     b.Property<bool>("Active")
                         .HasColumnType("bit");
+
+                    b.Property<string>("City")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<string>("ClassAddress")
                         .IsRequired()
@@ -108,25 +118,27 @@ namespace BE_SWP391_OnDemandTutor.DataAccess.Migrations
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("ScheduleId")
-                        .HasColumnType("int");
+                    b.Property<string>("District")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
-                    b.Property<int>("StudentId")
+                    b.Property<int?>("StudentId")
                         .HasColumnType("int");
 
                     b.Property<int>("TutorId")
                         .HasColumnType("int");
 
+                    b.Property<string>("Ward")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
                     b.HasKey("ClassId");
 
-                    b.HasIndex("ScheduleId")
-                        .IsUnique();
+                    b.HasIndex("StudentId");
 
-                    b.HasIndex("StudentId")
-                        .IsUnique();
-
-                    b.HasIndex("TutorId")
-                        .IsUnique();
+                    b.HasIndex("TutorId");
 
                     b.ToTable("Classes", (string)null);
 
@@ -134,7 +146,8 @@ namespace BE_SWP391_OnDemandTutor.DataAccess.Migrations
                         new
                         {
                             ClassId = 1,
-                            Active = false,
+                            Active = true,
+                            City = "LA",
                             ClassAddress = "123 Main Street, Anytown USA",
                             ClassFee = 199.99m,
                             ClassInfo = "This course introduces the fundamental concepts of programming, including data types, control structures, and algorithms.",
@@ -143,15 +156,17 @@ namespace BE_SWP391_OnDemandTutor.DataAccess.Migrations
                             ClassName = "Introduction to Programming",
                             ClassRequire = "No prior programming experience required.",
                             ClassTime = new DateTime(2023, 9, 1, 18, 30, 0, 0, DateTimeKind.Unspecified),
-                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ScheduleId = 1,
+                            CreatedDate = new DateTime(2023, 7, 1, 18, 30, 0, 0, DateTimeKind.Unspecified),
+                            District = "Downtown",
                             StudentId = 1,
-                            TutorId = 3
+                            TutorId = 4,
+                            Ward = "Go vap"
                         },
                         new
                         {
                             ClassId = 2,
                             Active = false,
+                            City = "LA",
                             ClassAddress = "456 Oak Avenue, Anytown USA",
                             ClassFee = 299.99m,
                             ClassInfo = "This course explores advanced data structures and their implementation in various programming languages.",
@@ -160,10 +175,68 @@ namespace BE_SWP391_OnDemandTutor.DataAccess.Migrations
                             ClassName = "Advanced Data Structures",
                             ClassRequire = "Prerequisite: Data Structures and Algorithms",
                             ClassTime = new DateTime(2023, 10, 15, 14, 0, 0, 0, DateTimeKind.Unspecified),
-                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ScheduleId = 2,
+                            CreatedDate = new DateTime(2023, 7, 1, 18, 30, 0, 0, DateTimeKind.Unspecified),
+                            District = "Downtown",
+                            StudentId = 1,
+                            TutorId = 5,
+                            Ward = "Go vap"
+                        },
+                        new
+                        {
+                            ClassId = 3,
+                            Active = true,
+                            City = "TP.HCM",
+                            ClassAddress = "123 Đường A, Quận 1, TP.HCM",
+                            ClassFee = 500000m,
+                            ClassInfo = "Khóa học giới thiệu các khái niệm cơ bản của ngôn ngữ lập trình Java",
+                            ClassLevel = "Cơ bản",
+                            ClassMethod = "Trực tiếp",
+                            ClassName = "Lập trình Java cơ bản",
+                            ClassRequire = "Không yêu cầu kiến thức lập trình trước đó",
+                            ClassTime = new DateTime(2023, 6, 1, 19, 0, 0, 0, DateTimeKind.Unspecified),
+                            CreatedDate = new DateTime(2023, 5, 15, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            District = "Quận 1",
                             StudentId = 2,
-                            TutorId = 4
+                            TutorId = 4,
+                            Ward = "Phường A"
+                        },
+                        new
+                        {
+                            ClassId = 4,
+                            Active = true,
+                            City = "TP.HCM",
+                            ClassAddress = "456 Đường B, Quận 3, TP.HCM",
+                            ClassFee = 800000m,
+                            ClassInfo = "Khóa học giới thiệu các kỹ thuật nâng cao trong việc xây dựng ứng dụng web với React.js",
+                            ClassLevel = "Nâng cao",
+                            ClassMethod = "Trực tuyến",
+                            ClassName = "Lập trình React.js nâng cao",
+                            ClassRequire = "Có kiến thức lập trình Javascript và React.js cơ bản",
+                            ClassTime = new DateTime(2023, 7, 1, 9, 0, 0, 0, DateTimeKind.Unspecified),
+                            CreatedDate = new DateTime(2023, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            District = "Quận 3",
+                            StudentId = 2,
+                            TutorId = 5,
+                            Ward = "Phường B"
+                        },
+                        new
+                        {
+                            ClassId = 5,
+                            Active = true,
+                            City = "TP.HCM",
+                            ClassAddress = "789 Đường C, Quận 5, TP.HCM",
+                            ClassFee = 400000m,
+                            ClassInfo = "Khóa học giới thiệu các khái niệm cơ bản của ngôn ngữ lập trình C#",
+                            ClassLevel = "Cơ bản",
+                            ClassMethod = "Trực tiếp",
+                            ClassName = "Lập trình C# cơ bản",
+                            ClassRequire = "Không yêu cầu kiến thức lập trình trước đó",
+                            ClassTime = new DateTime(2023, 8, 15, 14, 0, 0, 0, DateTimeKind.Unspecified),
+                            CreatedDate = new DateTime(2023, 7, 20, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            District = "Quận 5",
+                            StudentId = 3,
+                            TutorId = 4,
+                            Ward = "Phường C"
                         });
                 });
 
@@ -238,6 +311,9 @@ namespace BE_SWP391_OnDemandTutor.DataAccess.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ScheduleID"));
 
+                    b.Property<int>("ClassID")
+                        .HasColumnType("int");
+
                     b.Property<string>("DateOfWeek")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -262,12 +338,15 @@ namespace BE_SWP391_OnDemandTutor.DataAccess.Migrations
 
                     b.HasKey("ScheduleID");
 
+                    b.HasIndex("ClassID");
+
                     b.ToTable("Schedules", (string)null);
 
                     b.HasData(
                         new
                         {
                             ScheduleID = 1,
+                            ClassID = 1,
                             DateOfWeek = "MonWedFri",
                             Description = "Lớp học môn Toán vào các ngày trong tuần",
                             EndTime = new DateTime(2024, 6, 7, 10, 0, 0, 0, DateTimeKind.Unspecified),
@@ -277,6 +356,7 @@ namespace BE_SWP391_OnDemandTutor.DataAccess.Migrations
                         new
                         {
                             ScheduleID = 2,
+                            ClassID = 2,
                             DateOfWeek = "TueThuSat",
                             Description = "Lớp học môn Văn vào các ngày trong tuần",
                             EndTime = new DateTime(2024, 6, 8, 11, 0, 0, 0, DateTimeKind.Unspecified),
@@ -327,8 +407,18 @@ namespace BE_SWP391_OnDemandTutor.DataAccess.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("UserId"));
 
+                    b.Property<string>("City")
+                        .IsRequired()
+                        .HasMaxLength(150)
+                        .HasColumnType("nvarchar(150)");
+
                     b.Property<DateTime>("DateOfBirth")
                         .HasColumnType("datetime2");
+
+                    b.Property<string>("District")
+                        .IsRequired()
+                        .HasMaxLength(150)
+                        .HasColumnType("nvarchar(150)");
 
                     b.Property<string>("EmailAddress")
                         .IsRequired()
@@ -357,13 +447,37 @@ namespace BE_SWP391_OnDemandTutor.DataAccess.Migrations
 
                     b.Property<string>("Role")
                         .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                        .HasMaxLength(150)
+                        .HasColumnType("nvarchar(150)");
+
+                    b.Property<string>("School")
+                        .IsRequired()
+                        .HasMaxLength(150)
+                        .HasColumnType("nvarchar(150)");
+
+                    b.Property<string>("Street")
+                        .IsRequired()
+                        .HasMaxLength(150)
+                        .HasColumnType("nvarchar(150)");
+
+                    b.Property<string>("TutorDescription")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("TutorType")
+                        .IsRequired()
+                        .HasMaxLength(150)
+                        .HasColumnType("nvarchar(150)");
 
                     b.Property<string>("Username")
                         .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
+
+                    b.Property<string>("Ward")
+                        .IsRequired()
+                        .HasMaxLength(150)
+                        .HasColumnType("nvarchar(150)");
 
                     b.HasKey("UserId");
 
@@ -373,62 +487,116 @@ namespace BE_SWP391_OnDemandTutor.DataAccess.Migrations
                         new
                         {
                             UserId = 1,
+                            City = "New York",
                             DateOfBirth = new DateTime(1985, 6, 15, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            District = "Manhattan",
                             EmailAddress = "john.doe@example.com",
                             Gender = "Male",
-                            Password = "password123",
+                            Password = "student1",
                             PhoneNumber = "555-1234",
                             ProfileImage = "https://example.com/profile_image_1.jpg",
                             Role = "Student",
-                            Username = "JohnDoe"
+                            School = "C",
+                            Street = "B",
+                            TutorDescription = "Experienced in mathematics tutoring.",
+                            TutorType = "A",
+                            Username = "student1",
+                            Ward = "A"
                         },
                         new
                         {
                             UserId = 2,
+                            City = "Los Angeles",
                             DateOfBirth = new DateTime(1992, 3, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            District = "Hollywood",
                             EmailAddress = "jane.doe@example.com",
                             Gender = "Female",
-                            Password = "securepassword",
+                            Password = "student2",
                             PhoneNumber = "555-5678",
                             ProfileImage = "https://example.com/profile_image_2.jpg",
                             Role = "Student",
-                            Username = "JaneDoe"
+                            School = "D",
+                            Street = "D",
+                            TutorDescription = "Specializes in English and literature.",
+                            TutorType = "B",
+                            Username = "student2",
+                            Ward = "C"
                         },
                         new
                         {
                             UserId = 3,
+                            City = "Chicago",
                             DateOfBirth = new DateTime(1978, 11, 20, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            District = "Downtown",
                             EmailAddress = "bob.smith@example.com",
                             Gender = "Male",
-                            Password = "mypassword456",
+                            Password = "student3",
                             PhoneNumber = "555-9012",
                             ProfileImage = "https://example.com/profile_image_3.jpg",
-                            Role = "Tutor",
-                            Username = "BobSmith"
+                            Role = "Student",
+                            School = "A",
+                            Street = "A",
+                            TutorDescription = "Interested in science and technology.",
+                            TutorType = "C",
+                            Username = "student3",
+                            Ward = "B"
                         },
                         new
                         {
                             UserId = 4,
+                            City = "San Francisco",
                             DateOfBirth = new DateTime(1990, 8, 5, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            District = "Bay Area",
                             EmailAddress = "sarah.johnson@example.com",
                             Gender = "Female",
-                            Password = "strongpassword",
+                            Password = "tutor1",
                             PhoneNumber = "555-3456",
                             ProfileImage = "https://example.com/profile_image_4.jpg",
                             Role = "Tutor",
-                            Username = "SarahJohnson"
+                            School = "B",
+                            Street = "C",
+                            TutorDescription = "Provides tutoring in history and social studies.",
+                            TutorType = "A",
+                            Username = "tutor1",
+                            Ward = "D"
                         },
                         new
                         {
                             UserId = 5,
+                            City = "Seattle",
                             DateOfBirth = new DateTime(1982, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            District = "Downtown",
                             EmailAddress = "michael.davis@example.com",
                             Gender = "Male",
-                            Password = "123456789",
+                            Password = "tutor2",
                             PhoneNumber = "555-7890",
                             ProfileImage = "https://example.com/profile_image_5.jpg",
-                            Role = "Student",
-                            Username = "MichaelDavis"
+                            Role = "Tutor",
+                            School = "C",
+                            Street = "B",
+                            TutorDescription = "Enjoys learning about languages and cultures.",
+                            TutorType = "B",
+                            Username = "tutor2",
+                            Ward = "A"
+                        },
+                        new
+                        {
+                            UserId = 6,
+                            City = "Anytown",
+                            DateOfBirth = new DateTime(1990, 5, 15, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            District = "Central",
+                            EmailAddress = "johndoe@example.com",
+                            Gender = "Male",
+                            Password = "admin",
+                            PhoneNumber = "555-1234",
+                            ProfileImage = "profile.jpg",
+                            Role = "Tutor",
+                            School = "University of Anytown",
+                            Street = "123 Main St",
+                            TutorDescription = "I have 5 years of experience teaching mathematics to students of all levels.",
+                            TutorType = "Mathematics",
+                            Username = "admin",
+                            Ward = "Downtown"
                         });
                 });
 
@@ -453,25 +621,16 @@ namespace BE_SWP391_OnDemandTutor.DataAccess.Migrations
 
             modelBuilder.Entity("BE_SWP391_OnDemandTutor.DataAccess.Models.Class", b =>
                 {
-                    b.HasOne("BE_SWP391_OnDemandTutor.DataAccess.Models.Schedule", "Schedule")
-                        .WithOne("Class")
-                        .HasForeignKey("BE_SWP391_OnDemandTutor.DataAccess.Models.Class", "ScheduleId")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired();
-
                     b.HasOne("BE_SWP391_OnDemandTutor.DataAccess.Models.User", "Student")
-                        .WithOne("ClassStudent")
-                        .HasForeignKey("BE_SWP391_OnDemandTutor.DataAccess.Models.Class", "StudentId")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired();
+                        .WithMany("StudentClasses")
+                        .HasForeignKey("StudentId")
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.HasOne("BE_SWP391_OnDemandTutor.DataAccess.Models.User", "Tutor")
-                        .WithOne("ClassTutor")
-                        .HasForeignKey("BE_SWP391_OnDemandTutor.DataAccess.Models.Class", "TutorId")
-                        .OnDelete(DeleteBehavior.NoAction)
+                        .WithMany("TutorClasses")
+                        .HasForeignKey("TutorId")
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
-
-                    b.Navigation("Schedule");
 
                     b.Navigation("Student");
 
@@ -516,6 +675,17 @@ namespace BE_SWP391_OnDemandTutor.DataAccess.Migrations
                     b.Navigation("Tutor");
                 });
 
+            modelBuilder.Entity("BE_SWP391_OnDemandTutor.DataAccess.Models.Schedule", b =>
+                {
+                    b.HasOne("BE_SWP391_OnDemandTutor.DataAccess.Models.Class", "Class")
+                        .WithMany("Schedules")
+                        .HasForeignKey("ClassID")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.Navigation("Class");
+                });
+
             modelBuilder.Entity("BE_SWP391_OnDemandTutor.DataAccess.Models.TutorDegree", b =>
                 {
                     b.HasOne("BE_SWP391_OnDemandTutor.DataAccess.Models.User", "Tutor")
@@ -531,29 +701,26 @@ namespace BE_SWP391_OnDemandTutor.DataAccess.Migrations
                 {
                     b.Navigation("Feedback")
                         .IsRequired();
+
+                    b.Navigation("Schedules");
                 });
 
             modelBuilder.Entity("BE_SWP391_OnDemandTutor.DataAccess.Models.Schedule", b =>
                 {
                     b.Navigation("Bookings");
-
-                    b.Navigation("Class")
-                        .IsRequired();
                 });
 
             modelBuilder.Entity("BE_SWP391_OnDemandTutor.DataAccess.Models.User", b =>
                 {
                     b.Navigation("Bookings");
 
-                    b.Navigation("ClassStudent")
-                        .IsRequired();
-
-                    b.Navigation("ClassTutor")
-                        .IsRequired();
-
                     b.Navigation("Feedbacks");
 
+                    b.Navigation("StudentClasses");
+
                     b.Navigation("StudentSendRatings");
+
+                    b.Navigation("TutorClasses");
 
                     b.Navigation("TutorDegree")
                         .IsRequired();

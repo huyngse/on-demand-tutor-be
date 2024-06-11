@@ -1,6 +1,7 @@
 ﻿using BE_SWP391_OnDemandTutor.DataAccess.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using System.Reflection.Emit;
 
 namespace BE_SWP391_OnDemandTutor.DataAccess.Configurations
 {
@@ -30,13 +31,19 @@ namespace BE_SWP391_OnDemandTutor.DataAccess.Configurations
 
             builder.Property(c => c.ClassLevel).HasMaxLength(50).IsRequired();
 
+            builder.Property(c => c.District).HasMaxLength(50).IsRequired();
+
+            builder.Property(c => c.Ward).HasMaxLength(50).IsRequired();
+
+            builder.Property(c => c.City).HasMaxLength(50).IsRequired();
+
             builder.Property(c => c.ClassFee).HasColumnType("decimal(18,2)").HasDefaultValue(0.0m).IsRequired();
 
-            builder.HasOne(c => c.Student).WithOne(u=>u.ClassStudent).HasForeignKey<Class>(c => c.StudentId).OnDelete(DeleteBehavior.NoAction);
+            builder.HasOne(c => c.Student).WithMany(u => u.StudentClasses).HasForeignKey(c => c.StudentId).OnDelete(DeleteBehavior.Restrict); ;
 
-            builder.HasOne(c => c.Tutor).WithOne(u=>u.ClassTutor).HasForeignKey<Class>(c => c.TutorId).OnDelete(DeleteBehavior.NoAction);
+            builder.HasOne(c => c.Tutor).WithMany(u => u.TutorClasses).HasForeignKey(c => c.TutorId).OnDelete(DeleteBehavior.Restrict); ;
 
-            builder.HasOne(c => c.Schedule).WithOne(s=>s.Class).HasForeignKey<Class>(c => c.ScheduleId).OnDelete(DeleteBehavior.NoAction);
+            builder.HasMany(c => c.Schedules).WithOne(s=>s.Class).HasForeignKey(c => c.ClassID).OnDelete(DeleteBehavior.NoAction);
 
         }
     }

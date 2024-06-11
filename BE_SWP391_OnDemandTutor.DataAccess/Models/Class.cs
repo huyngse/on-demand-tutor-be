@@ -11,14 +11,16 @@
         public string ClassMethod { get; set; }
         public string ClassLevel { get; set; }
         public DateTime CreatedDate { get; set; }
+        public string City { get; set; }
+        public string District { get; set; }
+        public string Ward { get; set; }
         public bool Active { get; set; }
         public float ClassFee { get; set; }
-        public int StudentId { get; set; }
-        public User Student { get; set; }
+        public int? StudentId { get; set; }
+        public User Student { get; set; } 
         public int TutorId { get; set; }
-        public User Tutor { get; set; }
+        public User Tutor { get; set; } 
         public Feedback Feedback { get; set; }
-        public int ScheduleId { get; set; }
-        public Schedule Schedule { get; set; }
+        public ICollection<Schedule> Schedules { get; set; }
     }
 }

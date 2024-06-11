@@ -5,7 +5,9 @@ using BE_SWP391_OnDemandTutor.DataAccess.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
+using System.Data;
 using System.IdentityModel.Tokens.Jwt;
+using System.IO;
 using System.Security.Claims;
 using System.Text;
 namespace BE_SWP391_OnDemandTutor.BusinessLogic.Services
@@ -33,16 +35,24 @@ namespace BE_SWP391_OnDemandTutor.BusinessLogic.Services
         public async Task<List<UserViewModel>> GetAll()
         {
             var result = await _context.Users.ToListAsync();
-            return result.Select(x => new UserViewModel()
+            return result.Select(user => new UserViewModel()
             {
-                DateOfBirth = x.DateOfBirth,
-                EmailAddress = x.EmailAddress,
-                Gender = x.Gender,
-                PhoneNumber = x.PhoneNumber,
-                ProfileImage = x.ProfileImage,
-                Role = x.Role,
-                UserId = x.UserId,
-                Username = x.Username
+
+                UserId = user.UserId,
+                Username = user.Username,
+                ProfileImage = user.ProfileImage,
+                PhoneNumber = user.PhoneNumber,
+                EmailAddress = user.EmailAddress,
+                DateOfBirth = user.DateOfBirth,
+                Gender = user.Gender,
+                Role = user.Role,
+                City = user.City,
+                District = user.District,
+                Ward = user.Ward,
+                Street = user.Street,
+                TutorType = user.TutorType,
+                School = user.School,
+                TutorDescription = user.TutorDescription
             }).ToList();
 
         }
@@ -57,14 +67,21 @@ namespace BE_SWP391_OnDemandTutor.BusinessLogic.Services
 
             return new UserViewModel()
             {
-                DateOfBirth = user.DateOfBirth,
-                EmailAddress = user.EmailAddress,
-                Gender = user.Gender,
-                PhoneNumber = user.PhoneNumber,
-                ProfileImage = user.ProfileImage,
-                Role = user.Role,
                 UserId = user.UserId,
-                Username = user.Username
+                Username = user.Username,
+                ProfileImage = user.ProfileImage,
+                PhoneNumber = user.PhoneNumber,
+                EmailAddress = user.EmailAddress,
+                DateOfBirth = user.DateOfBirth,
+                Gender = user.Gender,
+                Role = user.Role,
+                City = user.City,
+                District = user.District,
+                Ward = user.Ward,
+                Street = user.Street,
+                TutorType = user.TutorType,
+                School = user.School,
+                TutorDescription = user.TutorDescription
             };
         }
 
@@ -80,8 +97,11 @@ namespace BE_SWP391_OnDemandTutor.BusinessLogic.Services
             {
                 new Claim(ClaimTypes.NameIdentifier, user.UserId.ToString()),
                 new Claim(ClaimTypes.Name, user.Username),
-                new Claim(ClaimTypes.Email, user.EmailAddress),
+                new Claim(ClaimTypes.Name, user.Username),
                 new Claim(ClaimTypes.MobilePhone, user.PhoneNumber),
+                new Claim(ClaimTypes.Email, user.EmailAddress),
+                new Claim(ClaimTypes.DateOfBirth, user.DateOfBirth.ToString()),
+                new Claim(ClaimTypes.Gender, user.Gender),
                 new Claim(ClaimTypes.Role, user.Role)
             };
 
@@ -111,14 +131,20 @@ namespace BE_SWP391_OnDemandTutor.BusinessLogic.Services
 
             var user = new User()
             {
-                DateOfBirth = request.DateOfBirth,
-                EmailAddress = request.EmailAddress,
-                Password = request.Password,
-                Gender = request.Gender,
-                PhoneNumber = request.PhoneNumber,
-                ProfileImage = request.ProfileImage,
-                Role = request.Role,
-                Username = request.Username
+            Username = request.Username,
+            ProfileImage = request.ProfileImage,
+            PhoneNumber = request.PhoneNumber,
+            EmailAddress = request.EmailAddress,
+            DateOfBirth = request.DateOfBirth,
+            Gender = request.Gender,
+            Role = request.Role,
+            City = request.City,
+            District = request.District,
+            Ward = request.Ward,
+            Street = request.Street,
+            TutorType = request.TutorType,
+            School = request.School,
+            TutorDescription = request.TutorDescription,
             };
 
             await _context.Users.AddAsync(user);
@@ -126,14 +152,22 @@ namespace BE_SWP391_OnDemandTutor.BusinessLogic.Services
 
             return new UserViewModel()
             {
-                DateOfBirth = user.DateOfBirth,
-                EmailAddress = user.EmailAddress,
-                Gender = user.Gender,
-                PhoneNumber = user.PhoneNumber,
-                ProfileImage = user.ProfileImage,
-                Role = user.Role,
+
                 UserId = user.UserId,
-                Username = user.Username
+                Username = user.Username,
+                ProfileImage = user.ProfileImage,
+                PhoneNumber = user.PhoneNumber,
+                EmailAddress = user.EmailAddress,
+                DateOfBirth = user.DateOfBirth,
+                Gender = user.Gender,
+                Role = user.Role,
+                City = user.City,
+                District = user.District,
+                Ward = user.Ward,
+                Street = user.Street,
+                TutorType = user.TutorType,
+                School = user.School,
+                TutorDescription = user.TutorDescription
             };
         }
 
@@ -161,19 +195,33 @@ namespace BE_SWP391_OnDemandTutor.BusinessLogic.Services
             user.DateOfBirth = request.DateOfBirth;
             user.Gender = request.Gender;
             user.Role = request.Role;
+            user.City = request.City;
+            user.District = request.District;
+            user.Ward = request.Ward;
+            user.Street = request.Street;
+            user.TutorType = request.TutorType;
+            user.School = request.School;
+            user.TutorDescription = request.TutorDescription;
 
             await _context.SaveChangesAsync();
 
             return new UserViewModel()
             {
-                DateOfBirth = user.DateOfBirth,
-                EmailAddress = user.EmailAddress,
-                Gender = user.Gender,
-                PhoneNumber = user.PhoneNumber,
-                ProfileImage = user.ProfileImage,
-                Role = user.Role,
                 UserId = user.UserId,
-                Username = user.Username
+                Username = user.Username,
+                ProfileImage = user.ProfileImage,
+                PhoneNumber = user.PhoneNumber,
+                EmailAddress = user.EmailAddress,
+                DateOfBirth = user.DateOfBirth,
+                Gender = user.Gender,
+                Role = user.Role,
+                City = user.City,
+                District = user.District,
+                Ward = user.Ward,
+                Street = user.Street,
+                TutorType = user.TutorType,
+                School = user.School,
+                TutorDescription = user.TutorDescription
             };
         }
     }

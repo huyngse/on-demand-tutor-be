@@ -1,0 +1,45 @@
+﻿<Properties StartupConfiguration="{514E3F65-2BD8-4639-9A26-6B2874B8A89E}|BE_SWP391_OnDemandTutor">
+  <MonoDevelop.Ide.ItemProperties.BE__SWP391__OnDemandTutor.API PreferredExecutionTarget="/System/Volumes/Preboot/Cryptexes/App/System/Applications/Safari.app" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="BE_SWP391_OnDemandTutor.BusinessLogic/Services/ClassService.cs">
+    <Files>
+      <File FileName="BE_SWP391_OnDemandTutor.API/Controllers/BookingController.cs" Line="1" Column="1" />
+      <File FileName="BE_SWP391_OnDemandTutor.API/Controllers/ClassController.cs" Line="26" Column="72" />
+      <File FileName="BE_SWP391_OnDemandTutor.BusinessLogic/Services/ClassService.cs" Line="35" Column="51" />
+      <File FileName="BE_SWP391_OnDemandTutor.API/appsettings.json" Line="1" Column="1" />
+      <File FileName="BE_SWP391_OnDemandTutor.API/Program.cs" Line="63" Column="1" />
+      <File FileName="BE_SWP391_OnDemandTutor.DataAccess/Models/Booking.cs" Line="1" Column="1" />
+      <File FileName="BE_SWP391_OnDemandTutor.DataAccess/Models/Schedule.cs" Line="1" Column="1" />
+      <File FileName="BE_SWP391_OnDemandTutor.DataAccess/Models/TutorDegree.cs" Line="1" Column="1" />
+      <File FileName="BE_SWP391_OnDemandTutor.DataAccess/Models/User.cs" Line="1" Column="1" />
+      <File FileName="BE_SWP391_OnDemandTutor.DataAccess/Models/Feedback.cs" Line="17" Column="1" />
+      <File FileName="BE_SWP391_OnDemandTutor.DataAccess/Configurations/ClassConfiguration.cs" Line="10" Column="64" />
+    </Files>
+    <Pads>
+      <Pad Id="ProjectPad">
+        <State name="__root__">
+          <Node name="BE_SWP391_OnDemandTutor">
+            <Node name="BE_SWP391_OnDemandTutor.API" expanded="True">
+              <Node name="Controllers" expanded="True" />
+              <Node name="appsettings.json" expanded="True" />
+            </Node>
+            <Node name="BE_SWP391_OnDemandTutor.BusinessLogic" expanded="True">
+              <Node name="RequestModels" expanded="True">
+                <Node name="Class" expanded="True" />
+              </Node>
+              <Node name="Services" expanded="True" />
+            </Node>
+            <Node name="BE_SWP391_OnDemandTutor.DataAccess">
+              <Node name="Models" expanded="True" />
+            </Node>
+          </Node>
+        </State>
+      </Pad>
+    </Pads>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MultiItemStartupConfigurations />
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+</Properties>

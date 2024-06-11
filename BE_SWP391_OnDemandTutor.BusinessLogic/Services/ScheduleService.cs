@@ -30,8 +30,9 @@ namespace BE_SWP391_OnDemandTutor.BusinessLogic.Services
             {
                 Title = scheduleCreate.Title,
                 Description = scheduleCreate.Description,
-                StartDate = scheduleCreate.StartDate,
-                EndDate = scheduleCreate.EndDate
+                DateOfWeek = scheduleCreate.DateOfWeek,  // Ensure scheduleCreate.DateOfWeek is of type DayGroup
+                StartTime = scheduleCreate.StartTime,
+                EndTime = scheduleCreate.EndTime,
             };
 
             _context.Schedules.Add(schedule);
@@ -42,8 +43,6 @@ namespace BE_SWP391_OnDemandTutor.BusinessLogic.Services
                 ScheduleID = schedule.ScheduleID,
                 Title = schedule.Title,
                 Description = schedule.Description,
-                StartDate = schedule.StartDate,
-                EndDate = schedule.EndDate
             };
 
         }
@@ -65,11 +64,12 @@ namespace BE_SWP391_OnDemandTutor.BusinessLogic.Services
             var schedules = await _context.Schedules.ToListAsync();
             return schedules.Select(schedule => new ScheduleViewModel
             {
-                ScheduleID = schedule.ScheduleID,
                 Title = schedule.Title,
                 Description = schedule.Description,
-                StartDate = schedule.StartDate,
-                EndDate = schedule.EndDate
+                StartTime = schedule.StartTime.Value,
+                EndTime = schedule.EndTime.Value,
+                DateOfWeek = schedule.DateOfWeek,
+
             }).ToList();
         }
 
@@ -86,8 +86,9 @@ namespace BE_SWP391_OnDemandTutor.BusinessLogic.Services
                 ScheduleID = schedule.ScheduleID,
                 Title = schedule.Title,
                 Description = schedule.Description,
-                StartDate = schedule.StartDate,
-                EndDate = schedule.EndDate
+                StartTime = schedule.StartTime.Value,
+                EndTime = schedule.EndTime.Value,
+                DateOfWeek = schedule.DateOfWeek,
             };
         }
 
@@ -101,8 +102,6 @@ namespace BE_SWP391_OnDemandTutor.BusinessLogic.Services
 
             schedule.Title = scheduleUpdate.Title;
             schedule.Description = scheduleUpdate.Description;
-            schedule.StartDate = scheduleUpdate.StartDate;
-            schedule.EndDate = scheduleUpdate.EndDate;
 
             await _context.SaveChangesAsync();
 
@@ -111,8 +110,9 @@ namespace BE_SWP391_OnDemandTutor.BusinessLogic.Services
                 ScheduleID = schedule.ScheduleID,
                 Title = schedule.Title,
                 Description = schedule.Description,
-                StartDate = schedule.StartDate,
-                EndDate = schedule.EndDate
+                StartTime = schedule.StartTime.Value,
+                EndTime = schedule.EndTime.Value,
+                DateOfWeek = schedule.DateOfWeek,
             };
         }
     }

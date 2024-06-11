@@ -1,7 +1,14 @@
+using BE_SWP391_OnDemandTutor.API.AutoMapperConfig;
+using BE_SWP391_OnDemandTutor.API.GlobalExceptionHandler;
 using BE_SWP391_OnDemandTutor.BusinessLogic.Generations.DependencyInjection;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
+using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Serilog;
+using Swashbuckle.AspNetCore.Filters;
+using System.Text;
 
 
 
@@ -15,6 +22,25 @@ builder.Host.UseSerilog((context, services, configuration) => configuration
 
 builder.Services.AddControllers();
 
+builder.Services.AddAuthentication(options =>
+{
+    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+}).AddJwtBearer(options =>
+{
+    options.TokenValidationParameters = new TokenValidationParameters
+    {
+        ValidateIssuerSigningKey = true,
+        ValidateIssuer = true,
+        ValidateAudience = true,
+        ValidateLifetime = true,
+        ClockSkew = TimeSpan.Zero,
+        ValidIssuer = builder.Configuration["JwtSettings:Issuer"],
+        ValidAudience = builder.Configuration["JwtSettings:Issuer"],
+        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["JwtSettings:Key"]))
+
+    };
+});
 builder.Services.AddSwaggerGen(option =>
 {
     option.SwaggerDoc("v1", new OpenApiInfo() { Title = "On Tutor Demand", Version = "v1" });
@@ -27,22 +53,9 @@ builder.Services.AddSwaggerGen(option =>
         BearerFormat = "JWT",
         Scheme = "Bearer"
     });
-    option.AddSecurityRequirement(new OpenApiSecurityRequirement
-    {
-        {
-            new OpenApiSecurityScheme
-            {
-                Reference = new OpenApiReference
-                {
-                    Type=ReferenceType.SecurityScheme,
-                    Id="Bearer"
-                }
-            },
-            new string[]{}
-        }
-    });
+    option.OperationFilter<SecurityRequirementsOperationFilter>();
 });
-
+builder.Services.ConfigureAutoMapper();
 
 builder.Services.AddDbContext<BE_SWP391_OnDemandTutorDbContext>(options =>
 {

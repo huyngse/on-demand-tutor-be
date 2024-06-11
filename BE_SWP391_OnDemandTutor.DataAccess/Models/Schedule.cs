@@ -16,6 +16,7 @@ namespace BE_SWP391_OnDemandTutor.DataAccess.Models
         public DateTime? EndTime { get; set; }
         public List<Booking> Bookings { get; set; }
         public Class Class { get; set; }
+        public int ClassID { get; set; }
     }
 }
 

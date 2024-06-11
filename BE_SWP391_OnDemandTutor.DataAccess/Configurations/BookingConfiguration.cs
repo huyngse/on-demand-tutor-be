@@ -20,6 +20,8 @@ namespace BE_SWP391_OnDemandTutor.DataAccess.Configurations
 
             builder.Property(c => c.Status).HasMaxLength(50).IsRequired();
 
+            builder.Property(c => c.Address).HasMaxLength(150).IsRequired();
+
             builder.HasOne(b => b.User).WithMany(u => u.Bookings).HasForeignKey(b => b.UserId).OnDelete(DeleteBehavior.NoAction);
 
             builder.HasOne(b => b.Schedule).WithMany(u => u.Bookings).HasForeignKey(b => b.ScheduleId).OnDelete(DeleteBehavior.NoAction);
