@@ -40,7 +40,7 @@ namespace BE_SWP391_OnDemandTutor.BusinessLogic.Services
                 ClassMethod = classCreate.ClassMethod,
                 ClassLevel = classCreate.ClassLevel,
                 ClassFee = classCreate.ClassFee,
-                StudentId = classCreate.StudentId,
+                StudentId = classCreate.StudentId.Value,
                 TutorId = classCreate.TutorId,
                 City = classCreate.City,
                 District = classCreate.District,
@@ -73,7 +73,7 @@ namespace BE_SWP391_OnDemandTutor.BusinessLogic.Services
                 ClassMethod = newClass.ClassMethod,
                 ClassLevel = newClass.ClassLevel,
                 ClassFee = newClass.ClassFee,
-                StudentId = newClass.StudentId,
+                StudentId = newClass.StudentId.Value,
                 TutorId = newClass.TutorId,
                 City = classCreate.City,
                 CreatedDate = DateTime.UtcNow,
@@ -121,7 +121,7 @@ namespace BE_SWP391_OnDemandTutor.BusinessLogic.Services
                 ClassMethod = classEntity.ClassMethod,
                 ClassLevel = classEntity.ClassLevel,
                 ClassFee = classEntity.ClassFee,
-                StudentId = classEntity.StudentId,
+                StudentId = classEntity.StudentId.Value,
                 StudentName = classEntity.Student.Username, // Assuming User has a Name property
                 TutorId = classEntity.TutorId,
                 TutorName = classEntity.Tutor.Username, // Assuming User has a Name property
@@ -155,7 +155,7 @@ namespace BE_SWP391_OnDemandTutor.BusinessLogic.Services
                 ClassMethod = classEntity.ClassMethod,
                 ClassLevel = classEntity.ClassLevel,
                 ClassFee = classEntity.ClassFee,
-                StudentId = classEntity.StudentId,
+                StudentId = classEntity.StudentId.Value,
                 StudentName = classEntity.Student.Username, // Assuming User has a Name property
                 TutorId = classEntity.TutorId,
                 TutorName = classEntity.Tutor.Username, // Assuming User has a Name property

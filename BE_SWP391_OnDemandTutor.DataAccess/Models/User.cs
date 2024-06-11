@@ -24,7 +24,7 @@
         public List<Rate> TutorReceiveRatings { get; set; }
         public List<Feedback> Feedbacks { get; set; }
         public List<Booking> Bookings { get; set; }
-        public Class ClassStudent { get; set; }
-        public Class ClassTutor{ get; set; }
+        public ICollection<Class> StudentClasses { get; set; }
+        public ICollection<Class> TutorClasses { get; set; }
     }
 }

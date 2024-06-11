@@ -16,10 +16,10 @@
         public string Ward { get; set; }
         public bool Active { get; set; }
         public float ClassFee { get; set; }
-        public int StudentId { get; set; }
-        public User Student { get; set; }
+        public int? StudentId { get; set; }
+        public User Student { get; set; } 
         public int TutorId { get; set; }
-        public User Tutor { get; set; }
+        public User Tutor { get; set; } 
         public Feedback Feedback { get; set; }
         public ICollection<Schedule> Schedules { get; set; }
     }

@@ -3,6 +3,7 @@
 using BE_SWP391_OnDemandTutor.BusinessLogic.RequestModels.Class;
 using BE_SWP391_OnDemandTutor.BusinessLogic.Services;
 using BE_SWP391_OnDemandTutor.BusinessLogic.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BE_SWP391_OnDemandTutor.Presentation.Controllers
@@ -21,6 +22,7 @@ namespace BE_SWP391_OnDemandTutor.Presentation.Controllers
         }
 
         [HttpPost]
+        //[Authorize(Roles ="Administrator")]
         public async Task<IActionResult> CreateClass([FromBody] CreateClassRequestModel classCreate)
         {
             if (!ModelState.IsValid)
