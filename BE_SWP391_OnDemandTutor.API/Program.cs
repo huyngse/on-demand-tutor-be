@@ -57,6 +57,12 @@ builder.Services.AddSwaggerGen(option =>
 });
 builder.Services.ConfigureAutoMapper();
 
+
+// ADD CORS
+builder.Services.AddCors(options => options.AddDefaultPolicy(policyBuilder =>
+        policyBuilder.WithOrigins("http://localhost:5173").AllowAnyMethod().AllowAnyHeader().AllowCredentials()));
+
+
 builder.Services.AddDbContext<BE_SWP391_OnDemandTutorDbContext>(options =>
 {
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
