@@ -425,6 +425,11 @@ namespace BE_SWP391_OnDemandTutor.DataAccess.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
+                    b.Property<string>("FullName")
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
+
                     b.Property<string>("Gender")
                         .IsRequired()
                         .HasMaxLength(50)
@@ -491,6 +496,7 @@ namespace BE_SWP391_OnDemandTutor.DataAccess.Migrations
                             DateOfBirth = new DateTime(1985, 6, 15, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             District = "Manhattan",
                             EmailAddress = "john.doe@example.com",
+                            FullName = " Leo Dinh",
                             Gender = "Male",
                             Password = "student1",
                             PhoneNumber = "555-1234",
@@ -510,6 +516,7 @@ namespace BE_SWP391_OnDemandTutor.DataAccess.Migrations
                             DateOfBirth = new DateTime(1992, 3, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             District = "Hollywood",
                             EmailAddress = "jane.doe@example.com",
+                            FullName = " Leo Dinh",
                             Gender = "Female",
                             Password = "student2",
                             PhoneNumber = "555-5678",
@@ -529,6 +536,7 @@ namespace BE_SWP391_OnDemandTutor.DataAccess.Migrations
                             DateOfBirth = new DateTime(1978, 11, 20, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             District = "Downtown",
                             EmailAddress = "bob.smith@example.com",
+                            FullName = " Leo Dinh",
                             Gender = "Male",
                             Password = "student3",
                             PhoneNumber = "555-9012",
@@ -548,6 +556,7 @@ namespace BE_SWP391_OnDemandTutor.DataAccess.Migrations
                             DateOfBirth = new DateTime(1990, 8, 5, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             District = "Bay Area",
                             EmailAddress = "sarah.johnson@example.com",
+                            FullName = " Leo Dinh",
                             Gender = "Female",
                             Password = "tutor1",
                             PhoneNumber = "555-3456",
@@ -567,6 +576,7 @@ namespace BE_SWP391_OnDemandTutor.DataAccess.Migrations
                             DateOfBirth = new DateTime(1982, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             District = "Downtown",
                             EmailAddress = "michael.davis@example.com",
+                            FullName = " Leo Dinh",
                             Gender = "Male",
                             Password = "tutor2",
                             PhoneNumber = "555-7890",
@@ -586,6 +596,7 @@ namespace BE_SWP391_OnDemandTutor.DataAccess.Migrations
                             DateOfBirth = new DateTime(1990, 5, 15, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             District = "Central",
                             EmailAddress = "johndoe@example.com",
+                            FullName = " Leo Dinh",
                             Gender = "Male",
                             Password = "admin",
                             PhoneNumber = "555-1234",

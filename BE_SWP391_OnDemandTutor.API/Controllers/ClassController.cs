@@ -22,7 +22,7 @@ namespace BE_SWP391_OnDemandTutor.Presentation.Controllers
         }
 
         [HttpPost]
-        //[Authorize(Roles = "Administrator")] ==> this Line is not Ready
+        [Authorize(Roles = "Administrator")] 
         public async Task<IActionResult> CreateClass([FromBody] CreateClassRequestModel classCreate)
         {
             if (!ModelState.IsValid)

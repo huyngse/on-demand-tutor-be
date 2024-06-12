@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace BE_SWP391_OnDemandTutor.DataAccess.Migrations
 {
     /// <inheritdoc />
-    public partial class DBOnDemmandTutor : Migration
+    public partial class DBOnDemandTutor : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -21,6 +21,7 @@ namespace BE_SWP391_OnDemandTutor.DataAccess.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Username = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     Password = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
+                    FullName = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false),
                     ProfileImage = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: false),
                     PhoneNumber = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false),
                     EmailAddress = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
@@ -207,15 +208,15 @@ namespace BE_SWP391_OnDemandTutor.DataAccess.Migrations
 
             migrationBuilder.InsertData(
                 table: "Users",
-                columns: new[] { "UserId", "City", "DateOfBirth", "District", "EmailAddress", "Gender", "Password", "PhoneNumber", "ProfileImage", "Role", "School", "Street", "TutorDescription", "TutorType", "Username", "Ward" },
+                columns: new[] { "UserId", "City", "DateOfBirth", "District", "EmailAddress", "FullName", "Gender", "Password", "PhoneNumber", "ProfileImage", "Role", "School", "Street", "TutorDescription", "TutorType", "Username", "Ward" },
                 values: new object[,]
                 {
-                    { 1, "New York", new DateTime(1985, 6, 15, 0, 0, 0, 0, DateTimeKind.Unspecified), "Manhattan", "john.doe@example.com", "Male", "student1", "555-1234", "https://example.com/profile_image_1.jpg", "Student", "C", "B", "Experienced in mathematics tutoring.", "A", "student1", "A" },
-                    { 2, "Los Angeles", new DateTime(1992, 3, 10, 0, 0, 0, 0, DateTimeKind.Unspecified), "Hollywood", "jane.doe@example.com", "Female", "student2", "555-5678", "https://example.com/profile_image_2.jpg", "Student", "D", "D", "Specializes in English and literature.", "B", "student2", "C" },
-                    { 3, "Chicago", new DateTime(1978, 11, 20, 0, 0, 0, 0, DateTimeKind.Unspecified), "Downtown", "bob.smith@example.com", "Male", "student3", "555-9012", "https://example.com/profile_image_3.jpg", "Student", "A", "A", "Interested in science and technology.", "C", "student3", "B" },
-                    { 4, "San Francisco", new DateTime(1990, 8, 5, 0, 0, 0, 0, DateTimeKind.Unspecified), "Bay Area", "sarah.johnson@example.com", "Female", "tutor1", "555-3456", "https://example.com/profile_image_4.jpg", "Tutor", "B", "C", "Provides tutoring in history and social studies.", "A", "tutor1", "D" },
-                    { 5, "Seattle", new DateTime(1982, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Downtown", "michael.davis@example.com", "Male", "tutor2", "555-7890", "https://example.com/profile_image_5.jpg", "Tutor", "C", "B", "Enjoys learning about languages and cultures.", "B", "tutor2", "A" },
-                    { 6, "Anytown", new DateTime(1990, 5, 15, 0, 0, 0, 0, DateTimeKind.Unspecified), "Central", "johndoe@example.com", "Male", "admin", "555-1234", "profile.jpg", "Tutor", "University of Anytown", "123 Main St", "I have 5 years of experience teaching mathematics to students of all levels.", "Mathematics", "admin", "Downtown" }
+                    { 1, "New York", new DateTime(1985, 6, 15, 0, 0, 0, 0, DateTimeKind.Unspecified), "Manhattan", "john.doe@example.com", " Leo Dinh", "Male", "student1", "555-1234", "https://example.com/profile_image_1.jpg", "Student", "C", "B", "Experienced in mathematics tutoring.", "A", "student1", "A" },
+                    { 2, "Los Angeles", new DateTime(1992, 3, 10, 0, 0, 0, 0, DateTimeKind.Unspecified), "Hollywood", "jane.doe@example.com", " Leo Dinh", "Female", "student2", "555-5678", "https://example.com/profile_image_2.jpg", "Student", "D", "D", "Specializes in English and literature.", "B", "student2", "C" },
+                    { 3, "Chicago", new DateTime(1978, 11, 20, 0, 0, 0, 0, DateTimeKind.Unspecified), "Downtown", "bob.smith@example.com", " Leo Dinh", "Male", "student3", "555-9012", "https://example.com/profile_image_3.jpg", "Student", "A", "A", "Interested in science and technology.", "C", "student3", "B" },
+                    { 4, "San Francisco", new DateTime(1990, 8, 5, 0, 0, 0, 0, DateTimeKind.Unspecified), "Bay Area", "sarah.johnson@example.com", " Leo Dinh", "Female", "tutor1", "555-3456", "https://example.com/profile_image_4.jpg", "Tutor", "B", "C", "Provides tutoring in history and social studies.", "A", "tutor1", "D" },
+                    { 5, "Seattle", new DateTime(1982, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Downtown", "michael.davis@example.com", " Leo Dinh", "Male", "tutor2", "555-7890", "https://example.com/profile_image_5.jpg", "Tutor", "C", "B", "Enjoys learning about languages and cultures.", "B", "tutor2", "A" },
+                    { 6, "Anytown", new DateTime(1990, 5, 15, 0, 0, 0, 0, DateTimeKind.Unspecified), "Central", "johndoe@example.com", " Leo Dinh", "Male", "admin", "555-1234", "profile.jpg", "Tutor", "University of Anytown", "123 Main St", "I have 5 years of experience teaching mathematics to students of all levels.", "Mathematics", "admin", "Downtown" }
                 });
 
             migrationBuilder.InsertData(

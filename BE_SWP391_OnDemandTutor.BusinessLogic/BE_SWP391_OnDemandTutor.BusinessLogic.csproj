@@ -8,6 +8,8 @@
 
   <ItemGroup>
     <PackageReference Include="AutoMapper" Version="13.0.1" />
+    <PackageReference Include="MimeKit" Version="4.6.0" />
+    <PackageReference Include="MailKit" Version="4.6.0" />
   </ItemGroup>
 
   <ItemGroup>
@@ -22,6 +24,7 @@
     <Folder Include="ViewModels\Booking\" />
     <Folder Include="ViewModels\Booking\" />
     <Folder Include="RequestModels\Booking\" />
+    <Folder Include="Helper\EmailSettings\" />
   </ItemGroup>
 
   <ItemGroup>
@@ -31,5 +34,6 @@
     <None Remove="ViewModels\" />
     <None Remove="ViewModels\Booking\" />
     <None Remove="RequestModels\Booking\" />
+    <None Remove="Helper\EmailSettings\" />
   </ItemGroup>
 </Project>
