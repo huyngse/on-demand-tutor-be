@@ -22,7 +22,7 @@ namespace BE_SWP391_OnDemandTutor.Presentation.Controllers
         }
 
         [HttpPost]
-        //[Authorize(Roles = "Administrator")]
+        //[Authorize(Roles = "Administrator")] ==> this Line is not Ready
         public async Task<IActionResult> CreateClass([FromBody] CreateClassRequestModel classCreate)
         {
             if (!ModelState.IsValid)
@@ -41,7 +41,7 @@ namespace BE_SWP391_OnDemandTutor.Presentation.Controllers
 
             if (!success)
             {
-                return NotFound();
+                return NotFound(new { Message = "Invalid class ID, student ID, or tutor ID." });
             }
 
             return Ok(new { Message = $"Class {className} deactivated successfully." });
@@ -54,26 +54,26 @@ namespace BE_SWP391_OnDemandTutor.Presentation.Controllers
 
             if (classEntity == null)
             {
-                return NotFound();
+                return NotFound(new { Message = "Invalid class ID, student ID, or tutor ID." });
             }
 
             return Ok(classEntity);
         }
 
-        [HttpGet("details/{id}")]
-        public async Task<IActionResult> GetClassDetail(int id)
+        [HttpGet("Detail/{classId}")]
+        public async Task<IActionResult> GetClassDetail(int classId)
         {
-            var classEntity = await _classService.GetDetail(id);
+            var classEntity = await _classService.GetDetail(classId);
 
             if (classEntity == null)
             {
-                return NotFound();
+                return NotFound(new { Message = "Invalid class ID, student ID, or tutor ID." });
             }
 
             return Ok(classEntity);
         }
 
-        [HttpPut("update")]
+        [HttpPut("class/{classId}")]
         public async Task<IActionResult> UpdateClass([FromBody] UpdateClassRequestModel classUpdate)
         {
             if (!ModelState.IsValid)
@@ -85,10 +85,18 @@ namespace BE_SWP391_OnDemandTutor.Presentation.Controllers
 
             if (!success)
             {
-                return NotFound();
+                return NotFound(new { Message = "Invalid class ID, student ID, or tutor ID." });
             }
 
             return Ok(new { Message = "Class updated successfully." });
+        }
+
+
+        [HttpGet("classes")]
+        public async Task<IActionResult> GetAllClasses()
+        {
+            var classViewModels = await _classService.GetAllClasses();
+            return Ok(classViewModels);
         }
 
     }

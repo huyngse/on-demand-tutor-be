@@ -15,6 +15,7 @@ namespace BE_SWP391_OnDemandTutor.BusinessLogic.Services
         Task<ClassViewModel> CreateClass(CreateClassRequestModel classCreate);
         Task<ClassViewModel> GetById(int idTmp);
         Task<(bool Success, string ClassName)> DeactivateClass(int idTmp);
+        Task<List<ClassViewModel>> GetAllClasses();
     }
 
     public class ClassService : IClassService
@@ -119,8 +120,8 @@ namespace BE_SWP391_OnDemandTutor.BusinessLogic.Services
                 ClassMethod = classEntity.ClassMethod,
                 ClassLevel = classEntity.ClassLevel,
                 ClassFee = classEntity.ClassFee,
-                StudentId = classEntity.StudentId.Value,
-                StudentName = classEntity.Student.Username, // Assuming User has a Name property
+                //StudentId = classEntity.StudentId.Value,
+                //StudentName = classEntity.Student.Username, // Assuming User has a Name property
                 TutorId = classEntity.TutorId,
                 TutorName = classEntity.Tutor.Username, // Assuming User has a Name property
                 
@@ -153,11 +154,21 @@ namespace BE_SWP391_OnDemandTutor.BusinessLogic.Services
                 ClassMethod = classEntity.ClassMethod,
                 ClassLevel = classEntity.ClassLevel,
                 ClassFee = classEntity.ClassFee,
-                StudentId = classEntity.StudentId.Value,
-                StudentName = classEntity.Student.Username, // Assuming User has a Name property
-                TutorId = classEntity.TutorId,
-                TutorName = classEntity.Tutor.Username, // Assuming User has a Name property
-                             Feedback = classEntity.Feedback.Content // Assuming Feedback has a Content property
+                StudentId = classEntity?.StudentId.Value, // Assuming Student has a StudentId property
+                // Assuming Student has a Name property
+                TutorId = classEntity.TutorId, // Assuming Tutor has a TutorId property
+                TutorName = classEntity.Tutor?.Username ?? string.Empty, // Assuming User has a Name property
+                Feedback = classEntity.Feedback?.Content ?? string.Empty, // Assuming Feedback has a Content property
+                Schedule = classEntity.Schedules?.Select(s => new ScheduleViewModel
+                {
+                    ScheduleID = s.ScheduleID,
+                    // Other properties of ScheduleViewModel
+                }).ToList() ?? new List<ScheduleViewModel>(), // Handle null Schedules
+                CreatedDate = classEntity.CreatedDate,
+                Active = classEntity.Active,
+                District = classEntity.District,
+                Ward = classEntity.Ward,
+                City = classEntity.City,
             };
         }
 
@@ -167,6 +178,15 @@ namespace BE_SWP391_OnDemandTutor.BusinessLogic.Services
             if (classEntity == null)
             {
                 return false;
+            }
+            if (classUpdate.StudentId.HasValue)
+            {
+                var studentExists = await _context.Users.AnyAsync(u => u.UserId == classUpdate.StudentId.Value);
+                if (!studentExists)
+                {
+                    // You can return a custom error message or handle it differently
+                    return false;
+                }
             }
 
             classEntity.ClassName = classUpdate.ClassName;
@@ -185,6 +205,45 @@ namespace BE_SWP391_OnDemandTutor.BusinessLogic.Services
             await _context.SaveChangesAsync();
 
             return true;
+        }
+        public async Task<List<ClassViewModel>> GetAllClasses()
+        {
+            var classEntities = await _context.Classes
+                .Include(c => c.Student)
+                .Include(c => c.Tutor)
+                .Include(c => c.Schedules)
+                .ToListAsync();
+
+            var classViewModels = classEntities.Select(c => new ClassViewModel
+            {
+                ClassId = c.ClassId,
+                ClassName = c.ClassName,
+                ClassTime = c.ClassTime,
+                ClassInfo = c.ClassInfo,
+                ClassRequire = c.ClassRequire,
+                ClassAddress = c.ClassAddress,
+                ClassMethod = c.ClassMethod,
+                ClassLevel = c.ClassLevel,
+                ClassFee = c.ClassFee,
+                StudentId = c.StudentId,
+                StudentName = c.Student != null ? c.Student.Username : null, // Assuming Student has a Username property
+                CreatedDate = c.CreatedDate,
+                Active = c.Active,
+                TutorId = c.TutorId,
+                TutorName = c.Tutor != null ? c.Tutor.Username : null, // Assuming Tutor has a Username property
+      
+                Feedback = c.Feedback?.Content, // Assuming Feedback has a Content property
+                District = c.District,
+                Ward = c.Ward,
+                City = c.City,
+                Schedule = c.Schedules.Select(s => new ScheduleViewModel
+                {
+                    // Map properties of ScheduleViewModel as needed
+                    ScheduleID = s.ScheduleID,
+                }).ToList()
+            }).ToList();
+
+            return classViewModels;
         }
     }
 
