@@ -16,7 +16,7 @@ namespace BE_SWP391_OnDemandTutor.BusinessLogic.ViewModels
         public string ClassMethod { get; set; }
         public string ClassLevel { get; set; }
         public float ClassFee { get; set; }
-        public int StudentId { get; set; }
+        public int? StudentId { get; set; }
         public string StudentName { get; set; }
         public DateTime CreatedDate { get; set; }
         public bool Active { get; set; }

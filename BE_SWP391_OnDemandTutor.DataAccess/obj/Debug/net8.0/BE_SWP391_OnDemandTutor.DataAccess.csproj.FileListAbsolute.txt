@@ -36,7 +36,6 @@ C:/Users/Hau Giang/Documents/Zalo Received Files/BE_SWP391_OnDemandTutor/on-dema
 /Users/phamnhatlinh/SWP291/on-demand-tutor-be/BE_SWP391_OnDemandTutor.DataAccess/obj/Debug/net8.0/BE_SWP391_OnDemandTutor.DataAccess.AssemblyInfoInputs.cache
 /Users/phamnhatlinh/SWP291/on-demand-tutor-be/BE_SWP391_OnDemandTutor.DataAccess/obj/Debug/net8.0/BE_SWP391_OnDemandTutor.DataAccess.AssemblyInfo.cs
 /Users/phamnhatlinh/SWP291/on-demand-tutor-be/BE_SWP391_OnDemandTutor.DataAccess/obj/Debug/net8.0/BE_SWP391_OnDemandTutor.DataAccess.csproj.CoreCompileInputs.cache
-/Users/phamnhatlinh/SWP291/on-demand-tutor-be/BE_SWP391_OnDemandTutor.DataAccess/obj/Debug/net8.0/BE_SWP391_OnDemandTutor.DataAccess.sourcelink.json
 /Users/phamnhatlinh/SWP291/on-demand-tutor-be/BE_SWP391_OnDemandTutor.DataAccess/obj/Debug/net8.0/BE_SWP391_OnDemandTutor.DataAccess.dll
 /Users/phamnhatlinh/SWP291/on-demand-tutor-be/BE_SWP391_OnDemandTutor.DataAccess/obj/Debug/net8.0/refint/BE_SWP391_OnDemandTutor.DataAccess.dll
 /Users/phamnhatlinh/SWP291/on-demand-tutor-be/BE_SWP391_OnDemandTutor.DataAccess/obj/Debug/net8.0/BE_SWP391_OnDemandTutor.DataAccess.pdb

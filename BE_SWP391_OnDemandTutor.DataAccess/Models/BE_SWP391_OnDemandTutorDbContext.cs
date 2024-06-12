@@ -48,24 +48,24 @@ public class BE_SWP391_OnDemandTutorDbContext : DbContext
             (
                 // 1. Student
                 new User
-                 {
-                     UserId = 1,
-                     Username = "student1",
-                     Password = "student1",
-                     ProfileImage = "https://example.com/profile_image_1.jpg",
-                     PhoneNumber = "555-1234",
-                     EmailAddress = "john.doe@example.com",
-                     DateOfBirth = new DateTime(1985, 6, 15),
-                     Gender = "Male",
-                     Role = "Student",
-                     City = "New York",
-                     District = "Manhattan",
-                     Ward = "A",
-                     Street = "B",
-                     TutorType = "A",
-                     School = "C",
-                     TutorDescription = "Experienced in mathematics tutoring."
-                 },
+                {
+                    UserId = 1,
+                    Username = "student1",
+                    Password = "student1",
+                    ProfileImage = "https://example.com/profile_image_1.jpg",
+                    PhoneNumber = "555-1234",
+                    EmailAddress = "john.doe@example.com",
+                    DateOfBirth = new DateTime(1985, 6, 15),
+                    Gender = "Male",
+                    Role = "Student",
+                    City = "New York",
+                    District = "Manhattan",
+                    Ward = "A",
+                    Street = "B",
+                    TutorType = "A",
+                    School = "C",
+                    TutorDescription = "Experienced in mathematics tutoring."
+                },
 
                 // 2. Student
                 new User
@@ -243,8 +243,8 @@ public class BE_SWP391_OnDemandTutorDbContext : DbContext
                 ClassMethod = "Trực tuyến",
                 ClassLevel = "Nâng cao",
                 CreatedDate = new DateTime(2023, 6, 1),
-                StudentId =2,
-                TutorId=5,
+                StudentId = 2,
+                TutorId = 5,
                 City = "TP.HCM",
                 District = "Quận 3",
                 Ward = "Phường B",
