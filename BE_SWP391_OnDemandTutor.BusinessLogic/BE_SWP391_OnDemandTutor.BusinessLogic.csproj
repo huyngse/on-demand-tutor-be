@@ -1,0 +1,39 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="13.0.1" />
+    <PackageReference Include="MimeKit" Version="4.6.0" />
+    <PackageReference Include="MailKit" Version="4.6.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\BE_SWP391_OnDemandTutor.DataAccess\BE_SWP391_OnDemandTutor.DataAccess.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Enums\" />
+    <Folder Include="BusinessModel\" />
+    <Folder Include="RequestModels\" />
+    <Folder Include="ViewModels\" />
+    <Folder Include="ViewModels\Booking\" />
+    <Folder Include="ViewModels\Booking\" />
+    <Folder Include="RequestModels\Booking\" />
+    <Folder Include="Helper\EmailSettings\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="Enums\" />
+    <None Remove="BusinessModel\" />
+    <None Remove="RequestModels\" />
+    <None Remove="ViewModels\" />
+    <None Remove="ViewModels\Booking\" />
+    <None Remove="RequestModels\Booking\" />
+    <None Remove="Helper\EmailSettings\" />
+  </ItemGroup>
+</Project>
