@@ -21,67 +21,73 @@ namespace BE_SWP391_OnDemandTutor.Presentation.Controllers
 
         [MapToApiVersion("1")]
         [HttpPost]
-        public ActionResult<RateViewModel> CreateRate(CreateRateRequestModel rateCreate)
+        public async Task<ActionResult<RateViewModel>> CreateRateAsync(CreateRateRequestModel rateCreate)
         {
-            var rateCreated = _rateService.CreateRate(rateCreate);
-
-            if (rateCreated == null)
+            try
             {
-                return NotFound("");
+                var createdRate = await _rateService.CreateRateAsync(rateCreate);
+                return CreatedAtAction(nameof(GetByIdAsync), new { id = createdRate.RatingId }, createdRate);
             }
-            return rateCreated;
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         [MapToApiVersion("1")]
         [HttpGet]
-        public ActionResult<List<RateViewModel>> GetAll()
+        public async Task<ActionResult<List<RateViewModel>>> GetAllAsync()
         {
-            var rateList = _rateService.GetAll();
-
-            if (rateList == null)
+            var rate = await _rateService.GetAll();
+            if (rate == null)
             {
                 return NotFound("");
             }
-            return rateList;
+            return Ok(rate);
         }
 
         [MapToApiVersion("1")]
         [HttpGet("idTmp")]
-        public ActionResult<RateViewModel> GetById(int idTmp)
+        public async Task<ActionResult<RateViewModel>> GetByIdAsync(int idTmp)
         {
-            var rateDetail = _rateService.GetById(idTmp);
-
-            if (rateDetail == null)
+            var rate = await _rateService.GetById(idTmp);
+            if (rate == null)
             {
-                return NotFound("");
+                return NotFound();
             }
-            return rateDetail;
+
+            return Ok(rate);
         }
 
         [MapToApiVersion("1")]
         [HttpDelete]
-        public ActionResult<bool> DeleteRate(int idTmp)
+        public async Task<ActionResult<bool>> DeleteRateAsync(int idTmp)
         {
-            var check = _rateService.DeleteRate(idTmp);
-
-            if (check == false)
+            var delete = await _rateService.DeleteRate(idTmp);
+            if (!delete)
             {
-                return NotFound("");
+                return NotFound();
             }
-            return check;
+
+            return Ok(new { Message = $"Rate with ID '{idTmp}' deleted successfully." });
         }
 
         [MapToApiVersion("1")]
         [HttpPut]
-        public ActionResult<RateViewModel> UpdateRate(UpdateRateRequestModel rateCreate)
+        public async Task<ActionResult<RateViewModel>> UpdateRateAsync(int id, UpdateRateRequestModel rateUpdate)
         {
-            var rateUpdated = _rateService.UpdateRate(rateCreate);
-
-            if (rateUpdated == null)
+            if (id != rateUpdate.RatingId)
             {
-                return NotFound("");
+                return BadRequest("ID in the request body does not match the route parameter.");
             }
-            return rateUpdated;
+
+            var updateRate = await _rateService.UpdateRate(rateUpdate);
+            if (updateRate == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(updateRate);
         }
     }
 
