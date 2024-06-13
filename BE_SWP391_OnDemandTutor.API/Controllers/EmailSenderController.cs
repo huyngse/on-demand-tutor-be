@@ -16,8 +16,7 @@ namespace BE_SWP391_OnDemandTutor.API.Controllers
         [HttpPost("SendMail")]
         public async Task<IActionResult> SendMail(string to)
         {
-
-            await _emailServices.SendEmailAsync(to, "Register for Good Exchange platfom.");
+            await _emailServices.SendEmailAsync(to, "Hello World");
             return Ok();
         }
     }

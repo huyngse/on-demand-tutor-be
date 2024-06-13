@@ -167,7 +167,7 @@ public class BE_SWP391_OnDemandTutorDbContext : DbContext
                     EmailAddress = "johndoe@example.com",
                     DateOfBirth = new DateTime(1990, 5, 15),
                     Gender = "Male",
-                    Role = "Tutor",
+                    Role = "Admin",
                     City = "Anytown",
                     District = "Central",
                     Ward = "Downtown",
