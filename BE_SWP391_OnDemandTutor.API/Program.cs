@@ -2,6 +2,7 @@ using BE_SWP391_OnDemandTutor.API.AutoMapperConfig;
 using BE_SWP391_OnDemandTutor.API.GlobalExceptionHandler;
 using BE_SWP391_OnDemandTutor.BusinessLogic.Generations.DependencyInjection;
 using BE_SWP391_OnDemandTutor.BusinessLogic.Helper.EmailSettings;
+using BE_SWP391_OnDemandTutor.BusinessLogic.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
@@ -72,6 +73,8 @@ builder.Services.AddDbContext<BE_SWP391_OnDemandTutorDbContext>(options =>
 builder.Services.InitializerDependencyInjection();
 
 builder.Services.Configure<EmailSettings>(builder.Configuration.GetSection("EmailSettings"));
+
+builder.Services.AddTransient<IEmailServices, EmailSenderService>();
 
 var app = builder.Build();
 

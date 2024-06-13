@@ -43,6 +43,7 @@ namespace BE_SWP391_OnDemandTutor.BusinessLogic.Services
                 ProfileImage = user.ProfileImage,
                 PhoneNumber = user.PhoneNumber,
                 EmailAddress = user.EmailAddress,
+                Fullname = user.FullName,
                 DateOfBirth = user.DateOfBirth,
                 Gender = user.Gender,
                 Role = user.Role,
@@ -73,6 +74,7 @@ namespace BE_SWP391_OnDemandTutor.BusinessLogic.Services
                 PhoneNumber = user.PhoneNumber,
                 EmailAddress = user.EmailAddress,
                 DateOfBirth = user.DateOfBirth,
+                Fullname = user.FullName,
                 Gender = user.Gender,
                 Role = user.Role,
                 City = user.City,
@@ -133,6 +135,7 @@ namespace BE_SWP391_OnDemandTutor.BusinessLogic.Services
             {
             Username = request.Username,
             ProfileImage = request.ProfileImage,
+            FullName = request.Fullname,
             PhoneNumber = request.PhoneNumber,
             EmailAddress = request.EmailAddress,
             DateOfBirth = request.DateOfBirth,

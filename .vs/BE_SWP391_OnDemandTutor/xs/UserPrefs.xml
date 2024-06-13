@@ -3,25 +3,26 @@
   <MonoDevelop.Ide.Workbench ActiveDocument="BE_SWP391_OnDemandTutor.API/Controllers/ClassController.cs">
     <Files>
       <File FileName="BE_SWP391_OnDemandTutor.API/Controllers/ClassController.cs" Line="22" Column="9" />
+      <File FileName="BE_SWP391_OnDemandTutor.API/Controllers/EmailSenderController.cs" Line="7" Column="37" />
+      <File FileName="BE_SWP391_OnDemandTutor.BusinessLogic/Services/EmailSenderService.cs" Line="5" Column="15" />
+      <File FileName="BE_SWP391_OnDemandTutor.BusinessLogic/Helper/EmailSettings/EmailSettings.cs" Line="10" Column="38" />
+      <File FileName="BE_SWP391_OnDemandTutor.API/Program.cs" Line="54" Column="30" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State name="__root__">
-          <Node name="BE_SWP391_OnDemandTutor" expanded="True">
-            <Node name="BE_SWP391_OnDemandTutor.API">
+          <Node name="BE_SWP391_OnDemandTutor">
+            <Node name="BE_SWP391_OnDemandTutor.API" expanded="True">
               <Node name="Controllers" expanded="True">
                 <Node name="ClassController.cs" selected="True" />
               </Node>
               <Node name="appsettings.json" expanded="True" />
             </Node>
-            <Node name="BE_SWP391_OnDemandTutor.BusinessLogic">
-              <Node name="RequestModels" expanded="True">
-                <Node name="Class" expanded="True" />
+            <Node name="BE_SWP391_OnDemandTutor.BusinessLogic" expanded="True">
+              <Node name="Helper" expanded="True">
+                <Node name="EmailSettings" expanded="True" />
               </Node>
-              <Node name="ViewModels" expanded="True">
-                <Node name="Class" expanded="True" />
-                <Node name="Schedule" expanded="True" />
-              </Node>
+              <Node name="Services" expanded="True" />
             </Node>
             <Node name="BE_SWP391_OnDemandTutor.DataAccess" expanded="True">
               <Node name="Configurations" expanded="True" />

@@ -27,14 +27,14 @@ namespace BE_SWP391_OnDemandTutor.BusinessLogic.Services
 
             var builder = new BodyBuilder();
 
-            string path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "EmailTemplates", "register.html");
-            var content = File.ReadAllText(path);
+            //string path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "EmailTemplates", "register.html");
+            //var content = File.ReadAllText(path);
 
-            content = content.Replace("{{Email}}", to);
+            //content = content.Replace("{{Email}}", to);
 
-            builder.HtmlBody = content;
+            //builder.HtmlBody = content;
 
-            Email.Body = builder.ToMessageBody();
+            //Email.Body = builder.ToMessageBody();
 
             using var smtp = new MailKit.Net.Smtp.SmtpClient();
 
