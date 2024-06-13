@@ -95,14 +95,14 @@ namespace BE_SWP391_OnDemandTutor.BusinessLogic.Services
 
             var userClaims = new[]
             {
-                new Claim(ClaimTypes.NameIdentifier, user.UserId.ToString()),
-                new Claim(ClaimTypes.Name, user.Username),
-                new Claim(ClaimTypes.Name, user.Username),
-                new Claim(ClaimTypes.MobilePhone, user.PhoneNumber),
-                new Claim(ClaimTypes.Email, user.EmailAddress),
-                new Claim(ClaimTypes.DateOfBirth, user.DateOfBirth.ToString()),
-                new Claim(ClaimTypes.Gender, user.Gender),
-                new Claim(ClaimTypes.Role, user.Role)
+                new Claim("id", user.UserId.ToString()),
+                new Claim("username", user.Username),
+                new Claim("fullname", user.FullName),
+                new Claim("phonenumber", user.PhoneNumber),
+                new Claim("email", user.EmailAddress),
+                new Claim("dateofbirth", user.DateOfBirth.ToString()),
+                new Claim("gender", user.Gender),
+                new Claim("role", user.Role)
             };
 
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["JwtSettings:Key"]));

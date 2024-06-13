@@ -1,6 +1,7 @@
 using BE_SWP391_OnDemandTutor.API.AutoMapperConfig;
 using BE_SWP391_OnDemandTutor.API.GlobalExceptionHandler;
 using BE_SWP391_OnDemandTutor.BusinessLogic.Generations.DependencyInjection;
+using BE_SWP391_OnDemandTutor.BusinessLogic.Helper.EmailSettings;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
@@ -44,7 +45,7 @@ builder.Services.AddAuthentication(options =>
 builder.Services.AddSwaggerGen(option =>
 {
     option.SwaggerDoc("v1", new OpenApiInfo() { Title = "On Tutor Demand", Version = "v1" });
-    option.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+    option.AddSecurityDefinition("oauth2", new OpenApiSecurityScheme
     {
         In = ParameterLocation.Header,
         Description = "Please enter a valid token",
@@ -70,6 +71,7 @@ builder.Services.AddDbContext<BE_SWP391_OnDemandTutorDbContext>(options =>
 
 builder.Services.InitializerDependencyInjection();
 
+builder.Services.Configure<EmailSettings>(builder.Configuration.GetSection("EmailSettings"));
 
 var app = builder.Build();
 
