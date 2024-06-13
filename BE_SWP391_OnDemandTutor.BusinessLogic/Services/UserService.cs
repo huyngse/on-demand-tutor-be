@@ -135,6 +135,7 @@ namespace BE_SWP391_OnDemandTutor.BusinessLogic.Services
             {
             Username = request.Username,
             ProfileImage = request.ProfileImage,
+            Password = request.Password,
             FullName = request.Fullname,
             PhoneNumber = request.PhoneNumber,
             EmailAddress = request.EmailAddress,
@@ -158,7 +159,9 @@ namespace BE_SWP391_OnDemandTutor.BusinessLogic.Services
 
                 UserId = user.UserId,
                 Username = user.Username,
+                Password = user.Password,
                 ProfileImage = user.ProfileImage,
+                Fullname = user.FullName,
                 PhoneNumber = user.PhoneNumber,
                 EmailAddress = user.EmailAddress,
                 DateOfBirth = user.DateOfBirth,
@@ -192,6 +195,7 @@ namespace BE_SWP391_OnDemandTutor.BusinessLogic.Services
 
             user.Username = request.Username;
             user.Password = request.Password;
+            user.FullName = request.Fullname;
             user.ProfileImage = request.ProfileImage;
             user.PhoneNumber = request.PhoneNumber;
             user.EmailAddress = request.EmailAddress;
@@ -212,6 +216,7 @@ namespace BE_SWP391_OnDemandTutor.BusinessLogic.Services
             {
                 UserId = user.UserId,
                 Username = user.Username,
+                Fullname = user.FullName,
                 ProfileImage = user.ProfileImage,
                 PhoneNumber = user.PhoneNumber,
                 EmailAddress = user.EmailAddress,

@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("BE_SWP391_OnDemandTutor.BusinessLogic")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+62cf6dfa9a64802125ecc1fd94859b1c51e0a712")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+49e400c329b82820b5159e253fb47fa77cb87495")]
 [assembly: System.Reflection.AssemblyProductAttribute("BE_SWP391_OnDemandTutor.BusinessLogic")]
 [assembly: System.Reflection.AssemblyTitleAttribute("BE_SWP391_OnDemandTutor.BusinessLogic")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

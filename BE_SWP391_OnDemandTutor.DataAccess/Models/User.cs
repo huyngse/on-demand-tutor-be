@@ -19,6 +19,7 @@
         public string TutorType { get; set; }
         public string School { get; set; }
         public string TutorDescription { get; set; }
+        public bool IsActive { get; set; }
 
         public TutorDegree TutorDegree { get; set; }
         public List<Rate> StudentSendRatings { get; set; }
