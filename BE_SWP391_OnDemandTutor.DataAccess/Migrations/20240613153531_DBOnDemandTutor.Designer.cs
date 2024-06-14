@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BE_SWP391_OnDemandTutor.DataAccess.Migrations
 {
     [DbContext(typeof(BE_SWP391_OnDemandTutorDbContext))]
-    [Migration("20240612043151_DBOnDemandTutor")]
+    [Migration("20240613153531_DBOnDemandTutor")]
     partial class DBOnDemandTutor
     {
         /// <inheritdoc />
@@ -438,6 +438,9 @@ namespace BE_SWP391_OnDemandTutor.DataAccess.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
                     b.Property<string>("Password")
                         .IsRequired()
                         .HasMaxLength(100)
@@ -501,6 +504,7 @@ namespace BE_SWP391_OnDemandTutor.DataAccess.Migrations
                             EmailAddress = "john.doe@example.com",
                             FullName = " Leo Dinh",
                             Gender = "Male",
+                            IsActive = true,
                             Password = "student1",
                             PhoneNumber = "555-1234",
                             ProfileImage = "https://example.com/profile_image_1.jpg",
@@ -521,6 +525,7 @@ namespace BE_SWP391_OnDemandTutor.DataAccess.Migrations
                             EmailAddress = "jane.doe@example.com",
                             FullName = " Leo Dinh",
                             Gender = "Female",
+                            IsActive = true,
                             Password = "student2",
                             PhoneNumber = "555-5678",
                             ProfileImage = "https://example.com/profile_image_2.jpg",
@@ -541,6 +546,7 @@ namespace BE_SWP391_OnDemandTutor.DataAccess.Migrations
                             EmailAddress = "bob.smith@example.com",
                             FullName = " Leo Dinh",
                             Gender = "Male",
+                            IsActive = true,
                             Password = "student3",
                             PhoneNumber = "555-9012",
                             ProfileImage = "https://example.com/profile_image_3.jpg",
@@ -561,6 +567,7 @@ namespace BE_SWP391_OnDemandTutor.DataAccess.Migrations
                             EmailAddress = "sarah.johnson@example.com",
                             FullName = " Leo Dinh",
                             Gender = "Female",
+                            IsActive = true,
                             Password = "tutor1",
                             PhoneNumber = "555-3456",
                             ProfileImage = "https://example.com/profile_image_4.jpg",
@@ -581,6 +588,7 @@ namespace BE_SWP391_OnDemandTutor.DataAccess.Migrations
                             EmailAddress = "michael.davis@example.com",
                             FullName = " Leo Dinh",
                             Gender = "Male",
+                            IsActive = true,
                             Password = "tutor2",
                             PhoneNumber = "555-7890",
                             ProfileImage = "https://example.com/profile_image_5.jpg",
@@ -601,10 +609,11 @@ namespace BE_SWP391_OnDemandTutor.DataAccess.Migrations
                             EmailAddress = "johndoe@example.com",
                             FullName = " Leo Dinh",
                             Gender = "Male",
+                            IsActive = true,
                             Password = "admin",
                             PhoneNumber = "555-1234",
                             ProfileImage = "profile.jpg",
-                            Role = "Tutor",
+                            Role = "Administrator",
                             School = "University of Anytown",
                             Street = "123 Main St",
                             TutorDescription = "I have 5 years of experience teaching mathematics to students of all levels.",

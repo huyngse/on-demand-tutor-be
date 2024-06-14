@@ -45,6 +45,8 @@ namespace BE_SWP391_OnDemandTutor.DataAccess.Configurations
 
             builder.Property(u => u.TutorDescription).HasColumnType("nvarchar(max)").IsRequired();
 
+            builder.Property(u => u.IsActive).IsRequired();
+
             builder.HasMany(u => u.StudentClasses).WithOne(c => c.Student).HasForeignKey(c => c.StudentId);
 
             builder.HasMany(u => u.TutorClasses).WithOne(c => c.Tutor).HasForeignKey(c => c.TutorId);
