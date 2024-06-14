@@ -19,5 +19,6 @@ namespace BE_SWP391_OnDemandTutor.BusinessLogic.RequestModels.User
         public string TutorType { get; set; }
         public string School { get; set; }
         public string TutorDescription { get; set; }
+        public bool IsActive { get; set; }
     }
 }

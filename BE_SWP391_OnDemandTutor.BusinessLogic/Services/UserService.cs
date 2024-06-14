@@ -53,7 +53,8 @@ namespace BE_SWP391_OnDemandTutor.BusinessLogic.Services
                 Street = user.Street,
                 TutorType = user.TutorType,
                 School = user.School,
-                TutorDescription = user.TutorDescription
+                TutorDescription = user.TutorDescription,
+                IsActive = user.IsActive,
             }).ToList();
 
         }
@@ -83,7 +84,8 @@ namespace BE_SWP391_OnDemandTutor.BusinessLogic.Services
                 Street = user.Street,
                 TutorType = user.TutorType,
                 School = user.School,
-                TutorDescription = user.TutorDescription
+                TutorDescription = user.TutorDescription,
+                IsActive = user.IsActive,
             };
         }
 
@@ -133,22 +135,23 @@ namespace BE_SWP391_OnDemandTutor.BusinessLogic.Services
 
             var user = new User()
             {
-            Username = request.Username,
-            ProfileImage = request.ProfileImage,
-            Password = request.Password,
-            FullName = request.Fullname,
-            PhoneNumber = request.PhoneNumber,
-            EmailAddress = request.EmailAddress,
-            DateOfBirth = request.DateOfBirth,
-            Gender = request.Gender,
-            Role = request.Role,
-            City = request.City,
-            District = request.District,
-            Ward = request.Ward,
-            Street = request.Street,
-            TutorType = request.TutorType,
-            School = request.School,
-            TutorDescription = request.TutorDescription,
+                Username = request.Username,
+                ProfileImage = request.ProfileImage,
+                Password = request.Password,
+                FullName = request.Fullname,
+                PhoneNumber = request.PhoneNumber,
+                EmailAddress = request.EmailAddress,
+                DateOfBirth = request.DateOfBirth,
+                Gender = request.Gender,
+                Role = request.Role,
+                City = request.City,
+                District = request.District,
+                Ward = request.Ward,
+                Street = request.Street,
+                TutorType = request.TutorType,
+                School = request.School,
+                TutorDescription = request.TutorDescription,
+                IsActive = true,
             };
 
             await _context.Users.AddAsync(user);
@@ -173,7 +176,8 @@ namespace BE_SWP391_OnDemandTutor.BusinessLogic.Services
                 Street = user.Street,
                 TutorType = user.TutorType,
                 School = user.School,
-                TutorDescription = user.TutorDescription
+                TutorDescription = user.TutorDescription,
+                IsActive = user.IsActive,
             };
         }
 
@@ -209,6 +213,7 @@ namespace BE_SWP391_OnDemandTutor.BusinessLogic.Services
             user.TutorType = request.TutorType;
             user.School = request.School;
             user.TutorDescription = request.TutorDescription;
+            user.IsActive = request.IsActive;
 
             await _context.SaveChangesAsync();
 
@@ -229,7 +234,8 @@ namespace BE_SWP391_OnDemandTutor.BusinessLogic.Services
                 Street = user.Street,
                 TutorType = user.TutorType,
                 School = user.School,
-                TutorDescription = user.TutorDescription
+                TutorDescription = user.TutorDescription,
+                IsActive = user.IsActive,
             };
         }
     }
