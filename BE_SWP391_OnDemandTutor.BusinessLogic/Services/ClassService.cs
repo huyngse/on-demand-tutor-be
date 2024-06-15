@@ -1,4 +1,5 @@
 using AutoMapper;
+using Mapster;
 using BE_SWP391_OnDemandTutor.BusinessLogic.RequestModels.Class;
 using BE_SWP391_OnDemandTutor.BusinessLogic.ViewModels;
 using BE_SWP391_OnDemandTutor.DataAccess.Models;
@@ -76,7 +77,7 @@ namespace BE_SWP391_OnDemandTutor.BusinessLogic.Services
                 TutorId = newClass.TutorId,
                 City = classCreate.City,
                 CreatedDate = DateTime.UtcNow,
-                Schedule = schedules
+                Schedules = schedules
             };
                 }
 
@@ -109,34 +110,37 @@ namespace BE_SWP391_OnDemandTutor.BusinessLogic.Services
             {
                 return null;
             }
+          
 
-            return new ClassViewModel
-            {
-                ClassId = classEntity.ClassId,
-                ClassName = classEntity.ClassName,
-                ClassTime = classEntity.ClassTime,
-                ClassInfo = classEntity.ClassInfo,
-                ClassRequire = classEntity.ClassRequire,
-                ClassAddress = classEntity.ClassAddress,
-                ClassMethod = classEntity.ClassMethod,
-                ClassLevel = classEntity.ClassLevel,
-                ClassFee = classEntity.ClassFee,
-                //StudentId = classEntity.StudentId.Value,
-                //StudentName = classEntity.Student.Username, // Assuming User has a Name property
-                TutorId = classEntity.TutorId,
-                TutorName = classEntity.Tutor.Username, // Assuming User has a Name property
-                Schedule = classEntity.Schedules?.Select(s => new ScheduleViewModel
-                {
-                    ScheduleID = s.ScheduleID,
-                    Title = s.Title,
-                    Description = s.Description,
-                    DateOfWeek = s.DateOfWeek,
-                    StartTime = s.StartTime.Value,
-                    EndTime = s.EndTime.Value
-                }).ToList() ?? new List<ScheduleViewModel>(), // Handle null Schedules
-                Feedback = classEntity.Feedback?.Content // Assuming Feedback has a Content property
-            };
-            //return classEntity.Adapt<ClassViewModel>;
+            //return new ClassViewModel
+            //{
+            //    ClassId = classEntity.ClassId,
+            //    ClassName = classEntity.ClassName,
+            //    ClassTime = classEntity.ClassTime,
+            //    ClassInfo = classEntity.ClassInfo,
+            //    ClassRequire = classEntity.ClassRequire,
+            //    ClassAddress = classEntity.ClassAddress,
+            //    ClassMethod = classEntity.ClassMethod,
+            //    ClassLevel = classEntity.ClassLevel,
+            //    ClassFee = classEntity.ClassFee,
+            //    //StudentId = classEntity.StudentId.Value,
+            //    //StudentName = classEntity.Student.Username, // Assuming User has a Name property
+            //    TutorId = classEntity.TutorId,
+            //    TutorName = classEntity.Tutor.Username, // Assuming User has a Name property
+            //    Schedule = classEntity.Schedules?.Select(s => new ScheduleViewModel
+            //    {
+            //        ScheduleID = s.ScheduleID,
+            //        Title = s.Title,
+            //        Description = s.Description,
+            //        DateOfWeek = s.DateOfWeek,
+            //        StartTime = s.StartTime.Value,
+            //        EndTime = s.EndTime.Value
+            //    }).ToList() ?? new List<ScheduleViewModel>(), // Handle null Schedules
+            //    Feedback = classEntity.Feedback?.Content // Assuming Feedback has a Content property
+            //};
+            return classEntity.Adapt<ClassViewModel>();
+         
+
         }
 
         public async Task<ClassViewModel> GetDetail(int classId)
@@ -169,7 +173,7 @@ namespace BE_SWP391_OnDemandTutor.BusinessLogic.Services
                 TutorId = classEntity.TutorId, // Assuming Tutor has a TutorId property
                 TutorName = classEntity.Tutor?.Username ?? string.Empty, // Assuming User has a Name property
                 Feedback = classEntity.Feedback?.Content ?? string.Empty, // Assuming Feedback has a Content property
-                Schedule = classEntity.Schedules?.Select(s => new ScheduleViewModel
+                Schedules = classEntity.Schedules?.Select(s => new ScheduleViewModel
                 {
                     ScheduleID = s.ScheduleID,
                     Description =s.Description,
@@ -250,7 +254,7 @@ namespace BE_SWP391_OnDemandTutor.BusinessLogic.Services
                 District = c.District,
                 Ward = c.Ward,
                 City = c.City,
-                Schedule = c.Schedules.Select(s => new ScheduleViewModel
+                Schedules = c.Schedules.Select(s => new ScheduleViewModel
                 {
                     // Map properties of ScheduleViewModel as needed
                     ScheduleID = s.ScheduleID,

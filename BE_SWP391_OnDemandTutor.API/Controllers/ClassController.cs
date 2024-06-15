@@ -76,7 +76,7 @@ namespace BE_SWP391_OnDemandTutor.Presentation.Controllers
         }
 
         [HttpPut("class/{classId}")]
-        [Authorize(Roles = "Administrator, Tutor")]
+        //[Authorize(Roles = "Administrator, Tutor")]
         public async Task<IActionResult> UpdateClass([FromBody] UpdateClassRequestModel classUpdate)
         {
             if (!ModelState.IsValid)

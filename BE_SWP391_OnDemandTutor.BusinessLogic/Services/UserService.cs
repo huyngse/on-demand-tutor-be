@@ -92,10 +92,30 @@ namespace BE_SWP391_OnDemandTutor.BusinessLogic.Services
 
         public async Task<string> Login(LoginRequestModel request)
         {
-            var user = await _context.Users.Where(u => u.Username == request.UserName && u.Password == request.Password).FirstOrDefaultAsync();
-            if (user == null)
+            var user = await _context.Users.Where(u => u.Username == request.UserName ).FirstOrDefaultAsync();
+
+            string passwordToCheck = request.Password;
+            bool passwordVerified = false;
+            string storedPassword = user.Password;
+
+
+            if (user is null)
             {
                 throw new Exception("User does not exist");
+            }
+            if (storedPassword.Length == 60 && storedPassword.StartsWith("$2a$"))
+            {
+                // Mật khẩu đã được mã hóa, sử dụng Verify của BCrypt để xác minh
+                passwordVerified = BCrypt.Net.BCrypt.Verify(passwordToCheck, storedPassword);
+            }
+            else
+            {
+                // Mật khẩu chưa được mã hóa, mã hóa mật khẩu trước khi xác minh
+                passwordVerified = (passwordToCheck == storedPassword);
+            }
+            if (!passwordVerified)
+            {
+                throw new Exception("Wrong password");
             }
 
             var userClaims = new[]
@@ -127,19 +147,19 @@ namespace BE_SWP391_OnDemandTutor.BusinessLogic.Services
 
         public async Task<UserViewModel> Register(RegisterRequestModel request)
         {
-            //string passwordHash = BCrypt.Net.BCrypt.HashPassword;
+            string passwordHash = BCrypt.Net.BCrypt.HashPassword(request.Password);
             var existedUser = await _context.Users.Where(u => u.Username == request.Username).FirstOrDefaultAsync();
             var existedEm = await _context.Users.Where(u => u.EmailAddress == request.EmailAddress).FirstOrDefaultAsync();
             if (existedUser != null || existedEm != null)
             {
-                throw new Exception("Username or EmailAddress already exists");
+                throw new Exception("Username and EmailAddress already exists");
             }
 
             var user = new User()
             {
                 Username = request.Username,
                 ProfileImage = request.ProfileImage,
-                Password = request.Password,
+                Password = passwordHash,
                 FullName = request.Fullname,
                 PhoneNumber = request.PhoneNumber,
                 EmailAddress = request.EmailAddress,
@@ -164,7 +184,6 @@ namespace BE_SWP391_OnDemandTutor.BusinessLogic.Services
 
                 UserId = user.UserId,
                 Username = user.Username,
-                Password = user.Password,
                 ProfileImage = user.ProfileImage,
                 Fullname = user.FullName,
                 PhoneNumber = user.PhoneNumber,
@@ -186,7 +205,7 @@ namespace BE_SWP391_OnDemandTutor.BusinessLogic.Services
         public async Task<UserViewModel> UpdateUser(UpdateUserRequestModel request)
         {
             var user = await _context.Users.FindAsync(request.UserId);
-
+            string passwordHash = BCrypt.Net.BCrypt.HashPassword(request.Password);
             var usernameAvailable = await _context.Users.AnyAsync(u => u.Username == request.Username && u.UserId != user.UserId);
             if (usernameAvailable)
             {
@@ -200,7 +219,7 @@ namespace BE_SWP391_OnDemandTutor.BusinessLogic.Services
             }
 
             user.Username = request.Username;
-            user.Password = request.Password;
+            user.Password = passwordHash;
             user.FullName = request.Fullname;
             user.ProfileImage = request.ProfileImage;
             user.PhoneNumber = request.PhoneNumber;
