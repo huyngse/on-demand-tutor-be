@@ -1,45 +1,126 @@
 using BE_SWP391_OnDemandTutor.BusinessLogic.RequestModels.Feedback;
+using BE_SWP391_OnDemandTutor.BusinessLogic.RequestModels.Rate;
 using BE_SWP391_OnDemandTutor.BusinessLogic.ViewModels;
+using BE_SWP391_OnDemandTutor.DataAccess.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace BE_SWP391_OnDemandTutor.BusinessLogic.Services
 {
 
     public interface IFeedbackService
     {
-        public FeedbackViewModel CreateFeedback(CreateFeedbackRequestModel feedbackCreate);
-        public FeedbackViewModel UpdateFeedback(UpdateFeedbackRequestModel feedbackUpdate);
-        public bool DeleteFeedback(int idTmp);
-        public List<FeedbackViewModel> GetAll();
-        public FeedbackViewModel GetById(int idTmp);
+        Task<FeedbackViewModel> CreateFeedbacksAsync(CreateFeedbackRequestModel feedbacksCreate);
+        Task<FeedbackViewModel> UpdateFeedbacks(UpdateFeedbackRequestModel feedbacksUpdate);
+        Task<bool> DeleteFeedback(int idTmp);
+        Task<List<FeedbackViewModel>> GetAll();
+        Task<FeedbackViewModel> GetById(int idTmp);
     }
 
     public class FeedbackService : IFeedbackService
     {
+        private readonly BE_SWP391_OnDemandTutorDbContext _context;
 
-     
-        public FeedbackViewModel CreateFeedback(CreateFeedbackRequestModel feedbackCreate)
+        public FeedbackService(BE_SWP391_OnDemandTutorDbContext context)
         {
-            throw new NotImplementedException();
+            _context = context;
         }
 
-        public FeedbackViewModel UpdateFeedback(UpdateFeedbackRequestModel feedbackUpdate)
+
+        public async Task<FeedbackViewModel> CreateFeedbacksAsync(CreateFeedbackRequestModel feedbacksCreate)
         {
-            throw new NotImplementedException();
+            var feedbacks = new Feedback
+            {
+                Evaluation = feedbacksCreate.Evaluation,
+                Content = feedbacksCreate.Content,
+                StudentId = feedbacksCreate.StudentId,
+                CreateDate = feedbacksCreate.CreateDate,
+
+               
+            };
+
+            _context.Feedbacks.Add(feedbacks);
+            await _context.SaveChangesAsync();
+
+            return new FeedbackViewModel
+            {
+                Evaluation = feedbacksCreate.Evaluation,
+                Content = feedbacksCreate.Content,
+                StudentId = feedbacksCreate.StudentId,
+                CreateDate = feedbacksCreate.CreateDate,
+                ClassId = feedbacks.ClassId,
+                
+            };
         }
 
-        public bool DeleteFeedback(int idTmp)
+        public async Task<FeedbackViewModel> UpdateFeedbacks(UpdateFeedbackRequestModel feedbacksUpdate)
         {
-            throw new NotImplementedException();
+            var update = await _context.Feedbacks.FindAsync(feedbacksUpdate.FeedbackId);
+            if (update == null)
+            {
+                return null;
+            }
+            update.Evaluation = feedbacksUpdate.Evaluation;
+            update.Content = feedbacksUpdate.Content;
+
+
+            await _context.SaveChangesAsync();
+
+            return new FeedbackViewModel
+            {
+                Evaluation = update.Evaluation,
+                Content = update.Content,
+                StudentId = update.StudentId,
+                CreateDate = update.CreateDate,
+                ClassId = update.ClassId,
+            };
         }
 
-        public List<FeedbackViewModel> GetAll()
+        public async Task<bool> DeleteFeedback(int idTmp)
         {
-            throw new NotImplementedException();
+            var delete = await _context.Feedbacks.FindAsync(idTmp);
+            if (delete == null)
+            {
+                return false;
+            }
+
+            _context.Feedbacks.Remove(delete);
+            await _context.SaveChangesAsync();
+            return true;
         }
 
-        public FeedbackViewModel GetById(int idTmp)
+        public async Task<List<FeedbackViewModel>> GetAll()
         {
-            throw new NotImplementedException();
+            var feedbacks = await _context.Feedbacks.ToListAsync();
+            return feedbacks.Select(feedbacks => new FeedbackViewModel
+            {
+                FeedbackID = feedbacks.FeedbackID,
+                Evaluation = feedbacks.Evaluation,
+                Content = feedbacks.Content,
+                StudentId = feedbacks.StudentId,
+                CreateDate = feedbacks.CreateDate,
+                ClassId = feedbacks.ClassId
+
+            }).ToList();
+        }
+
+        public async Task<FeedbackViewModel> GetById(int idTmp)
+        {
+            var feedbacks = await _context.Feedbacks.FindAsync(idTmp);
+            if (feedbacks == null)
+            {
+                return null;
+            }
+
+            return new FeedbackViewModel
+            {
+                FeedbackID = feedbacks.FeedbackID,
+                Evaluation = feedbacks.Evaluation,
+                Content = feedbacks.Content,
+                StudentId = feedbacks.StudentId,
+                CreateDate = feedbacks.CreateDate,
+                ClassId = feedbacks.ClassId
+
+            };
         }
 
     }
