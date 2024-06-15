@@ -125,9 +125,18 @@ namespace BE_SWP391_OnDemandTutor.BusinessLogic.Services
                 //StudentName = classEntity.Student.Username, // Assuming User has a Name property
                 TutorId = classEntity.TutorId,
                 TutorName = classEntity.Tutor.Username, // Assuming User has a Name property
-                
+                Schedule = classEntity.Schedules?.Select(s => new ScheduleViewModel
+                {
+                    ScheduleID = s.ScheduleID,
+                    Title = s.Title,
+                    Description = s.Description,
+                    DateOfWeek = s.DateOfWeek,
+                    StartTime = s.StartTime.Value,
+                    EndTime = s.EndTime.Value
+                }).ToList() ?? new List<ScheduleViewModel>(), // Handle null Schedules
                 Feedback = classEntity.Feedback?.Content // Assuming Feedback has a Content property
             };
+            //return classEntity.Adapt<ClassViewModel>;
         }
 
         public async Task<ClassViewModel> GetDetail(int classId)
@@ -163,7 +172,11 @@ namespace BE_SWP391_OnDemandTutor.BusinessLogic.Services
                 Schedule = classEntity.Schedules?.Select(s => new ScheduleViewModel
                 {
                     ScheduleID = s.ScheduleID,
-                    // Other properties of ScheduleViewModel
+                    Description =s.Description,
+                    Title = s.Title,
+                    DateOfWeek = s.DateOfWeek,
+                    StartTime = s.StartTime.Value,
+                    EndTime = s.EndTime.Value
                 }).ToList() ?? new List<ScheduleViewModel>(), // Handle null Schedules
                 CreatedDate = classEntity.CreatedDate,
                 Active = classEntity.Active,
@@ -241,6 +254,11 @@ namespace BE_SWP391_OnDemandTutor.BusinessLogic.Services
                 {
                     // Map properties of ScheduleViewModel as needed
                     ScheduleID = s.ScheduleID,
+                    Title = s.Title,
+                    Description = s.Description,
+                    DateOfWeek = s.DateOfWeek,
+                    StartTime = s.StartTime.Value,
+                    EndTime = s.EndTime.Value
                 }).ToList()
             }).ToList();
 
