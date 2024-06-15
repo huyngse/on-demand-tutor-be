@@ -5,6 +5,7 @@ using BE_SWP391_OnDemandTutor.DataAccess.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
+using Org.BouncyCastle.Crypto.Generators;
 using System.Data;
 using System.IdentityModel.Tokens.Jwt;
 using System.IO;
@@ -126,11 +127,12 @@ namespace BE_SWP391_OnDemandTutor.BusinessLogic.Services
 
         public async Task<UserViewModel> Register(RegisterRequestModel request)
         {
-            var existedUser = await _context.Users.Where(u => u.Username == request.Username && u.EmailAddress == request.EmailAddress).FirstOrDefaultAsync();
-
-            if (existedUser != null)
+            //string passwordHash = BCrypt.Net.BCrypt.HashPassword;
+            var existedUser = await _context.Users.Where(u => u.Username == request.Username).FirstOrDefaultAsync();
+            var existedEm = await _context.Users.Where(u => u.EmailAddress == request.EmailAddress).FirstOrDefaultAsync();
+            if (existedUser != null || existedEm != null)
             {
-                throw new Exception("Username and EmailAddress already exists");
+                throw new Exception("Username or EmailAddress already exists");
             }
 
             var user = new User()

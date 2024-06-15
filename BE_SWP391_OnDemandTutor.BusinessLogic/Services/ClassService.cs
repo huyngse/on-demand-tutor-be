@@ -88,7 +88,8 @@ namespace BE_SWP391_OnDemandTutor.BusinessLogic.Services
                 return (false, null);
             }
 
-            classEntity.Active = false;
+            classEntity.Active = !classEntity.Active;
+            //classEntity.Active = false;
             _context.Classes.Update(classEntity);
             await _context.SaveChangesAsync();
 
