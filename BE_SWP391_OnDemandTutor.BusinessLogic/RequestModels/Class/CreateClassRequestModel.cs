@@ -12,8 +12,7 @@ namespace BE_SWP391_OnDemandTutor.BusinessLogic.RequestModels.Class
         public DateTime ClassTime { get; set; }
         public string ClassInfo { get; set; }
         public string ClassRequire { get; set; }
-        public string ClassAddress { get; set; }
-        public string Fullname { get; set; }
+        public string ClassAddress { get; set; }         
         public string ClassMethod { get; set; }
         public string ClassLevel { get; set; }
         public DateTime CreatedDate { get; set; }

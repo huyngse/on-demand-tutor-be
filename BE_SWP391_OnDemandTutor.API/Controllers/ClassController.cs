@@ -22,9 +22,10 @@ namespace BE_SWP391_OnDemandTutor.Presentation.Controllers
         }
 
         [HttpPost]
-        [Authorize(Roles = "Administrator")] 
+        [Authorize(Roles = "Administrator, Tutor")] 
         public async Task<IActionResult> CreateClass([FromBody] CreateClassRequestModel classCreate)
         {
+            
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
@@ -35,6 +36,7 @@ namespace BE_SWP391_OnDemandTutor.Presentation.Controllers
         }
 
         [HttpPut("{id}")]
+        //[Authorize(Roles = "Administrator, Tutor")]
         public async Task<IActionResult> DeactivateClass(int id)
         {
             var (success, className) = await _classService.DeactivateClass(id);
@@ -44,7 +46,7 @@ namespace BE_SWP391_OnDemandTutor.Presentation.Controllers
                 return NotFound(new { Message = "Invalid class ID, student ID, or tutor ID." });
             }
 
-            return Ok(new { Message = $"Class {className} deactivated successfully." });
+            return Ok(new { Message = $"Class {className} change the status successfully." });
         }
 
         [HttpGet("{id}")]
@@ -74,6 +76,7 @@ namespace BE_SWP391_OnDemandTutor.Presentation.Controllers
         }
 
         [HttpPut("class/{classId}")]
+        [Authorize(Roles = "Administrator, Tutor")]
         public async Task<IActionResult> UpdateClass([FromBody] UpdateClassRequestModel classUpdate)
         {
             if (!ModelState.IsValid)
@@ -93,6 +96,7 @@ namespace BE_SWP391_OnDemandTutor.Presentation.Controllers
 
 
         [HttpGet("classes")]
+        [Authorize(Roles = "Administrator, Tutor")]
         public async Task<IActionResult> GetAllClasses()
         {
             var classViewModels = await _classService.GetAllClasses();
