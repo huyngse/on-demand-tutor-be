@@ -1,6 +1,7 @@
 using BE_SWP391_OnDemandTutor.BusinessLogic.RequestModels.Feedback;
 using BE_SWP391_OnDemandTutor.BusinessLogic.Services;
 using BE_SWP391_OnDemandTutor.BusinessLogic.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BE_SWP391_OnDemandTutor.Presentation.Controllers
@@ -12,75 +13,82 @@ namespace BE_SWP391_OnDemandTutor.Presentation.Controllers
     public class FeedbackController : ControllerBase {
 
         private IFeedbackService _feedbackService;
-
-         public FeedbackController(IFeedbackService feedbackService)
+        public FeedbackController(IFeedbackService feedbackService)
         {
             _feedbackService = feedbackService;
         }
 
+
         [MapToApiVersion("1")]
         [HttpPost]
-        public ActionResult<FeedbackViewModel> CreateFeedback(CreateFeedbackRequestModel feedbackCreate)
+        [Authorize(Roles = "Tutor")]
+        public async Task<ActionResult<FeedbackViewModel>> CreateFeedbacksAsync(CreateFeedbackRequestModel feedbackCreate)
         {
-            var feedbackCreated = _feedbackService.CreateFeedback(feedbackCreate);
-
-            if (feedbackCreated == null)
+            try
             {
-                return NotFound("");
+                var createFeedback = await _feedbackService.CreateFeedbacksAsync(feedbackCreate);
+                return CreatedAtAction(nameof(GetByIdAsync), new { id = createFeedback.FeedbackID }, createFeedback);
             }
-            return feedbackCreated;
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         [MapToApiVersion("1")]
         [HttpGet]
-        public ActionResult<List<FeedbackViewModel>> GetAll()
+        public async Task<ActionResult<List<FeedbackViewModel>>> GetAll()
         {
-            var feedbackList = _feedbackService.GetAll();
-
-            if (feedbackList == null)
+            var feedback = await _feedbackService.GetAll();
+            if (feedback == null)
             {
                 return NotFound("");
             }
-            return feedbackList;
+            return Ok(feedback);
         }
 
         [MapToApiVersion("1")]
         [HttpGet("idTmp")]
-        public ActionResult<FeedbackViewModel> GetById(int idTmp)
+        public async Task<ActionResult<FeedbackViewModel>> GetByIdAsync(int idTmp)
         {
-            var feedbackDetail = _feedbackService.GetById(idTmp);
-
-            if (feedbackDetail == null)
+            var feedback = await _feedbackService.GetById(idTmp);
+            if (feedback == null)
             {
-                return NotFound("");
+                return NotFound();
             }
-            return feedbackDetail;
+
+            return Ok(feedback);
         }
 
         [MapToApiVersion("1")]
         [HttpDelete]
-        public ActionResult<bool> DeleteFeedback(int idTmp)
+        public async Task<ActionResult<bool>> DeleteFeedbackAsync(int idTmp)
         {
-            var check = _feedbackService.DeleteFeedback(idTmp);
-
-            if (check == false)
+            var delete = await _feedbackService.DeleteFeedback(idTmp);
+            if (!delete)
             {
-                return NotFound("");
+                return NotFound();
             }
-            return check;
+
+            return Ok(new { Message = $"Feedback with ID '{idTmp}' deleted successfully." });
         }
 
         [MapToApiVersion("1")]
         [HttpPut]
-        public ActionResult<FeedbackViewModel> UpdateFeedback(UpdateFeedbackRequestModel feedbackCreate)
+        public async Task<ActionResult<FeedbackViewModel>> UpdateFeedbackAsync(int id, UpdateFeedbackRequestModel feedbackUpdate)
         {
-            var feedbackUpdated = _feedbackService.UpdateFeedback(feedbackCreate);
-
-            if (feedbackUpdated == null)
+            if (id != feedbackUpdate.FeedbackId)
             {
-                return NotFound("");
+                return BadRequest("ID in the request body does not match the route parameter.");
             }
-            return feedbackUpdated;
+
+            var updateFeedback = await _feedbackService.UpdateFeedbacks(feedbackUpdate);
+            if (updateFeedback == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(updateFeedback);
         }
     }
 
