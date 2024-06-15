@@ -1,3 +1,4 @@
+using Mapster;
 using BE_SWP391_OnDemandTutor.BusinessLogic.RequestModels.Rate;
 using BE_SWP391_OnDemandTutor.BusinessLogic.ViewModels;
 using BE_SWP391_OnDemandTutor.DataAccess.Models;
@@ -39,13 +40,15 @@ namespace BE_SWP391_OnDemandTutor.BusinessLogic.Services
             _context.Rates.Add(Rate);
             await _context.SaveChangesAsync();
 
-            return new RateViewModel
-            {
-                RatingId = Rate.RatingId,
-                StudentId = Rate.StudentId,
-                TutorId = Rate.TutorId,
-                NumberStars = Rate.NumberStars,
-            };
+            //return new RateViewModel
+            //{
+            //    RatingId = Rate.RatingId,
+            //    StudentId = Rate.StudentId,
+            //    TutorId = Rate.TutorId,
+            //    NumberStars = Rate.NumberStars,
+            //};
+
+            return Rate.Adapt<RateViewModel>();
         }
 
 
@@ -106,13 +109,14 @@ namespace BE_SWP391_OnDemandTutor.BusinessLogic.Services
                 return null;
             }
 
-            return new RateViewModel
-            {
-                RatingId = rate.RatingId,
-                StudentId = rate.StudentId,
-                TutorId = rate.TutorId,
-                NumberStars = rate.NumberStars,
-            };
+            //return new RateViewModel
+            //{
+            //    RatingId = rate.RatingId,
+            //    StudentId = rate.StudentId,
+            //    TutorId = rate.TutorId,
+            //    NumberStars = rate.NumberStars,
+            //};
+            return rate.Adapt<RateViewModel>();
         }
     }
 
