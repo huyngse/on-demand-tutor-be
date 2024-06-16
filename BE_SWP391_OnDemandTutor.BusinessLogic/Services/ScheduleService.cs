@@ -1,6 +1,8 @@
 using BE_SWP391_OnDemandTutor.BusinessLogic.RequestModels.Schedule;
 using BE_SWP391_OnDemandTutor.BusinessLogic.ViewModels;
+using BE_SWP391_OnDemandTutor.BusinessLogic.ViewModels.Booking;
 using BE_SWP391_OnDemandTutor.DataAccess.Models;
+using Mapster;
 using Microsoft.EntityFrameworkCore;
 
 namespace BE_SWP391_OnDemandTutor.BusinessLogic.Services
@@ -26,25 +28,30 @@ namespace BE_SWP391_OnDemandTutor.BusinessLogic.Services
 
         public async Task<ScheduleViewModel> CreateSchedule(CreateScheduleRequestModel scheduleCreate)
         {
-            var schedule = new Schedule
-            {
-                Title = scheduleCreate.Title,
-                Description = scheduleCreate.Description,
-                DateOfWeek = scheduleCreate.DateOfWeek,  // Ensure scheduleCreate.DateOfWeek is of type DayGroup
-                StartTime = scheduleCreate.StartTime,
-                EndTime = scheduleCreate.EndTime,
-            };
 
+            //var schedule = new Schedule
+            //{
+            //    Title = scheduleCreate.Title,
+            //    Description = scheduleCreate.Description,
+            //    ClassID = scheduleCreate.ClassID,
+            //    DateOfWeek = scheduleCreate.DateOfWeek,  // Ensure scheduleCreate.DateOfWeek is of type DayGroup
+            //    StartTime = scheduleCreate.StartTime,
+            //    EndTime = scheduleCreate.EndTime,z
+            //};
+           
+            var schedule = scheduleCreate.Adapt<Schedule>();
             _context.Schedules.Add(schedule);
             await _context.SaveChangesAsync();
-
             return new ScheduleViewModel
             {
                 ScheduleID = schedule.ScheduleID,
                 Title = schedule.Title,
                 Description = schedule.Description,
+                ClassID = schedule.ClassID,
+                DateOfWeek = schedule.DateOfWeek,  // Ensure scheduleCreate.DateOfWeek is of type DayGroup
+                StartTime = schedule.StartTime.Value,
+                EndTime = schedule.EndTime.Value,
             };
-
         }
 
         public async Task<bool> DeleteSchedule(int idTmp)
@@ -62,15 +69,8 @@ namespace BE_SWP391_OnDemandTutor.BusinessLogic.Services
         public async Task<List<ScheduleViewModel>> GetAll()
         {
             var schedules = await _context.Schedules.ToListAsync();
-            return schedules.Select(schedule => new ScheduleViewModel
-            {
-                Title = schedule.Title,
-                Description = schedule.Description,
-                StartTime = schedule.StartTime.Value,
-                EndTime = schedule.EndTime.Value,
-                DateOfWeek = schedule.DateOfWeek,
-
-            }).ToList();
+      
+            return schedules.Adapt<List<ScheduleViewModel>>();
         }
 
         public async Task<ScheduleViewModel> GetById(int idTmp)
