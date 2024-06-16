@@ -77,14 +77,14 @@ namespace BE_SWP391_OnDemandTutor.Presentation.Controllers
 
         [HttpPut("class/{classId}")]
         //[Authorize(Roles = "Administrator, Tutor")]
-        public async Task<IActionResult> UpdateClass([FromBody] UpdateClassRequestModel classUpdate)
+        public async Task<IActionResult> UpdateClass([FromBody] UpdateClassRequestModel classUpdate, int classId)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            var success = await _classService.UpdateInforClass(classUpdate);
+            var success = await _classService.UpdateInforClass(classUpdate, classId);
 
             if (!success)
             {

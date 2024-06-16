@@ -12,7 +12,7 @@ namespace BE_SWP391_OnDemandTutor.BusinessLogic.Services
     public interface IClassService
     {
         Task<ClassViewModel> GetDetail(int classId);
-        Task<bool> UpdateInforClass(UpdateClassRequestModel classUpdate);
+        Task<bool> UpdateInforClass(UpdateClassRequestModel classUpdate, int classID) ;
         Task<ClassViewModel> CreateClass(CreateClassRequestModel classCreate);
         Task<ClassViewModel> GetById(int idTmp);
         Task<(bool Success, string ClassName)> DeactivateClass(int idTmp);
@@ -36,6 +36,7 @@ namespace BE_SWP391_OnDemandTutor.BusinessLogic.Services
             {
                 ClassName = classCreate.ClassName,
                 ClassTime = classCreate.ClassTime,
+                Active = classCreate.Active,
                 ClassInfo = classCreate.ClassInfo,
                 ClassRequire = classCreate.ClassRequire,
                 ClassAddress = classCreate.ClassAddress,
@@ -53,21 +54,24 @@ namespace BE_SWP391_OnDemandTutor.BusinessLogic.Services
             await _context.SaveChangesAsync();
             // return _mapper.Map<ClassViewModel>(newClass);
 
+    //        var schedules = await _context.Schedules.Where(s => s.ClassID == newClass.ClassId)
+    //                        .Select(x=> new ScheduleViewModel()
+    //                        {
+    //    ScheduleID = x.ScheduleID,
+    //    Title = x.Title,
+    //    Description = x.Description,
+    //    DateOfWeek = x.DateOfWeek,
+    //    StartTime = x.StartTime.Value,
+    //    EndTime = x.EndTime.Value
+    //}).ToListAsync();
             var schedules = await _context.Schedules.Where(s => s.ClassID == newClass.ClassId)
-                            .Select(x=> new ScheduleViewModel()
-                            {
-        ScheduleID = x.ScheduleID,
-        Title = x.Title,
-        Description = x.Description,
-        DateOfWeek = x.DateOfWeek,
-        StartTime = x.StartTime.Value,
-        EndTime = x.EndTime.Value
-    }).ToListAsync();
+                          .Select(x => x.Adapt<ScheduleViewModel>()).ToListAsync();
 
             return new ClassViewModel()
             {
                 ClassName = newClass.ClassName,
                 ClassTime = newClass.ClassTime,
+                Active = newClass.Active,
                 ClassInfo = newClass.ClassInfo,
                 ClassRequire = newClass.ClassRequire,
                 ClassAddress = newClass.ClassAddress,
@@ -112,32 +116,6 @@ namespace BE_SWP391_OnDemandTutor.BusinessLogic.Services
             }
           
 
-            //return new ClassViewModel
-            //{
-            //    ClassId = classEntity.ClassId,
-            //    ClassName = classEntity.ClassName,
-            //    ClassTime = classEntity.ClassTime,
-            //    ClassInfo = classEntity.ClassInfo,
-            //    ClassRequire = classEntity.ClassRequire,
-            //    ClassAddress = classEntity.ClassAddress,
-            //    ClassMethod = classEntity.ClassMethod,
-            //    ClassLevel = classEntity.ClassLevel,
-            //    ClassFee = classEntity.ClassFee,
-            //    //StudentId = classEntity.StudentId.Value,
-            //    //StudentName = classEntity.Student.Username, // Assuming User has a Name property
-            //    TutorId = classEntity.TutorId,
-            //    TutorName = classEntity.Tutor.Username, // Assuming User has a Name property
-            //    Schedule = classEntity.Schedules?.Select(s => new ScheduleViewModel
-            //    {
-            //        ScheduleID = s.ScheduleID,
-            //        Title = s.Title,
-            //        Description = s.Description,
-            //        DateOfWeek = s.DateOfWeek,
-            //        StartTime = s.StartTime.Value,
-            //        EndTime = s.EndTime.Value
-            //    }).ToList() ?? new List<ScheduleViewModel>(), // Handle null Schedules
-            //    Feedback = classEntity.Feedback?.Content // Assuming Feedback has a Content property
-            //};
             return classEntity.Adapt<ClassViewModel>();
          
 
@@ -190,9 +168,9 @@ namespace BE_SWP391_OnDemandTutor.BusinessLogic.Services
             };
         }
 
-        public async Task<bool> UpdateInforClass(UpdateClassRequestModel classUpdate)
+        public async Task<bool> UpdateInforClass(UpdateClassRequestModel classUpdate, int classID)
         {
-            var classEntity = await _context.Classes.FindAsync(classUpdate.ClassId);
+            var classEntity = await _context.Classes.FindAsync(classID);
             if (classEntity == null)
             {
                 return false;
@@ -216,7 +194,6 @@ namespace BE_SWP391_OnDemandTutor.BusinessLogic.Services
             classEntity.ClassLevel = classUpdate.ClassLevel;
             classEntity.ClassFee = classUpdate.ClassFee;
             classEntity.StudentId = classUpdate.StudentId;
-            classEntity.TutorId = classUpdate.TutorId;
             
 
             _context.Classes.Update(classEntity);
@@ -232,39 +209,40 @@ namespace BE_SWP391_OnDemandTutor.BusinessLogic.Services
                 .Include(c => c.Schedules)
                 .ToListAsync();
 
-            var classViewModels = classEntities.Select(c => new ClassViewModel
-            {
-                ClassId = c.ClassId,
-                ClassName = c.ClassName,
-                ClassTime = c.ClassTime,
-                ClassInfo = c.ClassInfo,
-                ClassRequire = c.ClassRequire,
-                ClassAddress = c.ClassAddress,
-                ClassMethod = c.ClassMethod,
-                ClassLevel = c.ClassLevel,
-                ClassFee = c.ClassFee,
-                StudentId = c.StudentId,
-                StudentName = c.Student != null ? c.Student.Username : null, // Assuming Student has a Username property
-                CreatedDate = c.CreatedDate,
-                Active = c.Active,
-                TutorId = c.TutorId,
-                TutorName = c.Tutor != null ? c.Tutor.Username : null, // Assuming Tutor has a Username property
-      
-                Feedback = c.Feedback?.Content, // Assuming Feedback has a Content property
-                District = c.District,
-                Ward = c.Ward,
-                City = c.City,
-                Schedules = c.Schedules.Select(s => new ScheduleViewModel
-                {
-                    // Map properties of ScheduleViewModel as needed
-                    ScheduleID = s.ScheduleID,
-                    Title = s.Title,
-                    Description = s.Description,
-                    DateOfWeek = s.DateOfWeek,
-                    StartTime = s.StartTime.Value,
-                    EndTime = s.EndTime.Value
-                }).ToList()
-            }).ToList();
+            //var classViewModels = classEntities.Select(c => new ClassViewModel
+            //{
+            //    ClassId = c.ClassId,
+            //    ClassName = c.ClassName,
+            //    ClassTime = c.ClassTime,
+            //    ClassInfo = c.ClassInfo,
+            //    ClassRequire = c.ClassRequire,
+            //    ClassAddress = c.ClassAddress,
+            //    ClassMethod = c.ClassMethod,
+            //    ClassLevel = c.ClassLevel,
+            //    ClassFee = c.ClassFee,
+            //    StudentId = c.StudentId,
+            //    StudentName = c.Student != null ? c.Student.Username : null, // Assuming Student has a Username property
+            //    CreatedDate = c.CreatedDate,
+            //    Active = c.Active,
+            //    TutorId = c.TutorId,
+            //    TutorName = c.Tutor != null ? c.Tutor.Username : null, // Assuming Tutor has a Username property
+
+            //    Feedback = c.Feedback?.Content, // Assuming Feedback has a Content property
+            //    District = c.District,
+            //    Ward = c.Ward,
+            //    City = c.City,
+            //    Schedules = c.Schedules.Select(s => new ScheduleViewModel
+            //    {
+            //        // Map properties of ScheduleViewModel as needed
+            //        ScheduleID = s.ScheduleID,
+            //        Title = s.Title,
+            //        Description = s.Description,
+            //        DateOfWeek = s.DateOfWeek,
+            //        StartTime = s.StartTime.Value,
+            //        EndTime = s.EndTime.Value
+            //    }).ToList()
+            //}).ToList();
+            var classViewModels = classEntities.Select(c => c.Adapt<ClassViewModel>()).ToList();
 
             return classViewModels;
         }

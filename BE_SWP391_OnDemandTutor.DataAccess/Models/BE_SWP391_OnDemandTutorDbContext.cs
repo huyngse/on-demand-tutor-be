@@ -19,7 +19,7 @@ public class BE_SWP391_OnDemandTutorDbContext : DbContext
     public DbSet<Feedback> Feedbacks { get; set; }
     public DbSet<Rate> Rates { get; set; }
     public DbSet<TutorDegree> TutorDegrees { get; set; }
-    public DbSet<TutorDegree> BookingConfiguration { get; set; }
+    public DbSet<Booking> Booking { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
