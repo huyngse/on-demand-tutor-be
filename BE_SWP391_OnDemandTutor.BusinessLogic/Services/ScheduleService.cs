@@ -28,17 +28,11 @@ namespace BE_SWP391_OnDemandTutor.BusinessLogic.Services
 
         public async Task<ScheduleViewModel> CreateSchedule(CreateScheduleRequestModel scheduleCreate)
         {
+            //var schedule = scheduleCreate.Adapt<Schedule>();
+            //_context.Schedules.Add(schedule);
+            //await _context.SaveChangesAsync();
+            //return schedule.Adapt<ScheduleViewModel>();
 
-            //var schedule = new Schedule
-            //{
-            //    Title = scheduleCreate.Title,
-            //    Description = scheduleCreate.Description,
-            //    ClassID = scheduleCreate.ClassID,
-            //    DateOfWeek = scheduleCreate.DateOfWeek,  // Ensure scheduleCreate.DateOfWeek is of type DayGroup
-            //    StartTime = scheduleCreate.StartTime,
-            //    EndTime = scheduleCreate.EndTime,z
-            //};
-           
             var schedule = scheduleCreate.Adapt<Schedule>();
             _context.Schedules.Add(schedule);
             await _context.SaveChangesAsync();
@@ -81,15 +75,7 @@ namespace BE_SWP391_OnDemandTutor.BusinessLogic.Services
                 return null;
             }
 
-            return new ScheduleViewModel
-            {
-                ScheduleID = schedule.ScheduleID,
-                Title = schedule.Title,
-                Description = schedule.Description,
-                StartTime = schedule.StartTime.Value,
-                EndTime = schedule.EndTime.Value,
-                DateOfWeek = schedule.DateOfWeek,
-            };
+            return schedule.Adapt<ScheduleViewModel>();
         }
 
         public async Task<ScheduleViewModel> UpdateSchedule(UpdateScheduleRequestModel scheduleUpdate)
@@ -105,15 +91,7 @@ namespace BE_SWP391_OnDemandTutor.BusinessLogic.Services
 
             await _context.SaveChangesAsync();
 
-            return new ScheduleViewModel
-            {
-                ScheduleID = schedule.ScheduleID,
-                Title = schedule.Title,
-                Description = schedule.Description,
-                StartTime = schedule.StartTime.Value,
-                EndTime = schedule.EndTime.Value,
-                DateOfWeek = schedule.DateOfWeek,
-            };
+            return schedule.Adapt<ScheduleViewModel>();
         }
     }
 
