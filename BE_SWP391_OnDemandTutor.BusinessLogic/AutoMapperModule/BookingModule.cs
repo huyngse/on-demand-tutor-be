@@ -12,8 +12,9 @@ namespace BE_SWP391_OnDemandTutor.BusinessLogic.AutoMapperModule
 	{
         public static void ConfigBookingModule(this IMapperConfigurationExpression mc)
         {
-            mc.CreateMap<Booking, BookingModel>().ReverseMap();
+            mc.CreateMap<Booking, BookingViewModel>().ReverseMap();
             mc.CreateMap<Booking, CreateBookingRequestModel>().ReverseMap();
+            mc.CreateMap<Booking, UpdateUserRequestModel>().ReverseMap();
          
         }
     }

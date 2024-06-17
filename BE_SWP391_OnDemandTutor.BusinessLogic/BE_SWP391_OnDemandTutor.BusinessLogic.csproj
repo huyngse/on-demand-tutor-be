@@ -8,10 +8,14 @@
 
   <ItemGroup>
     <PackageReference Include="AutoMapper" Version="13.0.1" />
+    <PackageReference Include="Mapster" Version="7.4.0" />
+    <PackageReference Include="Mapster.Core" Version="1.2.1" />
     <PackageReference Include="MimeKit" Version="4.6.0" />
     <PackageReference Include="MailKit" Version="4.6.0" />
     <PackageReference Include="Mapster" Version="7.4.0" />
     <PackageReference Include="BCrypt.Net-Next" Version="4.0.3" />
+    <PackageReference Include="FirebaseStorage.net" Version="1.0.3" />
+    <PackageReference Include="FireSharp.Serialization.JsonNet" Version="1.1.0" />
   </ItemGroup>
 
   <ItemGroup>
@@ -21,11 +25,9 @@
   <ItemGroup>
     <Folder Include="Enums\" />
     <Folder Include="BusinessModel\" />
-    <Folder Include="RequestModels\" />
     <Folder Include="ViewModels\" />
     <Folder Include="ViewModels\Booking\" />
     <Folder Include="ViewModels\Booking\" />
-    <Folder Include="RequestModels\Booking\" />
     <Folder Include="Helper\EmailSettings\" />
   </ItemGroup>
 

@@ -6,6 +6,8 @@ namespace BE_SWP391_OnDemandTutor.BusinessLogic.Generations.DependencyInjection
     {
         public static void InitializerDependencyInjection(this IServiceCollection services)
         {
+            services.AddScoped<IFirebaseService, FirebaseService>();
+
             services.AddScoped<IClassService, ClassService>();
         
             services.AddScoped<IFeedbackService, FeedbackService>();
@@ -17,6 +19,8 @@ namespace BE_SWP391_OnDemandTutor.BusinessLogic.Generations.DependencyInjection
             services.AddScoped<ITutorDegreeService, TutorDegreeService>();
         
             services.AddScoped<IUserService, UserService>();
+
+          
         }
     }
 }

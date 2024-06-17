@@ -18,6 +18,7 @@ public class BE_SWP391_OnDemandTutorDbContext : DbContext
     public DbSet<Schedule> Schedules { get; set; }
     public DbSet<Feedback> Feedbacks { get; set; }
     public DbSet<Rate> Rates { get; set; }
+    public DbSet<Booking> Bookings { get; set; }
     public DbSet<TutorDegree> TutorDegrees { get; set; }
     public DbSet<Booking> Booking { get; set; }
 

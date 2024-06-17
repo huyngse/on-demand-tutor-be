@@ -1,10 +1,12 @@
+using Microsoft.AspNetCore.Http;
+
 namespace BE_SWP391_OnDemandTutor.BusinessLogic.RequestModels.User
 {
     public class RegisterRequestModel
     {
         public string Username { get; set; }
         public string Password { get; set; }
-        public string ProfileImage { get; set; }
+        public IFormFile ProfileImage { get; set; }
         public string Fullname { get; set; }
         public string PhoneNumber { get; set; }
         public string EmailAddress { get; set; }
