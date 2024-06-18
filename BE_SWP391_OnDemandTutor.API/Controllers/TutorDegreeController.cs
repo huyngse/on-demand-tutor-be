@@ -1,3 +1,4 @@
+using BE_SWP391_OnDemandTutor.BusinessLogic.RequestModels.Schedule;
 using BE_SWP391_OnDemandTutor.BusinessLogic.RequestModels.TutorDegree;
 using BE_SWP391_OnDemandTutor.BusinessLogic.Services;
 using BE_SWP391_OnDemandTutor.BusinessLogic.ViewModels;
@@ -20,67 +21,73 @@ namespace BE_SWP391_OnDemandTutor.Presentation.Controllers
 
         [MapToApiVersion("1")]
         [HttpPost]
-        public ActionResult<TutorDegreeViewModel> CreateTutorDegree(CreateTutorDegreeRequestModel tutordegreeCreate)
+        public async Task<IActionResult> Create(CreateTutorDegreeRequestModel degreeCreate)
         {
-            var tutordegreeCreated = _tutordegreeService.CreateTutorDegree(tutordegreeCreate);
-
-            if (tutordegreeCreated == null)
+            try
             {
-                return NotFound("");
+                var createdDegree = await _tutordegreeService.CreateTutorDegree(degreeCreate);
+                return CreatedAtAction(nameof(GetById), new { id = createdDegree.DegreeId }, createdDegree);
             }
-            return tutordegreeCreated;
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         [MapToApiVersion("1")]
         [HttpGet]
-        public ActionResult<List<TutorDegreeViewModel>> GetAll()
+        public async Task<ActionResult<List<TutorDegreeViewModel>>> GetAll()
         {
-            var tutordegreeList = _tutordegreeService.GetAll();
-
-            if (tutordegreeList == null)
+            var degree = await _tutordegreeService.GetAll();
+            if (degree == null)
             {
                 return NotFound("");
             }
-            return tutordegreeList;
+            return Ok(degree);
         }
 
         [MapToApiVersion("1")]
         [HttpGet("idTmp")]
-        public ActionResult<TutorDegreeViewModel> GetById(int idTmp)
+        public async Task<IActionResult> GetById(int id)
         {
-            var tutordegreeDetail = _tutordegreeService.GetById(idTmp);
-
-            if (tutordegreeDetail == null)
+            var degree = await _tutordegreeService.GetById(id);
+            if (degree == null)
             {
-                return NotFound("");
+                return NotFound();
             }
-            return tutordegreeDetail;
+
+            return Ok(degree);
         }
 
         [MapToApiVersion("1")]
         [HttpDelete]
-        public ActionResult<bool> DeleteTutorDegree(int idTmp)
+        public async Task<IActionResult> Delete(int id)
         {
-            var check = _tutordegreeService.DeleteTutorDegree(idTmp);
-
-            if (check == false)
+            var success = await _tutordegreeService.DeleteTutorDegree(id);
+            if (!success)
             {
-                return NotFound("");
+                return NotFound();
             }
-            return check;
+
+            return Ok(new { Message = $"Tutor Degree with ID '{id}' deleted successfully." });
         }
 
         [MapToApiVersion("1")]
         [HttpPut]
-        public ActionResult<TutorDegreeViewModel> UpdateTutorDegree(UpdateTutorDegreeRequestModel tutordegreeCreate)
+        public async Task<IActionResult> Update(int id, UpdateTutorDegreeRequestModel degreeUpdate)
         {
-            var tutordegreeUpdated = _tutordegreeService.UpdateTutorDegree(tutordegreeCreate);
-
-            if (tutordegreeUpdated == null)
+            if (id != degreeUpdate.DegreeId)
             {
-                return NotFound("");
+                return BadRequest("ID in the request body does not match the route parameter.");
             }
-            return tutordegreeUpdated;
+
+            var updatedDegree = await _tutordegreeService.UpdateDegree(degreeUpdate);
+            if (updatedDegree == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(updatedDegree);
         }
     }
 
