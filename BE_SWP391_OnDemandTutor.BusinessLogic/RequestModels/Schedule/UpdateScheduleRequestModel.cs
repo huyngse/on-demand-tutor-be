@@ -3,7 +3,6 @@ namespace BE_SWP391_OnDemandTutor.BusinessLogic.RequestModels.Schedule
 {
 
    public class UpdateScheduleRequestModel {
-        public int ScheduleID { get; set; }
         public string Title { get; set; }
         public string? Description { get; set; }
         public DateTime StartDate { get; set; }

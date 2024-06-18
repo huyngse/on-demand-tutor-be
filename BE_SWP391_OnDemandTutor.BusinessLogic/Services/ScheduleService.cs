@@ -13,7 +13,7 @@ namespace BE_SWP391_OnDemandTutor.BusinessLogic.Services
         Task<ScheduleViewModel> GetById(int idTmp);
         Task<List<ScheduleViewModel>> GetAll();
         Task<ScheduleViewModel> CreateSchedule(CreateScheduleRequestModel scheduleCreate);
-        Task<ScheduleViewModel> UpdateSchedule(UpdateScheduleRequestModel scheduleUpdate);
+        Task<ScheduleViewModel> UpdateSchedule(int id,UpdateScheduleRequestModel scheduleUpdate);
         Task<bool> DeleteSchedule(int idTmp);
     }
 
@@ -28,24 +28,12 @@ namespace BE_SWP391_OnDemandTutor.BusinessLogic.Services
 
         public async Task<ScheduleViewModel> CreateSchedule(CreateScheduleRequestModel scheduleCreate)
         {
-            //var schedule = scheduleCreate.Adapt<Schedule>();
-            //_context.Schedules.Add(schedule);
-            //await _context.SaveChangesAsync();
-            //return schedule.Adapt<ScheduleViewModel>();
-
+         
             var schedule = scheduleCreate.Adapt<Schedule>();
             _context.Schedules.Add(schedule);
             await _context.SaveChangesAsync();
-            return new ScheduleViewModel
-            {
-                ScheduleID = schedule.ScheduleID,
-                Title = schedule.Title,
-                Description = schedule.Description,
-                ClassID = schedule.ClassID,
-                DateOfWeek = schedule.DateOfWeek,  // Ensure scheduleCreate.DateOfWeek is of type DayGroup
-                StartTime = schedule.StartTime.Value,
-                EndTime = schedule.EndTime.Value,
-            };
+         
+            return schedule.Adapt<ScheduleViewModel>();
         }
 
         public async Task<bool> DeleteSchedule(int idTmp)
@@ -74,13 +62,13 @@ namespace BE_SWP391_OnDemandTutor.BusinessLogic.Services
             {
                 return null;
             }
-
+             
             return schedule.Adapt<ScheduleViewModel>();
         }
 
-        public async Task<ScheduleViewModel> UpdateSchedule(UpdateScheduleRequestModel scheduleUpdate)
+        public async Task<ScheduleViewModel> UpdateSchedule(int id, UpdateScheduleRequestModel scheduleUpdate)
         {
-            var schedule = await _context.Schedules.FindAsync(scheduleUpdate.ScheduleID);
+            var schedule = await _context.Schedules.FindAsync(id);
             if (schedule == null)
             {
                 return null;
