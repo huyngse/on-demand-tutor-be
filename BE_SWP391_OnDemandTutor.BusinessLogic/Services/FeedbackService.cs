@@ -2,6 +2,7 @@ using BE_SWP391_OnDemandTutor.BusinessLogic.RequestModels.Feedback;
 using BE_SWP391_OnDemandTutor.BusinessLogic.RequestModels.Rate;
 using BE_SWP391_OnDemandTutor.BusinessLogic.ViewModels;
 using BE_SWP391_OnDemandTutor.DataAccess.Models;
+using Mapster;
 using Microsoft.EntityFrameworkCore;
 
 namespace BE_SWP391_OnDemandTutor.BusinessLogic.Services
@@ -28,28 +29,23 @@ namespace BE_SWP391_OnDemandTutor.BusinessLogic.Services
 
         public async Task<FeedbackViewModel> CreateFeedbacksAsync(CreateFeedbackRequestModel feedbacksCreate)
         {
-            var feedbacks = new Feedback
-            {
-                Evaluation = feedbacksCreate.Evaluation,
-                Content = feedbacksCreate.Content,
-                StudentId = feedbacksCreate.StudentId,
-                CreateDate = feedbacksCreate.CreateDate,
+            //var feedbacks = new Feedback
+            //{
+            //    Evaluation = feedbacksCreate.Evaluation,
+            //    Content = feedbacksCreate.Content,
+            //    StudentId = feedbacksCreate.StudentId,
+            //    CreateDate = feedbacksCreate.CreateDate,
 
-               
-            };
+
+            //};
+            var feedbacks = feedbacksCreate.Adapt<Feedback>();
 
             _context.Feedbacks.Add(feedbacks);
             await _context.SaveChangesAsync();
 
-            return new FeedbackViewModel
-            {
-                Evaluation = feedbacksCreate.Evaluation,
-                Content = feedbacksCreate.Content,
-                StudentId = feedbacksCreate.StudentId,
-                CreateDate = feedbacksCreate.CreateDate,
-                ClassId = feedbacks.ClassId,
+            return feedbacks.Adapt<FeedbackViewModel
                 
-            };
+                >();
         }
 
         public async Task<FeedbackViewModel> UpdateFeedbacks(UpdateFeedbackRequestModel feedbacksUpdate)

@@ -94,15 +94,7 @@ namespace BE_SWP391_OnDemandTutor.BusinessLogic.Services
                 return null;
             }
 
-            return new BookingViewModel
-            {
-                Id = booking.Id,
-                scheduleId = booking.ScheduleId,
-                UserId = booking.UserId,
-                createDate = booking.CreateDate,
-                description = booking.Description,
-                Address = booking.Address,
-            };
+            return booking.Adapt<BookingViewModel>();
         }
 
         public async Task<BookingViewModel> UpdateBooking(UpdateBookingViewModel bookingUpdate)
