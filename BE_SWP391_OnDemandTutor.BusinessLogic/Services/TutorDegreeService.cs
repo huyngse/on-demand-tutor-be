@@ -34,16 +34,10 @@ namespace BE_SWP391_OnDemandTutor.BusinessLogic.Services
         public async Task<TutorDegreeViewModel> CreateTutorDegree(CreateTutorDegreeRequestModel degreeCreate)
         {
 
-            var degree = new TutorDegree
-            {
-                DegreeName = degreeCreate.DegreeName,   
-                Description = degreeCreate.Description,
-                DegreeImageUrl = degreeCreate.DegreeImageUrl,
-                TutorId = degreeCreate.TutorId,
-            };
+            var degree = degreeCreate.Adapt<TutorDegree>();
             _context.TutorDegrees.Add(degree);
             await _context.SaveChangesAsync();
-            return _mapper.Map<TutorDegreeViewModel>(degree);
+            return degree.Adapt<TutorDegreeViewModel>();
         }
 
         public async Task<TutorDegreeViewModel> UpdateDegree(UpdateTutorDegreeRequestModel updateTutor)
@@ -58,7 +52,7 @@ namespace BE_SWP391_OnDemandTutor.BusinessLogic.Services
             update.DegreeName = updateTutor.DegreeName;
 
             await _context.SaveChangesAsync();
-            return _mapper.Map<TutorDegreeViewModel>(update);
+            return update.Adapt<TutorDegreeViewModel>();
 
 
         }
@@ -90,7 +84,7 @@ namespace BE_SWP391_OnDemandTutor.BusinessLogic.Services
             {
                 return null;
             }
-            return _mapper.Map<TutorDegreeViewModel>(degree);
+            return degree.Adapt<TutorDegreeViewModel>();
 
 
         }

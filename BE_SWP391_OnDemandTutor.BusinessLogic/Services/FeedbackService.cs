@@ -29,23 +29,12 @@ namespace BE_SWP391_OnDemandTutor.BusinessLogic.Services
 
         public async Task<FeedbackViewModel> CreateFeedbacksAsync(CreateFeedbackRequestModel feedbacksCreate)
         {
-            //var feedbacks = new Feedback
-            //{
-            //    Evaluation = feedbacksCreate.Evaluation,
-            //    Content = feedbacksCreate.Content,
-            //    StudentId = feedbacksCreate.StudentId,
-            //    CreateDate = feedbacksCreate.CreateDate,
-
-
-            //};
             var feedbacks = feedbacksCreate.Adapt<Feedback>();
 
             _context.Feedbacks.Add(feedbacks);
             await _context.SaveChangesAsync();
 
-            return feedbacks.Adapt<FeedbackViewModel
-                
-                >();
+            return feedbacks.Adapt<FeedbackViewModel>();
         }
 
         public async Task<FeedbackViewModel> UpdateFeedbacks(UpdateFeedbackRequestModel feedbacksUpdate)
@@ -61,14 +50,7 @@ namespace BE_SWP391_OnDemandTutor.BusinessLogic.Services
 
             await _context.SaveChangesAsync();
 
-            return new FeedbackViewModel
-            {
-                Evaluation = update.Evaluation,
-                Content = update.Content,
-                StudentId = update.StudentId,
-                CreateDate = update.CreateDate,
-                ClassId = update.ClassId,
-            };
+            return update.Adapt<FeedbackViewModel>();
         }
 
         public async Task<bool> DeleteFeedback(int idTmp)
@@ -107,16 +89,7 @@ namespace BE_SWP391_OnDemandTutor.BusinessLogic.Services
                 return null;
             }
 
-            return new FeedbackViewModel
-            {
-                FeedbackID = feedbacks.FeedbackID,
-                Evaluation = feedbacks.Evaluation,
-                Content = feedbacks.Content,
-                StudentId = feedbacks.StudentId,
-                CreateDate = feedbacks.CreateDate,
-                ClassId = feedbacks.ClassId
-
-            };
+            return feedbacks.Adapt<FeedbackViewModel>();
         }
 
     }

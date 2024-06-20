@@ -30,30 +30,14 @@ namespace BE_SWP391_OnDemandTutor.BusinessLogic.Services
         }
         public async Task<BookingViewModel> CreateBooking(CreateBookingRequestModel bookingCreate)
         {
-            var booking = new Booking
-            {
-                CreateDate = bookingCreate.CreateDate,
-                Description = bookingCreate.Description,
-                Status = bookingCreate.Status,
-                Address = bookingCreate.Address,
-            };
-
+            var booking = bookingCreate.Adapt<Booking>();
             _context.Bookings.Add(booking);
             await _context.SaveChangesAsync();
 
-            return new BookingViewModel
-            {
-                Id = booking.Id,
-                scheduleId = booking.ScheduleId,
-                UserId = booking.UserId,
-                createDate = booking.CreateDate,
-                description = booking.Description,
-                Address = booking.Address,
+            return booking.Adapt<BookingViewModel>();
 
-            };
-
-                        /*var bookingViewModel = booking.Adapt<BookingViewModel>();
-            return bookingViewModel;*/
+            /*var bookingViewModel = booking.Adapt<BookingViewModel>();
+return bookingViewModel;*/
         }
 
         public async Task<bool> DeleteBooking(int idTmp)
@@ -111,15 +95,7 @@ namespace BE_SWP391_OnDemandTutor.BusinessLogic.Services
 
             await _context.SaveChangesAsync();
 
-            return new BookingViewModel
-            {
-                Id = update.Id,
-                scheduleId = update.ScheduleId,
-                UserId = update.UserId,
-                createDate = update.CreateDate,
-                description = update.Description,
-                Address = update.Address,
-            };
+            return update.Adapt<BookingViewModel>();
 
         }
     }
