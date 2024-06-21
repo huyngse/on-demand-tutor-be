@@ -52,18 +52,6 @@ namespace BE_SWP391_OnDemandTutor.BusinessLogic.Services
 
             _context.Classes.Add(newClass);
             await _context.SaveChangesAsync();
-            // return _mapper.Map<ClassViewModel>(newClass);
-
-    //        var schedules = await _context.Schedules.Where(s => s.ClassID == newClass.ClassId)
-    //                        .Select(x=> new ScheduleViewModel()
-    //                        {
-    //    ScheduleID = x.ScheduleID,
-    //    Title = x.Title,
-    //    Description = x.Description,
-    //    DateOfWeek = x.DateOfWeek,
-    //    StartTime = x.StartTime.Value,
-    //    EndTime = x.EndTime.Value
-    //}).ToListAsync();
             var schedules = await _context.Schedules.Where(s => s.ClassID == newClass.ClassId)
                           .Select(x => x.Adapt<ScheduleViewModel>()).ToListAsync();
 
@@ -109,14 +97,17 @@ namespace BE_SWP391_OnDemandTutor.BusinessLogic.Services
                 .Include(c => c.Feedback)
                 .Include(c => c.Schedules)
                 .FirstOrDefaultAsync(c => c.ClassId == idTmp);
-
+            var tutor = await _context.Users.FirstOrDefaultAsync(t => t.UserId == classEntity.TutorId);
+            var student = await _context.Users.FirstOrDefaultAsync(t => t.UserId == classEntity.StudentId);
             if (classEntity == null)
             {
                 return null;
             }
-          
+            var classViewModel = classEntity.Adapt<ClassViewModel>();
+            classViewModel.Tutor = tutor.Adapt<UserViewModel>();
+            classViewModel.Student = tutor.Adapt<UserViewModel>();
 
-            return classEntity.Adapt<ClassViewModel>();
+            return classViewModel;
          
 
         }
@@ -209,39 +200,6 @@ namespace BE_SWP391_OnDemandTutor.BusinessLogic.Services
                 .Include(c => c.Schedules)
                 .ToListAsync();
 
-            //var classViewModels = classEntities.Select(c => new ClassViewModel
-            //{
-            //    ClassId = c.ClassId,
-            //    ClassName = c.ClassName,
-            //    ClassTime = c.ClassTime,
-            //    ClassInfo = c.ClassInfo,
-            //    ClassRequire = c.ClassRequire,
-            //    ClassAddress = c.ClassAddress,
-            //    ClassMethod = c.ClassMethod,
-            //    ClassLevel = c.ClassLevel,
-            //    ClassFee = c.ClassFee,
-            //    StudentId = c.StudentId,
-            //    StudentName = c.Student != null ? c.Student.Username : null, // Assuming Student has a Username property
-            //    CreatedDate = c.CreatedDate,
-            //    Active = c.Active,
-            //    TutorId = c.TutorId,
-            //    TutorName = c.Tutor != null ? c.Tutor.Username : null, // Assuming Tutor has a Username property
-
-            //    Feedback = c.Feedback?.Content, // Assuming Feedback has a Content property
-            //    District = c.District,
-            //    Ward = c.Ward,
-            //    City = c.City,
-            //    Schedules = c.Schedules.Select(s => new ScheduleViewModel
-            //    {
-            //        // Map properties of ScheduleViewModel as needed
-            //        ScheduleID = s.ScheduleID,
-            //        Title = s.Title,
-            //        Description = s.Description,
-            //        DateOfWeek = s.DateOfWeek,
-            //        StartTime = s.StartTime.Value,
-            //        EndTime = s.EndTime.Value
-            //    }).ToList()
-            //}).ToList();
             var classViewModels = classEntities.Select(c => c.Adapt<ClassViewModel>()).ToList();
 
             return classViewModels;

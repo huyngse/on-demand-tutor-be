@@ -96,7 +96,6 @@ namespace BE_SWP391_OnDemandTutor.Presentation.Controllers
 
 
         [HttpGet("classes")]
-        [Authorize(Roles = "Administrator, Tutor")]
         public async Task<IActionResult> GetAllClasses()
         {
             var classViewModels = await _classService.GetAllClasses();

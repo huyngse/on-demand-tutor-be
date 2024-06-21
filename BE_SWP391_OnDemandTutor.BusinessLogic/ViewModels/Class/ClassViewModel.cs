@@ -28,6 +28,8 @@ namespace BE_SWP391_OnDemandTutor.BusinessLogic.ViewModels
         public string Ward { get; set; }
         public string City { get; set; }
         public List<ScheduleViewModel> Schedules { get; set; }
+        public UserViewModel Tutor { get; set; }
+        public UserViewModel Student { get; set; }
     }
 
 }

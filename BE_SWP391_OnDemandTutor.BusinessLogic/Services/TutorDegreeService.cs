@@ -34,9 +34,17 @@ namespace BE_SWP391_OnDemandTutor.BusinessLogic.Services
         public async Task<TutorDegreeViewModel> CreateTutorDegree(CreateTutorDegreeRequestModel degreeCreate)
         {
 
+            //var degree = new TutorDegree
+            //{
+            //    DegreeName = degreeCreate.DegreeName,   
+            //    Description = degreeCreate.Description,
+            //    DegreeImageUrl = degreeCreate.DegreeImageUrl,
+            //    TutorId = degreeCreate.TutorId,
+            //};
             var degree = degreeCreate.Adapt<TutorDegree>();
             _context.TutorDegrees.Add(degree);
             await _context.SaveChangesAsync();
+            //return _mapper.Map<TutorDegreeViewModel>(degree);
             return degree.Adapt<TutorDegreeViewModel>();
         }
 
