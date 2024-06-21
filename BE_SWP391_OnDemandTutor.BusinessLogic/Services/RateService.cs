@@ -30,24 +30,9 @@ namespace BE_SWP391_OnDemandTutor.BusinessLogic.Services
 
         public async Task<RateViewModel> CreateRateAsync(CreateRateRequestModel rateCreate)
         {
-            var Rate = new Rate
-            {
-                NumberStars = rateCreate.NumberStars,
-                StudentId = rateCreate.StudentId,
-                TutorId = rateCreate.TutorId,
-            };
-
+            var Rate = rateCreate.Adapt<Rate>();
             _context.Rates.Add(Rate);
             await _context.SaveChangesAsync();
-
-            //return new RateViewModel
-            //{
-            //    RatingId = Rate.RatingId,
-            //    StudentId = Rate.StudentId,
-            //    TutorId = Rate.TutorId,
-            //    NumberStars = Rate.NumberStars,
-            //};
-
             return Rate.Adapt<RateViewModel>();
         }
 
@@ -63,15 +48,7 @@ namespace BE_SWP391_OnDemandTutor.BusinessLogic.Services
             update.NumberStars = rateUpdate.NumberStars;
 
 
-            await _context.SaveChangesAsync();
-
-            return new RateViewModel
-            {
-                RatingId = update.RatingId,
-                NumberStars = update.NumberStars,
-                StudentId= update.StudentId,
-                TutorId= update.TutorId,
-            };
+            return update.Adapt<RateViewModel>();
         }
 
         public async Task<bool> DeleteRate(int idTmp)
