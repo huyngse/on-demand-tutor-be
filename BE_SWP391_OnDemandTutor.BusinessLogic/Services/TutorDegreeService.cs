@@ -52,7 +52,7 @@ namespace BE_SWP391_OnDemandTutor.BusinessLogic.Services
             update.DegreeName = updateTutor.DegreeName;
 
             await _context.SaveChangesAsync();
-            return _mapper.Map<TutorDegreeViewModel>(update);
+            return update.Adapt<TutorDegreeViewModel>();
 
 
         }
@@ -84,7 +84,7 @@ namespace BE_SWP391_OnDemandTutor.BusinessLogic.Services
             {
                 return null;
             }
-            return _mapper.Map<TutorDegreeViewModel>(degree);
+            return degree.Adapt<TutorDegreeViewModel>();
 
 
         }

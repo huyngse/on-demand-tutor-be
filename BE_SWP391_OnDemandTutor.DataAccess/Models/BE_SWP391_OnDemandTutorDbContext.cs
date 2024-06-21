@@ -307,6 +307,17 @@ public class BE_SWP391_OnDemandTutorDbContext : DbContext
               EndTime = new DateTime(2024, 6, 8, 11, 0, 0), // 11:00 AM
           }
           );
-
+        modelBuilder.Entity<Booking>().HasData(
+                 new Booking
+                 {
+                     Id = 1,
+                     UserId = 1,
+                     ScheduleId = 1,
+                     CreateDate = new DateTime(2024, 6, 8, 9, 0, 0),
+                     Description = "Abc",
+                     Status = "Pending",
+                     Address = "Abc"
+                 }
+            );
     }
 }
