@@ -11,6 +11,8 @@ using System.IdentityModel.Tokens.Jwt;
 using System.IO;
 using System.Security.Claims;
 using System.Text;
+using OnDemandTutor.DataAccess.ExceptionModels;
+
 namespace BE_SWP391_OnDemandTutor.BusinessLogic.Services
 {
 
@@ -47,7 +49,7 @@ namespace BE_SWP391_OnDemandTutor.BusinessLogic.Services
             var user = await _context.Users.FindAsync(id);
             if (user == null)
             {
-                throw new Exception("User not found");
+                throw new BadRequestException("User not found");
             }
 
         

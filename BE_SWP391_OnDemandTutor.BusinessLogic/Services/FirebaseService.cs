@@ -36,6 +36,21 @@ namespace BE_SWP391_OnDemandTutor.BusinessLogic.Services
 
             return await task.GetDownloadUrlAsync();
         }
+        public async Task<string> UpdloadTutorDegree(IFormFile image)
+        {
+            string firebaseBucket = _configuration["Firebase:StorageBucket"];
+
+            var firebaseStorage = new FirebaseStorage(firebaseBucket);
+
+            string filename = Guid.NewGuid().ToString() + "_" + image.FileName;
+
+            var task = firebaseStorage.Child("TutouDegree").Child(filename);
+
+            var stream = image.OpenReadStream();
+            await task.PutAsync(stream);
+
+            return await task.GetDownloadUrlAsync();
+        }
 
     }
 }

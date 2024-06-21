@@ -1,5 +1,5 @@
 using BE_SWP391_OnDemandTutor.API.AutoMapperConfig;
-using BE_SWP391_OnDemandTutor.API.GlobalExceptionHandler;
+using BE_SWP391_OnDemandTutor.API.Middleware;
 using BE_SWP391_OnDemandTutor.BusinessLogic.Generations.DependencyInjection;
 using BE_SWP391_OnDemandTutor.BusinessLogic.Helper.EmailSettings;
 using BE_SWP391_OnDemandTutor.BusinessLogic.Services;
@@ -91,7 +91,7 @@ if (app.Environment.IsDevelopment())
 app.UseCors();
 
 
-//app.UseMiddleware<UnauthourizeExceptionHandlingMiddleware>();
+app.UseMiddleware<ExceptionHandlingMiddleware>();
 
 app.UseHttpsRedirection();
 

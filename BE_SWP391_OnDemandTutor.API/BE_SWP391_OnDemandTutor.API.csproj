@@ -22,12 +22,17 @@
     <PackageReference Include="MimeKit" Version="4.6.0" />
     <PackageReference Include="MailKit" Version="4.6.0" />
     <PackageReference Include="Mapster" Version="7.4.0" />
+    <PackageReference Include="FirebaseStorage.net" Version="1.0.3" />
   </ItemGroup>
 
   <ItemGroup>
     <None Remove="AppStart\" />
+    <None Remove="Middleware\" />
+    <None Remove="Middleware\ExceptionModels\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="AppStart\" />
+    <Folder Include="Middleware\" />
+    <Folder Include="Middleware\ExceptionModels\" />
   </ItemGroup>
 </Project>
