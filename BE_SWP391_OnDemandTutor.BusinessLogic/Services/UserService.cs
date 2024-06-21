@@ -5,7 +5,7 @@ using BE_SWP391_OnDemandTutor.DataAccess.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
-using Org.BouncyCastle.Crypto.Generators;
+using Mapster;
 using System.Data;
 using System.IdentityModel.Tokens.Jwt;
 using System.IO;
@@ -27,37 +27,19 @@ namespace BE_SWP391_OnDemandTutor.BusinessLogic.Services
     {
         private readonly BE_SWP391_OnDemandTutorDbContext _context;
         private readonly IConfiguration _configuration;
-        public UserService(BE_SWP391_OnDemandTutorDbContext context, IConfiguration configuration)
+        private readonly IFirebaseService _firebaseService;
+        public UserService(BE_SWP391_OnDemandTutorDbContext context, IConfiguration configuration, IFirebaseService firebaseService)
         {
             _context = context;
             _configuration = configuration;
+            _firebaseService = firebaseService;
         }
 
         public async Task<List<UserViewModel>> GetAll()
         {
             var result = await _context.Users.ToListAsync();
-            return result.Select(user => new UserViewModel()
-            {
-
-                UserId = user.UserId,
-                Username = user.Username,
-                ProfileImage = user.ProfileImage,
-                PhoneNumber = user.PhoneNumber,
-                EmailAddress = user.EmailAddress,
-                Fullname = user.FullName,
-                DateOfBirth = user.DateOfBirth,
-                Gender = user.Gender,
-                Role = user.Role,
-                City = user.City,
-                District = user.District,
-                Ward = user.Ward,
-                Street = user.Street,
-                TutorType = user.TutorType,
-                School = user.School,
-                TutorDescription = user.TutorDescription,
-                IsActive = user.IsActive,
-            }).ToList();
-
+          
+            return result.Select(user => user.Adapt<UserViewModel>()).ToList();
         }
 
         public async Task<UserViewModel> GetById(int id)
@@ -68,26 +50,9 @@ namespace BE_SWP391_OnDemandTutor.BusinessLogic.Services
                 throw new Exception("User not found");
             }
 
-            return new UserViewModel()
-            {
-                UserId = user.UserId,
-                Username = user.Username,
-                ProfileImage = user.ProfileImage,
-                PhoneNumber = user.PhoneNumber,
-                EmailAddress = user.EmailAddress,
-                DateOfBirth = user.DateOfBirth,
-                Fullname = user.FullName,
-                Gender = user.Gender,
-                Role = user.Role,
-                City = user.City,
-                District = user.District,
-                Ward = user.Ward,
-                Street = user.Street,
-                TutorType = user.TutorType,
-                School = user.School,
-                TutorDescription = user.TutorDescription,
-                IsActive = user.IsActive,
-            };
+        
+           
+            return user.Adapt<UserViewModel>();
         }
 
         public async Task<string> Login(LoginRequestModel request)
@@ -155,51 +120,14 @@ namespace BE_SWP391_OnDemandTutor.BusinessLogic.Services
                 throw new Exception("Username and EmailAddress already exists");
             }
 
-            var user = new User()
-            {
-                Username = request.Username,
-                ProfileImage = request.ProfileImage,
-                Password = passwordHash,
-                FullName = request.Fullname,
-                PhoneNumber = request.PhoneNumber,
-                EmailAddress = request.EmailAddress,
-                DateOfBirth = request.DateOfBirth,
-                Gender = request.Gender,
-                Role = request.Role,
-                City = request.City,
-                District = request.District,
-                Ward = request.Ward,
-                Street = request.Street,
-                TutorType = request.TutorType,
-                School = request.School,
-                TutorDescription = request.TutorDescription,
-                IsActive = true,
-            };
-
+         
+            var user = request.Adapt<User>();
+            user.ProfileImage = await _firebaseService.UploadUserImage(request.ProfileImage);
             await _context.Users.AddAsync(user);
             await _context.SaveChangesAsync();
 
-            return new UserViewModel()
-            {
-
-                UserId = user.UserId,
-                Username = user.Username,
-                ProfileImage = user.ProfileImage,
-                Fullname = user.FullName,
-                PhoneNumber = user.PhoneNumber,
-                EmailAddress = user.EmailAddress,
-                DateOfBirth = user.DateOfBirth,
-                Gender = user.Gender,
-                Role = user.Role,
-                City = user.City,
-                District = user.District,
-                Ward = user.Ward,
-                Street = user.Street,
-                TutorType = user.TutorType,
-                School = user.School,
-                TutorDescription = user.TutorDescription,
-                IsActive = user.IsActive,
-            };
+        
+            return user.Adapt<UserViewModel>();
         }
 
         public async Task<UserViewModel> UpdateUser(UpdateUserRequestModel request)
@@ -221,7 +149,7 @@ namespace BE_SWP391_OnDemandTutor.BusinessLogic.Services
             user.Username = request.Username;
             user.Password = passwordHash;
             user.FullName = request.Fullname;
-            user.ProfileImage = request.ProfileImage;
+            user.ProfileImage = await _firebaseService.UploadUserImage(request.ProfileImage);
             user.PhoneNumber = request.PhoneNumber;
             user.EmailAddress = request.EmailAddress;
             user.DateOfBirth = request.DateOfBirth;
@@ -238,26 +166,7 @@ namespace BE_SWP391_OnDemandTutor.BusinessLogic.Services
 
             await _context.SaveChangesAsync();
 
-            return new UserViewModel()
-            {
-                UserId = user.UserId,
-                Username = user.Username,
-                Fullname = user.FullName,
-                ProfileImage = user.ProfileImage,
-                PhoneNumber = user.PhoneNumber,
-                EmailAddress = user.EmailAddress,
-                DateOfBirth = user.DateOfBirth,
-                Gender = user.Gender,
-                Role = user.Role,
-                City = user.City,
-                District = user.District,
-                Ward = user.Ward,
-                Street = user.Street,
-                TutorType = user.TutorType,
-                School = user.School,
-                TutorDescription = user.TutorDescription,
-                IsActive = user.IsActive,
-            };
+            return user.Adapt<UserViewModel>();
         }
     }
 

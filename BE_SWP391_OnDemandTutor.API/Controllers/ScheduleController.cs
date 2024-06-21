@@ -74,14 +74,20 @@ namespace BE_SWP391_OnDemandTutor.Presentation.Controllers
 
         [MapToApiVersion("1")]
         [HttpPut]
-        public async Task<IActionResult> Update(int id, UpdateScheduleRequestModel scheduleUpdate)
+        public async Task<IActionResult> Update(int id, [FromBody] UpdateScheduleRequestModel scheduleUpdate)
         {
-            if (id != scheduleUpdate.ScheduleID)
+            var checkid =  await _scheduleService.GetById(id);
+            if (id != checkid.ScheduleID)
             {
                 return BadRequest("ID in the request body does not match the route parameter.");
             }
 
-            var updatedSchedule = await _scheduleService.UpdateSchedule(scheduleUpdate);
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            var updatedSchedule = await _scheduleService.UpdateSchedule(id,scheduleUpdate);
             if (updatedSchedule == null)
             {
                 return NotFound();
