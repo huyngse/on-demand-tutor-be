@@ -5,6 +5,7 @@ using BE_SWP391_OnDemandTutor.BusinessLogic.ViewModels;
 using BE_SWP391_OnDemandTutor.DataAccess.Models;
 using Microsoft.EntityFrameworkCore;
 using System.Linq.Dynamic.Core;
+using OnDemandTutor.DataAccess.ExceptionModels;
 
 namespace BE_SWP391_OnDemandTutor.BusinessLogic.Services
 {
@@ -32,46 +33,14 @@ namespace BE_SWP391_OnDemandTutor.BusinessLogic.Services
 
         public async Task<ClassViewModel> CreateClass(CreateClassRequestModel classCreate)
         {
-            var newClass = new Class
-            {
-                ClassName = classCreate.ClassName,
-                ClassTime = classCreate.ClassTime,
-                Active = classCreate.Active,
-                ClassInfo = classCreate.ClassInfo,
-                ClassRequire = classCreate.ClassRequire,
-                ClassAddress = classCreate.ClassAddress,
-                ClassMethod = classCreate.ClassMethod,
-                ClassLevel = classCreate.ClassLevel,
-                ClassFee = classCreate.ClassFee,
-                TutorId = classCreate.TutorId,
-                City = classCreate.City,
-                District = classCreate.District,
-                Ward = classCreate.Ward,
-                CreatedDate = DateTime.UtcNow
-            };
-
+            var newClass = classCreate.Adapt<Class>();
             _context.Classes.Add(newClass);
             await _context.SaveChangesAsync();
             var schedules = await _context.Schedules.Where(s => s.ClassID == newClass.ClassId)
                           .Select(x => x.Adapt<ScheduleViewModel>()).ToListAsync();
 
-            return new ClassViewModel()
-            {
-                ClassName = newClass.ClassName,
-                ClassTime = newClass.ClassTime,
-                Active = newClass.Active,
-                ClassInfo = newClass.ClassInfo,
-                ClassRequire = newClass.ClassRequire,
-                ClassAddress = newClass.ClassAddress,
-                ClassMethod = newClass.ClassMethod,
-                ClassLevel = newClass.ClassLevel,
-                ClassFee = newClass.ClassFee,
-                TutorId = newClass.TutorId,
-                City = classCreate.City,
-                CreatedDate = DateTime.UtcNow,
-                Schedules = schedules
-            };
-                }
+            return newClass.Adapt<ClassViewModel>();
+        }
 
         public async Task<(bool Success, string ClassName)> DeactivateClass(int idTmp)
         {
@@ -123,9 +92,8 @@ namespace BE_SWP391_OnDemandTutor.BusinessLogic.Services
 
             if (classEntity == null)
             {
-                return null;
+                throw new ModelException("id","The Class Id is not valid. Please try again.","400");
             }
-
             return new ClassViewModel
             {
                 ClassId = classEntity.ClassId,
@@ -145,7 +113,7 @@ namespace BE_SWP391_OnDemandTutor.BusinessLogic.Services
                 Schedules = classEntity.Schedules?.Select(s => new ScheduleViewModel
                 {
                     ScheduleID = s.ScheduleID,
-                    Description =s.Description,
+                    Description = s.Description,
                     Title = s.Title,
                     DateOfWeek = s.DateOfWeek,
                     StartTime = s.StartTime.Value,
