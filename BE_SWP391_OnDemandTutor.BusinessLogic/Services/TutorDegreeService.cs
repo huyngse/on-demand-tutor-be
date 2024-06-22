@@ -23,11 +23,13 @@ namespace BE_SWP391_OnDemandTutor.BusinessLogic.Services
     {
         private readonly BE_SWP391_OnDemandTutorDbContext _context;
         private readonly IMapper _mapper;
+        private readonly IFirebaseService _firebaseService;
 
-        public TutorDegreeService(BE_SWP391_OnDemandTutorDbContext context, IMapper mapper)
+        public TutorDegreeService(BE_SWP391_OnDemandTutorDbContext context, IMapper mapper, IFirebaseService firebaseService)
         {
             _context = context;
             _mapper = mapper;
+            _firebaseService = firebaseService;
         }
 
 

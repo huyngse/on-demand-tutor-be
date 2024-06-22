@@ -1,5 +1,5 @@
 ﻿
-namespace BE_SWP391_OnDemandTutor.BusinessLogic.RequestModels.Feedback
+namespace BE_SWP391_OnDemandTutor.BusinessLogic.RequestModels.Booking
 {
 
     public class UpdateBookingViewModel
