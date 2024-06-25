@@ -14,7 +14,6 @@ namespace BE_SWP391_OnDemandTutor.BusinessLogic.ViewModels
         public DayGroup DateOfWeek { get; set; }
         public DateTime StartTime { get; set; }
         public DateTime EndTime { get; set; }
-        public List<BookingViewModel> Bookings { get; set; }
     }
 
 }
