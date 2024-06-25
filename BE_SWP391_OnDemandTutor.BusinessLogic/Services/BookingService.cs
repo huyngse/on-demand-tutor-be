@@ -64,8 +64,9 @@ return bookingViewModel;*/
                 createDate = booking.CreateDate,
                 description = booking.Description,
                 Address = booking.Address,
-
-
+                StartTime = booking.StartTime,
+                EndTime = booking.EndTime,
+ 
             }).ToList();
         }
 
@@ -79,6 +80,7 @@ return bookingViewModel;*/
             }
 
             return booking.Adapt<BookingViewModel>();
+            
         }
 
         public async Task<BookingViewModel> UpdateBooking(UpdateBookingViewModel bookingUpdate)
