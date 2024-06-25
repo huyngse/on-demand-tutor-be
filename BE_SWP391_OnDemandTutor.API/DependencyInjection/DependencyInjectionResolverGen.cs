@@ -20,7 +20,9 @@ namespace BE_SWP391_OnDemandTutor.BusinessLogic.Generations.DependencyInjection
         
             services.AddScoped<IUserService, UserService>();
 
-          
+            services.AddScoped<IBookingService, BookingService>();
+
+
         }
     }
 }

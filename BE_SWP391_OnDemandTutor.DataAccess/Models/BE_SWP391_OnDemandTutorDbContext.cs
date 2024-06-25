@@ -310,10 +310,12 @@ public class BE_SWP391_OnDemandTutorDbContext : DbContext
         modelBuilder.Entity<Booking>().HasData(
                  new Booking
                  {
-                     Id = 1,
+                     BookingId = 1,
                      UserId = 1,
                      ScheduleId = 1,
                      CreateDate = new DateTime(2024, 6, 8, 9, 0, 0),
+                     StartDate = new DateTime(2024, 6, 8, 9, 0, 0),
+                     EndDate = new DateTime(2024, 10, 8, 9, 0, 0),
                      Description = "Abc",
                      Status = "Pending",
                      Address = "Abc"
