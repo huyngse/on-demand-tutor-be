@@ -12,7 +12,7 @@ namespace BE_SWP391_OnDemandTutor.DataAccess.Configurations
         {
             builder.ToTable("Booking");
 
-            builder.HasKey(c => c.Id);
+            builder.HasKey(c => c.BookingId);
 
             builder.Property(c => c.CreateDate).HasColumnType("datetime2").IsRequired();
 
