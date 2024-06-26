@@ -47,6 +47,18 @@ namespace BE_SWP391_OnDemandTutor.Presentation.Controllers
         }
 
         [MapToApiVersion("1")]
+        [HttpGet("class/{classId:int}")]
+        public async Task<IActionResult> GetSchedulesByClassId(int classId)
+        {
+            var schedules = await _scheduleService.GetShedulesByClassId(classId);
+            if (schedules == null)
+            {
+                return NotFound("");
+            }
+            return Ok(schedules);
+        }
+
+        [MapToApiVersion("1")]
         [HttpGet("{scheduleId:int}")]
         public async Task<IActionResult> GetById(int scheduleId)
         {
