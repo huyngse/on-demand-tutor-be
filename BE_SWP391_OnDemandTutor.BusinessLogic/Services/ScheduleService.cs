@@ -14,6 +14,7 @@ namespace BE_SWP391_OnDemandTutor.BusinessLogic.Services
         Task<ScheduleViewModel> GetById(int scheduleId);
         Task<ScheduleDetailViewModel> GetDetailById(int scheduleId);
         Task<List<ScheduleDetailViewModel>> GetAll();
+        Task<List<ScheduleDetailViewModel>> GetShedulesByClassId(int classId);
         Task<ScheduleViewModel> CreateSchedule(CreateScheduleRequestModel scheduleCreate);
         Task<ScheduleViewModel> UpdateSchedule(int scheduleId, UpdateScheduleRequestModel scheduleUpdate);
         Task<bool> DeleteSchedule(int scheduleId);
@@ -96,6 +97,54 @@ namespace BE_SWP391_OnDemandTutor.BusinessLogic.Services
                 };
             }
             ).ToList(); ;
+        }
+
+        public async Task<List<ScheduleDetailViewModel>> GetShedulesByClassId(int classId)
+        {
+            var schedules = await _context.Schedules
+                .Include(s => s.Bookings)
+                .ThenInclude(s => s.User).ToListAsync();
+
+            return schedules.Select(schedule =>
+            {
+                var bookingViewModels = schedule.Bookings.Select(booking => new ScheduleBookingViewModel
+                {
+                    Address = booking.Address,
+                    BookingId = booking.BookingId,
+                    CreateDate = booking.CreateDate,
+                    Description = booking.Description,
+                    EndDate = booking.EndDate,
+                    StartDate = booking.StartDate,
+                    Status = booking.Status,
+                    Student = new ScheduleUserViewModel
+                    {
+                        FullName = booking.User.FullName,
+                        EmailAddress = booking.User.EmailAddress,
+                        District = booking.User.District,
+                        UserId = booking.User.UserId,
+                        City = booking.User.City,
+                        DateOfBirth = booking.User.DateOfBirth,
+                        Gender = booking.User.Gender,
+                        PhoneNumber = booking.User.PhoneNumber,
+                        ProfileImage = booking.User.ProfileImage,
+                        Street = booking.User.Street,
+                        Username = booking.User.Username,
+                        Ward = booking.User.Ward
+                    }
+                }).ToList();
+                return new ScheduleDetailViewModel
+                {
+                    ScheduleID = schedule.ScheduleID,
+                    Title = schedule.Title,
+                    Description = schedule.Description,
+                    ClassID = schedule.ClassID,
+                    DateOfWeek = schedule.DateOfWeek,
+                    EndTime = schedule.EndTime,
+                    StartTime = schedule.StartTime,
+                    Bookings = bookingViewModels
+                };
+            }
+            ).Where(s => s.ClassID == classId).ToList(); ;
         }
 
         public async Task<ScheduleViewModel> GetById(int scheduleId)
