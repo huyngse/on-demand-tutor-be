@@ -4,6 +4,7 @@ using BE_SWP391_OnDemandTutor.BusinessLogic.ViewModels;
 using BE_SWP391_OnDemandTutor.DataAccess.Models;
 using Mapster;
 using Microsoft.EntityFrameworkCore;
+using OnDemandTutor.DataAccess.ExceptionModels;
 
 namespace BE_SWP391_OnDemandTutor.BusinessLogic.Services
 {
@@ -42,7 +43,7 @@ namespace BE_SWP391_OnDemandTutor.BusinessLogic.Services
             var update = await _context.Feedbacks.FindAsync(feedbacksUpdate.FeedbackId);
             if (update == null)
             {
-                return null;
+                throw new NotFoundException("Can not find the Feedback");
             }
             update.Evaluation = feedbacksUpdate.Evaluation;
             update.Content = feedbacksUpdate.Content;
@@ -58,7 +59,7 @@ namespace BE_SWP391_OnDemandTutor.BusinessLogic.Services
             var delete = await _context.Feedbacks.FindAsync(idTmp);
             if (delete == null)
             {
-                return false;
+                throw new NotFoundException("Can not find the Feedback");
             }
 
             _context.Feedbacks.Remove(delete);
@@ -86,7 +87,7 @@ namespace BE_SWP391_OnDemandTutor.BusinessLogic.Services
             var feedbacks = await _context.Feedbacks.FindAsync(idTmp);
             if (feedbacks == null)
             {
-                return null;
+                throw new NotFoundException("Can not find the Feedback");
             }
 
             return feedbacks.Adapt<FeedbackViewModel>();

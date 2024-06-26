@@ -8,6 +8,8 @@ using System;
 using Mapster;
 using BE_SWP391_OnDemandTutor.BusinessLogic.RequestModels.Rate;
 using System.Linq.Dynamic.Core;
+using OnDemandTutor.DataAccess.ExceptionModels;
+
 namespace BE_SWP391_OnDemandTutor.BusinessLogic.Services
 {
 
@@ -290,7 +292,7 @@ namespace BE_SWP391_OnDemandTutor.BusinessLogic.Services
             var booking = await _context.Bookings.FirstOrDefaultAsync(b => b.BookingId == bookingId);
             if (booking == null)
             {
-                return null;
+                throw new NotFoundException("Can not find the Booking");
             }
             return new BookingViewModel
             {
@@ -315,7 +317,7 @@ namespace BE_SWP391_OnDemandTutor.BusinessLogic.Services
                 .FirstOrDefaultAsync(b => b.BookingId == bookingId);
             if (booking == null)
             {
-                return null;
+                throw new NotFoundException("Can not find the Booking");
             }
             return new BookingDetailViewModel
             {
@@ -388,7 +390,7 @@ namespace BE_SWP391_OnDemandTutor.BusinessLogic.Services
             var existingModel = await _context.Bookings.FindAsync(bookingId);
             if (existingModel == null)
             {
-                return null;
+                throw new NotFoundException("Can not find the Booking");
             }
             existingModel.Status = updateModel.Status;
             existingModel.Description = updateModel.Description;
@@ -405,7 +407,7 @@ namespace BE_SWP391_OnDemandTutor.BusinessLogic.Services
             var existingModel = await _context.Bookings.FindAsync(bookingId);
             if (existingModel == null)
             {
-                return null;
+                throw new NotFoundException("Can not find the Booking");
             }
             existingModel.Status = stauts;
 
