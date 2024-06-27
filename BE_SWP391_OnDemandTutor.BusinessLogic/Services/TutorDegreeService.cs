@@ -5,6 +5,7 @@ using BE_SWP391_OnDemandTutor.BusinessLogic.ViewModels;
 using BE_SWP391_OnDemandTutor.DataAccess.Models;
 using Mapster;
 using Microsoft.EntityFrameworkCore;
+using OnDemandTutor.DataAccess.ExceptionModels;
 using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace BE_SWP391_OnDemandTutor.BusinessLogic.Services
@@ -36,6 +37,7 @@ namespace BE_SWP391_OnDemandTutor.BusinessLogic.Services
         public async Task<TutorDegreeViewModel> CreateTutorDegree(CreateTutorDegreeRequestModel degreeCreate)
         {
             var degree = degreeCreate.Adapt<TutorDegree>();
+            degree.DegreeImageUrl = await _firebaseService.UpdloadTutorDegree(degreeCreate.DegreeImageUrl);
             _context.TutorDegrees.Add(degree);
             await _context.SaveChangesAsync();
             return degree.Adapt<TutorDegreeViewModel>();
@@ -46,11 +48,12 @@ namespace BE_SWP391_OnDemandTutor.BusinessLogic.Services
             var update = await _context.TutorDegrees.FindAsync(updateTutor.DegreeId);
             if (update == null)
             {
-                return null;
+                throw new NotFoundException("Can not find the Degree");
             }
 
             update.Description = updateTutor.Description;
             update.DegreeName = updateTutor.DegreeName;
+            update.DegreeImageUrl = await _firebaseService.UpdloadTutorDegree(updateTutor.DegreeImageUrl);
 
             await _context.SaveChangesAsync();
             return update.Adapt<TutorDegreeViewModel>();
@@ -63,7 +66,7 @@ namespace BE_SWP391_OnDemandTutor.BusinessLogic.Services
             var delete = await _context.TutorDegrees.FindAsync(idTmp);
             if (delete == null)
             {
-                return false;
+                throw new NotFoundException("Can not find the Degree");
             }
 
             _context.TutorDegrees.Remove(delete);
@@ -83,7 +86,7 @@ namespace BE_SWP391_OnDemandTutor.BusinessLogic.Services
             var degree = await _context.TutorDegrees.FindAsync(idTmp);
             if (degree == null)
             {
-                return null;
+                throw new NotFoundException("Can not find the Degree");
             }
             return degree.Adapt<TutorDegreeViewModel>();
 

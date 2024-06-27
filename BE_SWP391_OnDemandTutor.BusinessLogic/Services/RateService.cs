@@ -4,6 +4,7 @@ using BE_SWP391_OnDemandTutor.BusinessLogic.ViewModels;
 using BE_SWP391_OnDemandTutor.DataAccess.Models;
 using Microsoft.EntityFrameworkCore;
 using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
+using OnDemandTutor.DataAccess.ExceptionModels;
 
 namespace BE_SWP391_OnDemandTutor.BusinessLogic.Services
 {
@@ -43,7 +44,7 @@ namespace BE_SWP391_OnDemandTutor.BusinessLogic.Services
             var update = await _context.Rates.FindAsync(rateUpdate.RatingId);
             if (update == null)
             {
-                return null;
+                throw new NotFoundException("Can not find the Rate to upddate");
             }
             update.NumberStars = rateUpdate.NumberStars;
 
@@ -56,7 +57,7 @@ namespace BE_SWP391_OnDemandTutor.BusinessLogic.Services
             var delete = await _context.Rates.FindAsync(idTmp);
             if (delete == null)
             {
-                return false;
+                throw new NotFoundException("Can not find the Rate to delete");
             }
 
             _context.Rates.Remove(delete);
@@ -73,7 +74,7 @@ namespace BE_SWP391_OnDemandTutor.BusinessLogic.Services
                 NumberStars = rate.NumberStars,
                 StudentId = rate.StudentId,
                 TutorId = rate.TutorId,
-                SubjectId= rate.SubjectId,
+                SubjectId = rate.SubjectId,
 
             }).ToList();
         }
@@ -83,7 +84,7 @@ namespace BE_SWP391_OnDemandTutor.BusinessLogic.Services
             var rate = await _context.Rates.FindAsync(idTmp);
             if (rate == null)
             {
-                return null;
+                throw new NotFoundException("Can not find the Rate");
             }
 
             //return new RateViewModel

@@ -5,15 +5,16 @@ using Microsoft.Extensions.Configuration;
 
 namespace BE_SWP391_OnDemandTutor.BusinessLogic.Services
 {
-   
-	public interface IFirebaseService
-	{
+
+    public interface IFirebaseService
+    {
         Task<string> UploadUserImage(IFormFile image);
+        Task<string> UpdloadTutorDegree(IFormFile image);
 
     }
 
-    public class FirebaseService: IFirebaseService
-	{
+    public class FirebaseService : IFirebaseService
+    {
         public IConfiguration _configuration;
 
         public FirebaseService(IConfiguration configuration)
@@ -21,7 +22,7 @@ namespace BE_SWP391_OnDemandTutor.BusinessLogic.Services
             _configuration = configuration;
         }
 
-        public async Task<string> UploadUserImage( IFormFile image)
+        public async Task<string> UploadUserImage(IFormFile image)
         {
             string firebaseBucket = _configuration["Firebase:StorageBucket"];
 
