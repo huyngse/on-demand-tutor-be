@@ -13,7 +13,7 @@ namespace BE_SWP391_OnDemandTutor.BusinessLogic.Services
     public interface IClassService
     {
         Task<ClassViewModel> GetDetail(int classId);
-        Task<bool> UpdateInforClass(UpdateClassRequestModel classUpdate, int classID) ;
+        Task<bool> UpdateInforClass(UpdateClassRequestModel classUpdate, int classID);
         Task<ClassViewModel> CreateClass(CreateClassRequestModel classCreate);
         Task<ClassViewModel> GetById(int idTmp);
         Task<(bool Success, string ClassName)> DeactivateClass(int idTmp);
@@ -47,7 +47,7 @@ namespace BE_SWP391_OnDemandTutor.BusinessLogic.Services
             var classEntity = await _context.Classes.FindAsync(idTmp);
             if (classEntity == null)
             {
-                return (false, null);
+                throw new NotFoundException("Can not find the Class");
             }
 
             classEntity.Active = !classEntity.Active;
@@ -77,7 +77,7 @@ namespace BE_SWP391_OnDemandTutor.BusinessLogic.Services
             classViewModel.Student = tutor.Adapt<UserViewModel>();
 
             return classViewModel;
-         
+
 
         }
 
@@ -92,7 +92,7 @@ namespace BE_SWP391_OnDemandTutor.BusinessLogic.Services
 
             if (classEntity == null)
             {
-                throw new ModelException("id","The Class Id is not valid. Please try again.","400");
+                throw new ModelException("id", "The Class Id is not valid. Please try again.", "400");
             }
             return new ClassViewModel
             {
@@ -132,7 +132,7 @@ namespace BE_SWP391_OnDemandTutor.BusinessLogic.Services
             var classEntity = await _context.Classes.FindAsync(classID);
             if (classEntity == null)
             {
-                return false;
+                throw new NotFoundException("Can not find the Class");
             }
             if (classUpdate.StudentId.HasValue)
             {
@@ -140,7 +140,7 @@ namespace BE_SWP391_OnDemandTutor.BusinessLogic.Services
                 if (!studentExists)
                 {
                     // You can return a custom error message or handle it differently
-                    return false;
+                    throw new NotFoundException("Can not find the StudentId");
                 }
             }
 
@@ -153,7 +153,7 @@ namespace BE_SWP391_OnDemandTutor.BusinessLogic.Services
             classEntity.ClassLevel = classUpdate.ClassLevel;
             classEntity.ClassFee = classUpdate.ClassFee;
             classEntity.StudentId = classUpdate.StudentId;
-            
+
 
             _context.Classes.Update(classEntity);
             await _context.SaveChangesAsync();
