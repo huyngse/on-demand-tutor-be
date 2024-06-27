@@ -72,7 +72,7 @@ namespace BE_SWP391_OnDemandTutor.Presentation.Controllers
 
         [MapToApiVersion("1")]
         [HttpPut]
-        public async Task<ActionResult<UserViewModel>> UpdateUser([FromQuery] UpdateUserRequestModel userCreate)
+        public async Task<ActionResult<UserViewModel>> UpdateUser([FromBody] UpdateUserRequestModel userCreate)
         {
             var userUpdated = await _userService.UpdateUser(userCreate);
 
