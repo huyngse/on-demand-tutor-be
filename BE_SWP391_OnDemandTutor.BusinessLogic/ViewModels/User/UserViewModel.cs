@@ -16,6 +16,7 @@ namespace BE_SWP391_OnDemandTutor.BusinessLogic.ViewModels
         public string Ward { get; set; }
         public string Street { get; set; }
         public string TutorType { get; set; }
+        public string TutorDescription { get; set; }
         public string School { get; set; }
         public bool IsActive { get; set; }
     }
