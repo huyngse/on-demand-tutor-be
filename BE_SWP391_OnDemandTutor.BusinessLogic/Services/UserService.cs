@@ -29,12 +29,10 @@ namespace BE_SWP391_OnDemandTutor.BusinessLogic.Services
     {
         private readonly BE_SWP391_OnDemandTutorDbContext _context;
         private readonly IConfiguration _configuration;
-        private readonly IFirebaseService _firebaseService;
-        public UserService(BE_SWP391_OnDemandTutorDbContext context, IConfiguration configuration, IFirebaseService firebaseService)
+        public UserService(BE_SWP391_OnDemandTutorDbContext context, IConfiguration configuration)
         {
             _context = context;
             _configuration = configuration;
-            _firebaseService = firebaseService;
         }
 
         public async Task<List<UserViewModel>> GetAll()
@@ -122,7 +120,6 @@ namespace BE_SWP391_OnDemandTutor.BusinessLogic.Services
 
          
             var user = request.Adapt<User>();
-            user.ProfileImage = await _firebaseService.UploadUserImage(request.ProfileImage);
             await _context.Users.AddAsync(user);
             await _context.SaveChangesAsync();
 
@@ -150,7 +147,6 @@ namespace BE_SWP391_OnDemandTutor.BusinessLogic.Services
             user.Username = request.Username;
             user.Password = passwordHash;
             user.FullName = request.Fullname;
-            user.ProfileImage = await _firebaseService.UploadUserImage(request.ProfileImage);
             user.PhoneNumber = request.PhoneNumber;
             user.EmailAddress = request.EmailAddress;
             user.DateOfBirth = request.DateOfBirth;

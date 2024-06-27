@@ -5,6 +5,7 @@ using BE_SWP391_OnDemandTutor.BusinessLogic.Services;
 
 using Microsoft.AspNetCore.Mvc;
 using Firebase.Storage;
+using BE_SWP391_OnDemandTutor.DataAccess.Models;
 
 namespace BE_SWP391_OnDemandTutor.API.Controllers
 {
@@ -23,19 +24,8 @@ namespace BE_SWP391_OnDemandTutor.API.Controllers
         [HttpPost]
         public async Task<IActionResult> UploadImage(IFormFile? image)
         {
-            string firebaseBucket = "ondemandtutor-74ed2.appspot.com";
-
-            var firebaseStorage = new FirebaseStorage(firebaseBucket);
-
-            string filename = Guid.NewGuid().ToString() + "_" + image.FileName;
-
-            var task = firebaseStorage.Child("User").Child(filename);
-
-            var stream = image.OpenReadStream();
-            await task.PutAsync(stream);
-
-            var url = await task.GetDownloadUrlAsync();
-            return Ok(url);
+           var rs = await _firebaseService.UploadUserImage(image);
+            return Ok(rs);
         }
 
     }
