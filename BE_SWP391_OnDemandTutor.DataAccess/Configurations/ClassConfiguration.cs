@@ -15,7 +15,6 @@ namespace BE_SWP391_OnDemandTutor.DataAccess.Configurations
 
             builder.Property(c => c.ClassName).HasMaxLength(100).IsRequired();
 
-            builder.Property(c => c.ClassTime).HasColumnType("datetime2").IsRequired();
 
             builder.Property(c => c.ClassInfo).HasMaxLength(500).IsRequired();
 

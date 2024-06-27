@@ -9,7 +9,6 @@ namespace BE_SWP391_OnDemandTutor.BusinessLogic.RequestModels.Class
         [MaxLength(64, ErrorMessage = "Class Name must be less than 64 characters")]
         
         public string ClassName { get; set; }
-        public DateTime ClassTime { get; set; }
         public string ClassInfo { get; set; }
         public string ClassRequire { get; set; }
         public string ClassAddress { get; set; }         

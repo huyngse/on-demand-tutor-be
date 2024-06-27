@@ -9,7 +9,6 @@ namespace BE_SWP391_OnDemandTutor.BusinessLogic.ViewModels
     public class ClassViewModel {
         public int ClassId { get; set; }
         public string ClassName { get; set; }
-        public DateTime ClassTime { get; set; }
         public string ClassInfo { get; set; }
         public string ClassRequire { get; set; }
         public string ClassAddress { get; set; }
