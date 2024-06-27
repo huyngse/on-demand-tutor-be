@@ -52,8 +52,6 @@ namespace BE_SWP391_OnDemandTutor.BusinessLogic.Services
                 throw new BadRequestException("User not found");
             }
 
-        
-           
             return user.Adapt<UserViewModel>();
         }
 
@@ -131,6 +129,7 @@ namespace BE_SWP391_OnDemandTutor.BusinessLogic.Services
         
             return user.Adapt<UserViewModel>();
         }
+
 
         public async Task<UserViewModel> UpdateUser(UpdateUserRequestModel request)
         {

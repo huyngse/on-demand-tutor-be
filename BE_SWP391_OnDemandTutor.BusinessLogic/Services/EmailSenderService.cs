@@ -25,17 +25,6 @@ namespace BE_SWP391_OnDemandTutor.BusinessLogic.Services
             Email.To.Add(MailboxAddress.Parse(to));
             Email.Subject = subject;
 
-            var builder = new BodyBuilder();
-
-            //string path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "EmailTemplates", "register.html");
-            //var content = File.ReadAllText(path);
-
-            //content = content.Replace("{{Email}}", to);
-
-            //builder.HtmlBody = content;
-
-            //Email.Body = builder.ToMessageBody();
-
             using var smtp = new MailKit.Net.Smtp.SmtpClient();
 
             smtp.Connect(_emailSettings.Host, _emailSettings.Port, SecureSocketOptions.StartTls);
