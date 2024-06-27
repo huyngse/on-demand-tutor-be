@@ -98,7 +98,6 @@ namespace BE_SWP391_OnDemandTutor.BusinessLogic.Services
             {
                 ClassId = classEntity.ClassId,
                 ClassName = classEntity.ClassName,
-                ClassTime = classEntity.ClassTime,
                 ClassInfo = classEntity.ClassInfo,
                 ClassRequire = classEntity.ClassRequire,
                 ClassAddress = classEntity.ClassAddress,
@@ -145,7 +144,6 @@ namespace BE_SWP391_OnDemandTutor.BusinessLogic.Services
             }
 
             classEntity.ClassName = classUpdate.ClassName;
-            classEntity.ClassTime = classUpdate.ClassTime;
             classEntity.ClassInfo = classUpdate.ClassInfo;
             classEntity.ClassRequire = classUpdate.ClassRequire;
             classEntity.ClassAddress = classUpdate.ClassAddress;
