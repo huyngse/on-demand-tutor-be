@@ -36,7 +36,7 @@ namespace BE_SWP391_OnDemandTutor.Presentation.Controllers
         }
 
         [HttpPut("{id}")]
-        //[Authorize(Roles = "Administrator, Tutor")]
+        [Authorize(Roles = "Administrator, Tutor")]
         public async Task<IActionResult> DeactivateClass(int id)
         {
             var (success, className) = await _classService.DeactivateClass(id);
