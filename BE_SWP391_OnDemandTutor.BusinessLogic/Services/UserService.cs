@@ -24,6 +24,7 @@ namespace BE_SWP391_OnDemandTutor.BusinessLogic.Services
         Task<UserViewModel> UpdateUser(UpdateUserRequestModel request);
         Task<List<UserViewModel>> GetAll();
         Task<List<TutorViewModel>> GetAllTutors();
+        Task<TutorViewModel> GetTutorById(int userId);
         //Task<List<TutorViewModel>> GetSearchTutors(SearchTutorQuery query);
         Task<UserViewModel> GetById(int id);
     }
@@ -99,6 +100,61 @@ namespace BE_SWP391_OnDemandTutor.BusinessLogic.Services
             ).ToList();
             return tutorResult;
         }
+        public async Task<TutorViewModel> GetTutorById(int userId)
+        {
+            var result = await _context.Users
+                .Include(u => u.TutorClasses)
+                .ThenInclude(c => c.Schedules)
+                .ThenInclude(s => s.Bookings)
+                .Include(u => u.TutorDegrees)
+                .FirstOrDefaultAsync(u => u.UserId == userId);
+            if (result == null || result.Role != "Tutor")
+            {
+                throw new NotFoundException($"No Tutor with ID {userId} founded");
+            }
+
+            var classes = result.TutorClasses.Select(c => c.Adapt<TutorClassViewModel>()).ToList();
+            var degrees = result.TutorDegrees.Select(d => d.Adapt<TutorDegreeViewModel>()).ToList();
+            var bookings = result.TutorClasses
+            .SelectMany(c => c.Schedules)
+            .SelectMany(s => s.Bookings)
+            .Select(b => new TutorBookingViewModel
+            {
+                Address = b.Address,
+                BookingId = b.BookingId,
+                ClassFee = b.Schedule.Class.ClassFee,
+                CreateDate = b.CreateDate,
+                Description = b.Description,
+                EndDate = b.EndDate,
+                ScheduleId = b.ScheduleId,
+                StartDate = b.StartDate,
+                Status = b.Status
+            }).ToList();
+            return new TutorViewModel
+            {
+                City = result.City,
+                DateOfBirth = result.DateOfBirth,
+                District = result.District,
+                FullName = result.FullName,
+                EmailAddress = result.EmailAddress,
+                Gender = result.Gender,
+                IsActive = result.IsActive,
+                PhoneNumber = result.PhoneNumber,
+                ProfileImage = result.ProfileImage,
+                School = result.School,
+                Street = result.Street,
+                Role = result.Role,
+                UserId = result.UserId,
+                TutorDescription = result.TutorDescription,
+                Username = result.Username,
+                TutorType = result.TutorType,
+                Ward = result.Ward,
+                Bookings = bookings,
+                Classes = classes,
+                TutorDegrees = degrees
+            };
+        }
+
         //public async Task<List<TutorViewModel>> GetSearchTutors(SearchTutorQuery query)
         //{
         //    var result = await _context.Users.ToListAsync();

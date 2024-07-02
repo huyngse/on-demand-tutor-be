@@ -48,7 +48,7 @@ namespace BE_SWP391_OnDemandTutor.Presentation.Controllers
         [HttpGet]
         public async Task<ActionResult<List<UserViewModel>>> GetAll()
         {
-            var userList =  await _userService.GetAll();
+            var userList = await _userService.GetAll();
 
             if (userList == null)
             {
@@ -60,7 +60,7 @@ namespace BE_SWP391_OnDemandTutor.Presentation.Controllers
 
         [MapToApiVersion("1")]
         [HttpGet]
-        [Route("tutors")]
+        [Route("tutor")]
         public async Task<ActionResult<List<TutorViewModel>>> GetAllTutor()
         {
             var userList = await _userService.GetAllTutors();
@@ -70,6 +70,19 @@ namespace BE_SWP391_OnDemandTutor.Presentation.Controllers
                 return NotFound("");
             }
             return userList;
+        }
+        [MapToApiVersion("1")]
+        [HttpGet]
+        [Route("tutor/{userId:int}")]
+        public async Task<ActionResult<TutorViewModel>> GetTutorById(int userId)
+        {
+            var user = await _userService.GetTutorById(userId);
+
+            if (user == null)
+            {
+                return NotFound("Tutor not found");
+            }
+            return user;
         }
 
         [MapToApiVersion("1")]
