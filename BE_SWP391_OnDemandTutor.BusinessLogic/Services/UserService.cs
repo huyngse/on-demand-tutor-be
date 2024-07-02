@@ -25,7 +25,7 @@ namespace BE_SWP391_OnDemandTutor.BusinessLogic.Services
         Task<List<UserViewModel>> GetAll();
         Task<List<TutorViewModel>> GetAllTutors();
         Task<TutorViewModel> GetTutorById(int userId);
-        //Task<List<TutorViewModel>> GetSearchTutors(SearchTutorQuery query);
+        Task<(List<TutorViewModel>, int)> SearchTutors(SearchTutorQuery query);
         Task<UserViewModel> GetById(int id);
     }
 
@@ -100,6 +100,84 @@ namespace BE_SWP391_OnDemandTutor.BusinessLogic.Services
             ).ToList();
             return tutorResult;
         }
+
+        public async Task<(List<TutorViewModel>, int)> SearchTutors(SearchTutorQuery query)
+        {
+            var result =  _context.Users
+                .Include(u => u.TutorClasses)
+                .ThenInclude(c => c.Schedules)
+                .ThenInclude(s => s.Bookings)
+                .Include(u => u.TutorDegrees)
+                .AsQueryable();
+            result = result.Where(u => u.Role == "Tutor");
+            var totalCount = result.Count();
+            if (!string.IsNullOrWhiteSpace(query.TutorName))
+            {
+                result = result.Where(u => u.FullName.Contains(query.TutorName));
+            }
+            if (!string.IsNullOrWhiteSpace(query.City))
+            {
+                result = result.Where(u => u.City.Contains(query.City));
+            }
+            if (!string.IsNullOrWhiteSpace(query.District))
+            {
+                result = result.Where(u => u.District.Contains(query.District));
+            }
+            if (!string.IsNullOrWhiteSpace(query.Ward))
+            {
+                result = result.Where(u => u.Ward.Contains(query.Ward));
+            }
+            if (!string.IsNullOrWhiteSpace(query.TutorType))
+            {
+                result = result.Where(u => u.TutorType.Contains(query.TutorType));
+            }
+            var skipNumber = (query.PageNumber - 1) * query.PageSize;
+            var tutorResult = await result.Skip(skipNumber).Take(query.PageSize).ToListAsync();
+            return (tutorResult.Select(u =>
+            {
+                var classes = u.TutorClasses.Select(c => c.Adapt<TutorClassViewModel>()).ToList();
+                var degrees = u.TutorDegrees.Select(d => d.Adapt<TutorDegreeViewModel>()).ToList();
+                var bookings = u.TutorClasses
+                .SelectMany(c => c.Schedules)
+                .SelectMany(s => s.Bookings)
+                .Select(b => new TutorBookingViewModel
+                {
+                    Address = b.Address,
+                    BookingId = b.BookingId,
+                    ClassFee = b.Schedule.Class.ClassFee,
+                    CreateDate = b.CreateDate,
+                    Description = b.Description,
+                    EndDate = b.EndDate,
+                    ScheduleId = b.ScheduleId,
+                    StartDate = b.StartDate,
+                    Status = b.Status
+                }).ToList();
+                return new TutorViewModel
+                {
+                    City = u.City,
+                    DateOfBirth = u.DateOfBirth,
+                    District = u.District,
+                    FullName = u.FullName,
+                    EmailAddress = u.EmailAddress,
+                    Gender = u.Gender,
+                    IsActive = u.IsActive,
+                    PhoneNumber = u.PhoneNumber,
+                    ProfileImage = u.ProfileImage,
+                    School = u.School,
+                    Street = u.Street,
+                    Role = u.Role,
+                    UserId = u.UserId,
+                    TutorDescription = u.TutorDescription,
+                    Username = u.Username,
+                    TutorType = u.TutorType,
+                    Ward = u.Ward,
+                    Bookings = bookings,
+                    Classes = classes,
+                    TutorDegrees = degrees
+                };
+            }
+            ).ToList(), totalCount);
+        }
         public async Task<TutorViewModel> GetTutorById(int userId)
         {
             var result = await _context.Users
@@ -154,14 +232,6 @@ namespace BE_SWP391_OnDemandTutor.BusinessLogic.Services
                 TutorDegrees = degrees
             };
         }
-
-        //public async Task<List<TutorViewModel>> GetSearchTutors(SearchTutorQuery query)
-        //{
-        //    var result = await _context.Users.ToListAsync();
-        //    result = result.Where(u => u.Role == "Tutor").ToList();
-
-        //    return result.Select(user => user.Adapt<UserViewModel>()).ToList();
-        //}
 
         public async Task<UserViewModel> GetById(int id)
         {

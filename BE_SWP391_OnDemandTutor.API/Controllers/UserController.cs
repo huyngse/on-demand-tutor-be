@@ -71,6 +71,24 @@ namespace BE_SWP391_OnDemandTutor.Presentation.Controllers
             }
             return userList;
         }
+
+        [MapToApiVersion("1")]
+        [HttpGet]
+        [Route("tutor/search")]
+        public async Task<ActionResult<List<TutorViewModel>>> SearchTutor([FromQuery] SearchTutorQuery query)
+        {
+            var (userList, totalCount) = await _userService.SearchTutors(query);
+            var totalPages = (int)Math.Ceiling((double)totalCount / query.PageSize);
+            Response.Headers.Append("X-Total-Count", totalCount.ToString());
+            Response.Headers.Append("X-Current-Page", query.PageNumber.ToString());
+            Response.Headers.Append("X-Total-Pages", totalPages.ToString());
+            if (userList == null)
+            {
+                return NotFound("");
+            }
+            return userList;
+        }
+
         [MapToApiVersion("1")]
         [HttpGet]
         [Route("tutor/{userId:int}")]
