@@ -12,6 +12,7 @@ using System.IO;
 using System.Security.Claims;
 using System.Text;
 using OnDemandTutor.DataAccess.ExceptionModels;
+using BE_SWP391_OnDemandTutor.BusinessLogic.ViewModels.User;
 
 namespace BE_SWP391_OnDemandTutor.BusinessLogic.Services
 {
@@ -22,6 +23,8 @@ namespace BE_SWP391_OnDemandTutor.BusinessLogic.Services
         Task<UserViewModel> Register(RegisterRequestModel request);
         Task<UserViewModel> UpdateUser(UpdateUserRequestModel request);
         Task<List<UserViewModel>> GetAll();
+        Task<List<TutorViewModel>> GetAllTutors();
+        //Task<List<TutorViewModel>> GetSearchTutors(SearchTutorQuery query);
         Task<UserViewModel> GetById(int id);
     }
 
@@ -38,9 +41,71 @@ namespace BE_SWP391_OnDemandTutor.BusinessLogic.Services
         public async Task<List<UserViewModel>> GetAll()
         {
             var result = await _context.Users.ToListAsync();
-          
+
             return result.Select(user => user.Adapt<UserViewModel>()).ToList();
         }
+        public async Task<List<TutorViewModel>> GetAllTutors()
+        {
+            var result = await _context.Users
+                .Include(u => u.TutorClasses)
+                .ThenInclude(c => c.Schedules)
+                .ThenInclude(s => s.Bookings)
+                .Include(u => u.TutorDegrees)
+                .ToListAsync();
+            result = result.Where(u => u.Role == "Tutor").ToList();
+            var tutorResult = result.Select(u =>
+            {
+                var classes = u.TutorClasses.Select(c => c.Adapt<TutorClassViewModel>()).ToList();
+                var degrees = u.TutorDegrees.Select(d => d.Adapt<TutorDegreeViewModel>()).ToList();
+                var bookings = u.TutorClasses
+                .SelectMany(c => c.Schedules)
+                .SelectMany(s => s.Bookings)
+                .Select(b => new TutorBookingViewModel
+                {
+                    Address = b.Address,
+                    BookingId = b.BookingId,
+                    ClassFee = b.Schedule.Class.ClassFee,
+                    CreateDate = b.CreateDate,
+                    Description = b.Description,
+                    EndDate = b.EndDate,
+                    ScheduleId = b.ScheduleId,
+                    StartDate = b.StartDate,
+                    Status = b.Status
+                }).ToList();
+                return new TutorViewModel
+                {
+                    City = u.City,
+                    DateOfBirth = u.DateOfBirth,
+                    District = u.District,
+                    FullName = u.FullName,
+                    EmailAddress = u.EmailAddress,
+                    Gender = u.Gender,
+                    IsActive = u.IsActive,
+                    PhoneNumber = u.PhoneNumber,
+                    ProfileImage = u.ProfileImage,
+                    School = u.School,
+                    Street = u.Street,
+                    Role = u.Role,
+                    UserId = u.UserId,
+                    TutorDescription = u.TutorDescription,
+                    Username = u.Username,
+                    TutorType = u.TutorType,
+                    Ward = u.Ward,
+                    Bookings = bookings,
+                    Classes = classes,
+                    TutorDegrees = degrees
+                };
+            }
+            ).ToList();
+            return tutorResult;
+        }
+        //public async Task<List<TutorViewModel>> GetSearchTutors(SearchTutorQuery query)
+        //{
+        //    var result = await _context.Users.ToListAsync();
+        //    result = result.Where(u => u.Role == "Tutor").ToList();
+
+        //    return result.Select(user => user.Adapt<UserViewModel>()).ToList();
+        //}
 
         public async Task<UserViewModel> GetById(int id)
         {
@@ -55,7 +120,7 @@ namespace BE_SWP391_OnDemandTutor.BusinessLogic.Services
 
         public async Task<string> Login(LoginRequestModel request)
         {
-            var user = await _context.Users.Where(u => u.Username == request.UserName ).FirstOrDefaultAsync();
+            var user = await _context.Users.Where(u => u.Username == request.UserName).FirstOrDefaultAsync();
 
             string passwordToCheck = request.Password;
             bool passwordVerified = false;
@@ -70,8 +135,7 @@ namespace BE_SWP391_OnDemandTutor.BusinessLogic.Services
             {
                 // Mật khẩu đã được mã hóa, sử dụng Verify của BCrypt để xác minh
                 passwordVerified = BCrypt.Net.BCrypt.Verify(passwordToCheck, storedPassword);
-            }
-            else
+            } else
             {
                 // Mật khẩu chưa được mã hóa, mã hóa mật khẩu trước khi xác minh
                 passwordVerified = (passwordToCheck == storedPassword);
@@ -118,12 +182,12 @@ namespace BE_SWP391_OnDemandTutor.BusinessLogic.Services
                 throw new Exception("Username and EmailAddress already exists");
             }
 
-         
+
             var user = request.Adapt<User>();
             await _context.Users.AddAsync(user);
             await _context.SaveChangesAsync();
 
-        
+
             return user.Adapt<UserViewModel>();
         }
 

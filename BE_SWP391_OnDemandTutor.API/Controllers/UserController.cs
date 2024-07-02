@@ -1,6 +1,7 @@
 using BE_SWP391_OnDemandTutor.BusinessLogic.RequestModels.User;
 using BE_SWP391_OnDemandTutor.BusinessLogic.Services;
 using BE_SWP391_OnDemandTutor.BusinessLogic.ViewModels;
+using BE_SWP391_OnDemandTutor.BusinessLogic.ViewModels.User;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BE_SWP391_OnDemandTutor.Presentation.Controllers
@@ -48,6 +49,21 @@ namespace BE_SWP391_OnDemandTutor.Presentation.Controllers
         public async Task<ActionResult<List<UserViewModel>>> GetAll()
         {
             var userList =  await _userService.GetAll();
+
+            if (userList == null)
+            {
+                return NotFound("");
+            }
+            return userList;
+        }
+
+
+        [MapToApiVersion("1")]
+        [HttpGet]
+        [Route("tutors")]
+        public async Task<ActionResult<List<TutorViewModel>>> GetAllTutor()
+        {
+            var userList = await _userService.GetAllTutors();
 
             if (userList == null)
             {
