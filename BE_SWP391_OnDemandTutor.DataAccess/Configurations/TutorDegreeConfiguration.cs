@@ -20,7 +20,7 @@ namespace BE_SWP391_OnDemandTutor.DataAccess.Configurations
 
             builder.Property(td => td.TutorId).IsRequired();
 
-            builder.HasOne(td => td.Tutor).WithOne(u => u.TutorDegree).HasForeignKey<TutorDegree>(td => td.TutorId).OnDelete(DeleteBehavior.Cascade);
+            builder.HasOne(td => td.Tutor).WithMany(u => u.TutorDegrees).HasForeignKey(td => td.TutorId).OnDelete(DeleteBehavior.Cascade);
         }
     }
 }

@@ -1,10 +1,16 @@
-﻿namespace BE_SWP391_OnDemandTutor.DataAccess.Models
+﻿using BE_SWP391_OnDemandTutor.DataAccess.Models;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace BE_SWP391_OnDemandTutor.BusinessLogic.ViewModels.User
 {
-    public class User
+    public class TutorViewModel
     {
         public int UserId { get; set; }
         public string Username { get; set; } = String.Empty;
-        public string Password { get; set; } = "123456";
         public string FullName { get; set; } = String.Empty;
         public string ProfileImage { get; set; } = String.Empty;
         public string PhoneNumber { get; set; } = String.Empty;
@@ -20,12 +26,8 @@
         public string School { get; set; } = String.Empty;
         public string TutorDescription { get; set; } = String.Empty;
         public bool IsActive { get; set; }
-        public List<TutorDegree> TutorDegrees { get; set; }
-        public List<Rate> StudentSendRatings { get; set; }
-        public List<Rate> TutorReceiveRatings { get; set; }
-        public List<Feedback> Feedbacks { get; set; }
-        public List<Booking> Bookings { get; set; }
-        public ICollection<Class> StudentClasses { get; set; }
-        public ICollection<Class> TutorClasses { get; set; }
+        public List<TutorDegreeViewModel> TutorDegrees { get; set; }
+        public List<TutorBookingViewModel> Bookings { get; set; }
+        public List<TutorClassViewModel> Classes { get; set; }
     }
 }
