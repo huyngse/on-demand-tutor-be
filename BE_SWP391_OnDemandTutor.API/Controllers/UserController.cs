@@ -129,6 +129,19 @@ namespace BE_SWP391_OnDemandTutor.Presentation.Controllers
             }
             return userUpdated;
         }
+
+        [MapToApiVersion("1")]
+        [HttpPut("profileImage/{userId:int}")]
+        public async Task<ActionResult<UserViewModel>> UpdateUserProfileImage(int userId, [FromBody] string imageUrl)
+        {
+            var userUpdated = await _userService.UpdateUserProfile(userId, imageUrl);
+
+            if (userUpdated == null)
+            {
+                return NotFound("");
+            }
+            return userUpdated;
+        }
     }
 
 }

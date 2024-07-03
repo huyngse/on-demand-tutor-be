@@ -27,6 +27,7 @@ namespace BE_SWP391_OnDemandTutor.BusinessLogic.Services
         Task<TutorViewModel> GetTutorById(int userId);
         Task<(List<TutorViewModel>, int)> SearchTutors(SearchTutorQuery query);
         Task<UserViewModel> GetById(int id);
+        Task<UserViewModel> UpdateUserProfile(int userId, string imageUrl);
     }
 
     public class UserService : IUserService
@@ -351,6 +352,18 @@ namespace BE_SWP391_OnDemandTutor.BusinessLogic.Services
             user.TutorDescription = request.TutorDescription;
             user.IsActive = request.IsActive;
 
+            await _context.SaveChangesAsync();
+
+            return user.Adapt<UserViewModel>();
+        }
+        public async Task<UserViewModel> UpdateUserProfile(int userId, string imageUrl)
+        {
+            var user = await _context.Users.FindAsync(userId);
+            if (user is null)
+            {
+                throw new Exception("User does not exist");
+            }
+            user.ProfileImage = imageUrl;
             await _context.SaveChangesAsync();
 
             return user.Adapt<UserViewModel>();
