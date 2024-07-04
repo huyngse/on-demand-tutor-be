@@ -62,7 +62,13 @@ builder.Services.ConfigureAutoMapper();
 
 // ADD CORS
 builder.Services.AddCors(options => options.AddDefaultPolicy(policyBuilder =>
-        policyBuilder.WithOrigins("http://localhost:5173").AllowAnyMethod().AllowAnyHeader().AllowCredentials()));
+        policyBuilder
+        .WithOrigins("http://localhost:5173")
+        .AllowAnyMethod()
+        .AllowAnyHeader()
+        .WithExposedHeaders("X-Total-Count", "X-Current-Page", "X-Total-Pages")
+        .AllowCredentials())
+);
 
 
 builder.Services.AddDbContext<BE_SWP391_OnDemandTutorDbContext>(options =>
