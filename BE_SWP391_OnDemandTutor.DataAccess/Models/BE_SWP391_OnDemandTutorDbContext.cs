@@ -162,7 +162,7 @@ public class BE_SWP391_OnDemandTutorDbContext : DbContext
                     TutorDescription = "Enjoys learning about languages and cultures."
                 },
 
-                new
+                new User
                 {
                     UserId = 6,
                     Username = "admin",
@@ -182,8 +182,217 @@ public class BE_SWP391_OnDemandTutorDbContext : DbContext
                     TutorType = "",
                     School = "",
                     TutorDescription = ""
+                },
+                new User
+                {
+                    UserId = 7,
+                    Username = "tutor3",
+                    Password = "tutor3",
+                    FullName = "Nguyễn Thị Hoa",
+                    IsActive = true,
+                    ProfileImage = "",
+                    PhoneNumber = "0987654321",
+                    EmailAddress = "nguyenthihoa@example.com",
+                    DateOfBirth = new DateTime(1990, 5, 15),
+                    Gender = "Female",
+                    Role = "Tutor",
+                    City = "Thành phố Hà Nội",
+                    District = "Quận Hoàn Kiếm",
+                    Ward = "Phường Hàng Bài",
+                    Street = "Phố Hàng Bài",
+                    TutorType = "Giáo viên",
+                    School = "Đại học Quốc gia Hà Nội",
+                    TutorDescription = "Tôi là giáo viên dạy Toán có kinh nghiệm nhiều năm. Tôi sẽ cung cấp các bài học bổ ích và hướng dẫn kỹ lưỡng để giúp học sinh đạt kết quả tốt."
+                },
+                new User
+                {
+                    UserId = 8,
+                    Username = "tutor4",
+                    Password = "tutor4",
+                    FullName = "Trần Văn Minh",
+                    IsActive = true,
+                    ProfileImage = "",
+                    PhoneNumber = "0912345678",
+                    EmailAddress = "tranvanminh@example.com",
+                    DateOfBirth = new DateTime(1985, 11, 20),
+                    Gender = "Male",
+                    Role = "Tutor",
+                    City = "Thành phố Hồ Chí Minh",
+                    District = "Quận 1",
+                    Ward = "Phường Bến Nghé",
+                    Street = "Đường Lê Lợi",
+                    TutorType = "Giảng viên",
+                    School = "Đại học Bách Khoa Thành Phố Hồ Chí Minh",
+                    TutorDescription = "Tôi là giáo viên dạy Toán có kinh nghiệm nhiều năm. Tôi sẽ cung cấp các bài học bổ ích và hướng dẫn kỹ lưỡng để giúp học sinh đạt kết quả tốt."
+                },
+                new User
+                {
+                    UserId = 9,
+                    Username = "tutor5",
+                    Password = "tutor5",
+                    FullName = "Lê Thị Thu Hà",
+                    IsActive = true,
+                    ProfileImage = "",
+                    PhoneNumber = "0978563412",
+                    EmailAddress = "lethithuha@example.com",
+                    DateOfBirth = new DateTime(1992, 8, 05),
+                    Gender = "Female",
+                    Role = "Tutor",
+                    City = "Thành phố Đà Nẵng",
+                    District = "Quận Hải Châu",
+                    Ward = "Phường Thạch Thang",
+                    Street = "Đường Phan Châu Trinh",
+                    TutorType = "Giảng viên",
+                    School = "Đại học Đà Nẵng",
+                    TutorDescription = "Tôi là giáo viên dạy Anh Văn với phương pháp giảng dạy hiện đại và tương tác. Tôi sẽ giúp học sinh cải thiện khả năng nghe, nói, đọc, viết một cách toàn diện."
+                },
+                new User
+                {
+                    UserId = 10,
+                    Username = "tutor6",
+                    Password = "tutor6",
+                    FullName = "Ngô Văn Dũng",
+                    IsActive = true,
+                    ProfileImage = "",
+                    PhoneNumber = "0987215643",
+                    EmailAddress = "ngovanung@example.com",
+                    DateOfBirth = new DateTime(1988, 3, 10),
+                    Gender = "Male",
+                    Role = "Tutor",
+                    City = "Thành phố Cần Thơ",
+                    District = "Quận Ninh Kiều",
+                    Ward = "Phường An Khánh",
+                    Street = "Đường Võ Văn Kiệt",
+                    TutorType = "Chuyên gia",
+                    School = "Đại học Cần Thơ",
+                    TutorDescription = "Tôi là giáo viên dạy Sinh Học với kinh nghiệm nhiều năm. Tôi sẽ giúp học sinh hiểu sâu các khái niệm và ứng dụng chúng vào các bài tập thực hành."
+                },
+                new User
+                {
+                    UserId = 11,
+                    Username = "tutor7",
+                    Password = "tutor7",
+                    FullName = "Phạm Thị Minh Châu",
+                    IsActive = true,
+                    ProfileImage = "",
+                    PhoneNumber = "0932145687",
+                    EmailAddress = "phamthiminhchau@example.com",
+                    DateOfBirth = new DateTime(1995, 6, 25),
+                    Gender = "Female",
+                    Role = "Tutor",
+                    City = "Tỉnh Thừa Thiên Huế",
+                    District = "Thành phố Huế",
+                    Ward = "Phường Phú Hội",
+                    Street = "Đường Lê Lợi",
+                    TutorType = "Người đi làm",
+                    School = "Đại học Huế",
+                    TutorDescription = "Tôi là giáo viên dạy Lịch Sử và Địa Lý với phương pháp giảng dạy sinh động và gắn với thực tiễn. Tôi sẽ giúp học sinh hiểu sâu về các sự kiện lịch sử và các đặc điểm địa lý của Việt Nam."
+                },
+                new User
+                {
+                    UserId = 12,
+                    Username = "tutor8",
+                    Password = "tutor8",
+                    FullName = "Lê Văn Hưng",
+                    IsActive = true,
+                    ProfileImage = "",
+                    PhoneNumber = "0965478321",
+                    EmailAddress = "levanhung@example.com",
+                    DateOfBirth = new DateTime(1990, 9, 18),
+                    Gender = "Male",
+                    Role = "Tutor",
+                    City = "Tỉnh Lâm Đồng",
+                    District = "Thành phố Đà Lạt",
+                    Ward = "Phường 3",
+                    Street = "Đường Xuân Hương",
+                    TutorType = "Người đi làm",
+                    School = "Đại học Đà Lạt",
+                    TutorDescription = "Tôi là giáo viên dạy Tin Học với kiến thức chuyên sâu và kỹ năng sử dụng công nghệ. Tôi sẽ giúp học sinh nâng cao khả năng lập trình, xử lý dữ liệu và ứng dụng công nghệ vào các bài tập."
+                },
+                new User
+                {
+                    UserId = 13,
+                    Username = "tutor9",
+                    Password = "tutor9",
+                    FullName = "Nguyễn Thị Kim Yến",
+                    IsActive = true,
+                    ProfileImage = "https://nguoinoitieng.tv/images/nnt/99/1/bd0s.jpg",
+                    PhoneNumber = "0978456321",
+                    EmailAddress = "nguyenthikimyen@example.com",
+                    DateOfBirth = new DateTime(1993, 12, 1),
+                    Gender = "Female",
+                    Role = "Tutor",
+                    City = "Tỉnh Khánh Hòa",
+                    District = "Thành phố Nha Trang",
+                    Ward = "Phường Lộc Thọ",
+                    Street = "Đường Trần Phú",
+                    TutorType = "Giảng viên",
+                    School = "Đại học Nha Trang",
+                    TutorDescription = "Tôi là giáo viên dạy Hóa Học với phương pháp giảng dạy cụ thể và thực hành nhiều. Tôi sẽ giúp học sinh nắm vững các khái niệm hóa học và áp dụng chúng vào giải bài tập."
+                },
+                new User
+                {
+                    UserId = 14,
+                    Username = "tutor10",
+                    Password = "tutor10",
+                    FullName = "Trương Quốc Bảo",
+                    IsActive = true,
+                    ProfileImage = "https://godimedia.com.vn/wp-content/uploads/2021/04/AN_0969-768x512.jpg",
+                    PhoneNumber = "0912365478",
+                    EmailAddress = "truongquocbao@example.com",
+                    DateOfBirth = new DateTime(1987, 4, 22),
+                    Gender = "Male",
+                    Role = "Tutor",
+                    City = "Tỉnh Bình Định",
+                    District = "Thành phố Quy Nhơn",
+                    Ward = "Phường Trần Hưng Đạo",
+                    Street = "Đường Nguyễn Tất Thành",
+                    TutorType = "Giảng viên",
+                    School = "Đại học Quy Nhơn",
+                    TutorDescription = "Tôi là giáo viên dạy Văn Học với phương pháp giảng dạy sáng tạo và gắn với thực tiễn. Tôi sẽ giúp học sinh hiểu sâu về các tác phẩm văn học và áp dụng kỹ năng phân tích, sáng tạo văn bản."
+                },
+                new User
+                {
+                    UserId = 15,
+                    Username = "tutor11",
+                    Password = "tutor11",
+                    FullName = "Nguyễn Thị Hồng Nhung",
+                    IsActive = true,
+                    ProfileImage = "",
+                    PhoneNumber = "0981234567",
+                    EmailAddress = "hongnhung@example.com",
+                    DateOfBirth = new DateTime(1992, 5, 15),
+                    Gender = "Female",
+                    Role = "Tutor",
+                    City = "Thành phố Hà Nội",
+                    District = "Quận Hoàn Kiếm",
+                    Ward = "Phường Hàng Bài",
+                    Street = "Phố Hàng Bài",
+                    TutorType = "Giáo viên",
+                    School = "Đại học Quốc gia Hà Nội",
+                    TutorDescription = "Tôi là một giáo viên có kinh nghiệm trong lĩnh vực Toán học và Khoa học Máy tính. Tôi đam mê giảng dạy và luôn nỗ lực để mang đến những bài học thú vị và hiệu quả cho các học sinh của mình."
+                },
+                new User
+                {
+                    UserId = 16,
+                    Username = "tutor12",
+                    Password = "tutor12",
+                    FullName = "Trần Văn Minh",
+                    IsActive = true,
+                    ProfileImage = "",
+                    PhoneNumber = "0912345678",
+                    EmailAddress = "vanminh@example.com",
+                    DateOfBirth = new DateTime(1988, 11, 10),
+                    Gender = "Male",
+                    Role = "Tutor",
+                    City = "Thành phố Hồ Chí Minh",
+                    District = "Quận 1",
+                    Ward = "Phường Bến Nghé",
+                    Street = "Đường Lê Lợi",
+                    TutorType = "Giảng viên",
+                    School = "Đại học Bách khoa Thành phố Hồ Chí Minh",
+                    TutorDescription = "Tôi là một chuyên gia về Kỹ thuật Điện tử và Công nghệ Thông tin. Với nhiều năm kinh nghiệm giảng dạy, tôi cam kết sẽ mang đến cho các học sinh những bài học sáng tạo và có ích."
                 }
-
             );
 
         modelBuilder.Entity<Class>().HasData
@@ -275,8 +484,8 @@ public class BE_SWP391_OnDemandTutorDbContext : DbContext
             {
                 ScheduleID = 1,
                 ClassID = 1,
-                Title = "Lịch học môn Toán",
-                Description = "Lớp học môn Toán vào các ngày trong tuần",
+                Title = "Lịch lập trình buổi sáng",
+                Description = "Lịch lập trình buổi sáng các ngày trong tuần",
                 DateOfWeek = DayGroup.MonWedFri, // Thứ 2, 4, 6
                 StartTime = new DateTime(2024, 6, 7, 8, 0, 0), // 8:00 AM
                 EndTime = new DateTime(2024, 6, 7, 10, 0, 0), // 10:00 AM
@@ -285,8 +494,8 @@ public class BE_SWP391_OnDemandTutorDbContext : DbContext
           {
               ScheduleID = 2,
               ClassID = 2,
-              Title = "Lịch học môn Văn",
-              Description = "Lớp học môn Văn vào các ngày trong tuần",
+              Title = "Lịch lập trình buổi sáng",
+              Description = "Lịch lập trình buổi sáng các ngày trong tuần",
               DateOfWeek = DayGroup.TueThuSat, // Thứ 3, 5, 7
               StartTime = new DateTime(2024, 6, 8, 9, 0, 0), // 9:00 AM
               EndTime = new DateTime(2024, 6, 8, 11, 0, 0), // 11:00 AM
