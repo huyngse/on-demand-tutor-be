@@ -6,6 +6,7 @@ using BE_SWP391_OnDemandTutor.DataAccess.Models;
 using Microsoft.EntityFrameworkCore;
 using System.Linq.Dynamic.Core;
 using OnDemandTutor.DataAccess.ExceptionModels;
+using BE_SWP391_OnDemandTutor.BusinessLogic.ViewModels.Class;
 
 namespace BE_SWP391_OnDemandTutor.BusinessLogic.Services
 {
@@ -18,6 +19,7 @@ namespace BE_SWP391_OnDemandTutor.BusinessLogic.Services
         Task<ClassViewModel> GetById(int idTmp);
         Task<(bool Success, string ClassName)> DeactivateClass(int idTmp);
         Task<List<ClassViewModel>> GetAllClasses();
+        Task<List<TutorDetailClassViewModel>> GetClassByTutorId(int userId);
     }
 
     public class ClassService : IClassService
@@ -77,9 +79,9 @@ namespace BE_SWP391_OnDemandTutor.BusinessLogic.Services
             classViewModel.Student = tutor.Adapt<UserViewModel>();
 
             return classViewModel;
-
-
         }
+
+        
 
         public async Task<ClassViewModel> GetDetail(int classId)
         {
@@ -167,6 +169,48 @@ namespace BE_SWP391_OnDemandTutor.BusinessLogic.Services
                 .ToListAsync();
 
             var classViewModels = classEntities.Select(c => c.Adapt<ClassViewModel>()).ToList();
+
+            return classViewModels;
+        }
+        public async Task<List<TutorDetailClassViewModel>> GetClassByTutorId(int userId)
+        {
+            var user = await _context.Users.FirstOrDefaultAsync(u => u.UserId == userId);
+            if (user == null || user.Role != "Tutor")
+            {
+                throw new NotFoundException($"No Tutor with ID {userId} founded");
+            }
+            var classEntities = await _context.Classes
+                .Include(c => c.Student)
+                .Include(c => c.Tutor)
+                .Include(c => c.Schedules)
+                .Where(b => b.TutorId == userId)
+                .ToListAsync();
+            var classViewModels = classEntities.Select(c => new TutorDetailClassViewModel
+            {
+                ClassId = c.ClassId,
+                ClassName = c.ClassName,
+                ClassInfo = c.ClassInfo,
+                ClassRequire = c.ClassRequire,
+                ClassAddress = c.ClassAddress,
+                ClassMethod = c.ClassMethod,
+                ClassLevel = c.ClassLevel,
+                ClassFee = c.ClassFee,
+                Schedules = c.Schedules?.Select(s => new ScheduleViewModel
+                {
+                    ScheduleID = s.ScheduleID,
+                    Description = s.Description,
+                    Title = s.Title,
+                    DateOfWeek = s.DateOfWeek,
+                    StartTime = s.StartTime.Value,
+                    EndTime = s.EndTime.Value
+                }).ToList() ?? new List<ScheduleViewModel>(), // Handle null Schedules
+                CreatedDate = c.CreatedDate,
+                Active = c.Active,
+                District = c.District,
+                Ward = c.Ward,
+                City = c.City,
+            }
+            ).ToList();
 
             return classViewModels;
         }
