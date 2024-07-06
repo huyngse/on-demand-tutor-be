@@ -131,9 +131,9 @@ namespace BE_SWP391_OnDemandTutor.BusinessLogic.Services
             {
                 result = result.Where(u => u.TutorType.Contains(query.TutorType));
             }
+            var totalCount = result.Count();
             var skipNumber = (query.PageNumber - 1) * query.PageSize;
             var tutorResult = await result.Skip(skipNumber).Take(query.PageSize).ToListAsync();
-            var totalCount = tutorResult.Count();
             return (tutorResult.Select(u =>
             {
                 var classes = u.TutorClasses.Select(c => c.Adapt<TutorClassViewModel>()).ToList();
