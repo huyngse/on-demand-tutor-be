@@ -29,6 +29,7 @@ namespace BE_SWP391_OnDemandTutor.BusinessLogic.Services
         Task<UserViewModel> GetById(int id);
         Task<UserViewModel> UpdateUserProfileImage(int userId, string imageUrl);
         Task<UserViewModel> UpdateUserStatus(int userId);
+        Task<UserViewModel> UpdateTutorProfile(int userId, UpdateTutorProfileRequestModel request);
     }
 
     public class UserService : IUserService
@@ -343,6 +344,32 @@ namespace BE_SWP391_OnDemandTutor.BusinessLogic.Services
             user.District = request.District;
             user.Ward = request.Ward;
             user.Street = request.Street;
+
+            await _context.SaveChangesAsync();
+
+            return user.Adapt<UserViewModel>();
+        }
+        public async Task<UserViewModel> UpdateTutorProfile(int userId, UpdateTutorProfileRequestModel request)
+        {
+            var user = await _context.Users.FindAsync(userId);
+            if (user is null)
+            {
+                throw new Exception("User does not exist");
+            }
+            string passwordHash = BCrypt.Net.BCrypt.HashPassword(request.Password);
+        
+            user.Password = passwordHash;
+            user.FullName = request.FullName;
+            user.PhoneNumber = request.PhoneNumber;
+            user.DateOfBirth = request.DateOfBirth;
+            user.Gender = request.Gender;
+            user.City = request.City;
+            user.District = request.District;
+            user.Ward = request.Ward;
+            user.Street = request.Street;
+            user.TutorType = request.TutorType;
+            user.School = request.School;
+            user.TutorDescription = request.TutorDescription;
 
             await _context.SaveChangesAsync();
 
