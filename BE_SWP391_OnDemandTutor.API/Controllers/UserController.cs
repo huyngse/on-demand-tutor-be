@@ -130,18 +130,18 @@ namespace BE_SWP391_OnDemandTutor.Presentation.Controllers
             return userUpdated;
         }
 
-        //[MapToApiVersion("1")]
-        //[HttpPut("/status/{userId}")]
-        //public async Task<ActionResult<UserViewModel>> UpdateUserStatus(int userId)
-        //{
-        //    var userUpdated = await _userService.UpdateUser(userCreate);
+        [MapToApiVersion("1")]
+        [HttpPut("status/{userId}")]
+        public async Task<ActionResult<UserViewModel>> UpdateUserStatus(int userId)
+        {
+            var userUpdated = await _userService.UpdateUserStatus(userId);
 
-        //    if (userUpdated == null)
-        //    {
-        //        return NotFound("");
-        //    }
-        //    return userUpdated;
-        //}
+            if (userUpdated == null)
+            {
+                return NotFound("");
+            }
+            return userUpdated;
+        }
 
         //[MapToApiVersion("1")]
         //[HttpPut("/tutor/{userId}")]
