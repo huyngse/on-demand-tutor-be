@@ -330,14 +330,12 @@ namespace BE_SWP391_OnDemandTutor.BusinessLogic.Services
             {
                 throw new Exception("User does not exist");
             }
-            string passwordHash = BCrypt.Net.BCrypt.HashPassword(request.Password);
             var usernameAvailable = await _context.Users.AnyAsync(u => u.Username == request.Username && u.UserId != user.UserId);
             if (usernameAvailable)
             {
                 throw new Exception("Username available.");
             }
             user.Username = request.Username;
-            user.Password = passwordHash;
             user.FullName = request.FullName;
             user.PhoneNumber = request.PhoneNumber;
             user.DateOfBirth = request.DateOfBirth;
@@ -358,9 +356,6 @@ namespace BE_SWP391_OnDemandTutor.BusinessLogic.Services
             {
                 throw new Exception("User does not exist");
             }
-            string passwordHash = BCrypt.Net.BCrypt.HashPassword(request.Password);
-        
-            user.Password = passwordHash;
             user.FullName = request.FullName;
             user.PhoneNumber = request.PhoneNumber;
             user.DateOfBirth = request.DateOfBirth;

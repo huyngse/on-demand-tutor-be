@@ -8,7 +8,6 @@ namespace BE_SWP391_OnDemandTutor.BusinessLogic.RequestModels.User
 {
     public class UpdateTutorProfileRequestModel
     {
-        public string Password { get; set; } = "123456";
         public string FullName { get; set; } = String.Empty;
         public string PhoneNumber { get; set; } = String.Empty;
         public DateTime DateOfBirth { get; set; }
