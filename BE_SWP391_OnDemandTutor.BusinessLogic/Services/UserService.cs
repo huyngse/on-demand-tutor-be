@@ -338,7 +338,7 @@ namespace BE_SWP391_OnDemandTutor.BusinessLogic.Services
             }
             user.Username = request.Username;
             user.Password = passwordHash;
-            user.FullName = request.Fullname;
+            user.FullName = request.FullName;
             user.PhoneNumber = request.PhoneNumber;
             user.DateOfBirth = request.DateOfBirth;
             user.Gender = request.Gender;
