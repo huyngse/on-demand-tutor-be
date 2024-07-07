@@ -19,7 +19,7 @@ namespace BE_SWP391_OnDemandTutor.DataAccess.Configurations
 
             builder.Property(a => a.ProfileImage).HasMaxLength(255);
 
-            builder.Property(a => a.FullName).HasMaxLength(20);
+            builder.Property(a => a.FullName).HasMaxLength(30);
 
             builder.Property(a => a.PhoneNumber).HasMaxLength(20);
 

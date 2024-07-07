@@ -3,6 +3,7 @@
 using BE_SWP391_OnDemandTutor.BusinessLogic.RequestModels.Class;
 using BE_SWP391_OnDemandTutor.BusinessLogic.Services;
 using BE_SWP391_OnDemandTutor.BusinessLogic.ViewModels;
+using BE_SWP391_OnDemandTutor.BusinessLogic.ViewModels.Class;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -11,7 +12,7 @@ namespace BE_SWP391_OnDemandTutor.Presentation.Controllers
 
     [ApiController]
     [ApiVersion("1")]
-    [Route("/api/v1/classs")]
+    [Route("/api/v1/class")]
     public class ClassController : ControllerBase {
 
         private IClassService _classService;
@@ -35,11 +36,11 @@ namespace BE_SWP391_OnDemandTutor.Presentation.Controllers
             return result is not null ? CreatedAtAction(nameof(GetClassById), new { id = result.ClassId }, result): BadRequest("Failed to create Class.");
         }
 
-        [HttpPut("{id}")]
+        [HttpPut("deativate/{classId:int}")]
         [Authorize(Roles = "Administrator, Tutor")]
-        public async Task<IActionResult> DeactivateClass(int id)
+        public async Task<IActionResult> DeactivateClass(int classId)
         {
-            var (success, className) = await _classService.DeactivateClass(id);
+            var (success, className) = await _classService.DeactivateClass(classId);
 
             if (!success)
             {
@@ -49,10 +50,10 @@ namespace BE_SWP391_OnDemandTutor.Presentation.Controllers
             return Ok(new { Message = $"Class {className} change the status successfully." });
         }
 
-        [HttpGet("{id}")]
-        public async Task<IActionResult> GetClassById(int id)
+        [HttpGet("{classId:int}")]
+        public async Task<IActionResult> GetClassById(int classId)
         {
-            var classEntity = await _classService.GetById(id);
+            var classEntity = await _classService.GetById(classId);
 
             if (classEntity == null)
             {
@@ -62,7 +63,7 @@ namespace BE_SWP391_OnDemandTutor.Presentation.Controllers
             return Ok(classEntity);
         }
 
-        [HttpGet("Detail/{classId}")]
+        [HttpGet("Detail/{classId:int}")]
         public async Task<IActionResult> GetClassDetail(int classId)
         {
             var classEntity = await _classService.GetDetail(classId);
@@ -75,7 +76,7 @@ namespace BE_SWP391_OnDemandTutor.Presentation.Controllers
             return Ok(classEntity);
         }
 
-        [HttpPut("class/{classId}")]
+        [HttpPut("{classId:int}")]
         //[Authorize(Roles = "Administrator, Tutor")]
         public async Task<IActionResult> UpdateClass([FromBody] UpdateClassRequestModel classUpdate, int classId)
         {
@@ -95,10 +96,17 @@ namespace BE_SWP391_OnDemandTutor.Presentation.Controllers
         }
 
 
-        [HttpGet("classes")]
+        [HttpGet]
         public async Task<IActionResult> GetAllClasses()
         {
             var classViewModels = await _classService.GetAllClasses();
+            return Ok(classViewModels);
+        }
+
+        [HttpGet("tutor/{tutorId:int}")]
+        public async Task<ActionResult<List<TutorDetailClassViewModel>>> GetClassesByTutorId(int tutorId)
+        {
+            var classViewModels = await _classService.GetClassByTutorId(tutorId);
             return Ok(classViewModels);
         }
 

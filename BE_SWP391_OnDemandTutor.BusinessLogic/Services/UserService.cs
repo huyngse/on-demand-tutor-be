@@ -111,7 +111,6 @@ namespace BE_SWP391_OnDemandTutor.BusinessLogic.Services
                 .Include(u => u.TutorDegrees)
                 .AsQueryable();
             result = result.Where(u => u.Role == "Tutor");
-            var totalCount = result.Count();
             if (!string.IsNullOrWhiteSpace(query.TutorName))
             {
                 result = result.Where(u => u.FullName.Contains(query.TutorName));
@@ -132,6 +131,7 @@ namespace BE_SWP391_OnDemandTutor.BusinessLogic.Services
             {
                 result = result.Where(u => u.TutorType.Contains(query.TutorType));
             }
+            var totalCount = result.Count();
             var skipNumber = (query.PageNumber - 1) * query.PageSize;
             var tutorResult = await result.Skip(skipNumber).Take(query.PageSize).ToListAsync();
             return (tutorResult.Select(u =>
