@@ -156,18 +156,18 @@ namespace BE_SWP391_OnDemandTutor.Presentation.Controllers
             return userUpdated;
         }
 
-        //[MapToApiVersion("1")]
-        //[HttpPut("tutor/{userId}")]
-        //public async Task<ActionResult<UserViewModel>> ChangeUserRole(int userId, [FromBody]string role)
-        //{
-        //    var userUpdated = await _userService.UpdateUser(userCreate);
+        [MapToApiVersion("1")]
+        [HttpPut("role/{userId}")]
+        public async Task<ActionResult<UserViewModel>> ChangeUserRole(int userId, [FromBody] string role)
+        {
+            var userUpdated = await _userService.UpdateUserRole(userId, role);
 
-        //    if (userUpdated == null)
-        //    {
-        //        return NotFound("");
-        //    }
-        //    return userUpdated;
-        //}
+            if (userUpdated == null)
+            {
+                return NotFound("");
+            }
+            return userUpdated;
+        }
 
         [MapToApiVersion("1")]
         [HttpPut("profileImage/{userId:int}")]

@@ -30,6 +30,8 @@ namespace BE_SWP391_OnDemandTutor.BusinessLogic.Services
         Task<UserViewModel> UpdateUserProfileImage(int userId, string imageUrl);
         Task<UserViewModel> UpdateUserStatus(int userId);
         Task<UserViewModel> UpdateTutorProfile(int userId, UpdateTutorProfileRequestModel request);
+        Task<UserViewModel> UpdateUserRole(int userId, string role);
+
     }
 
     public class UserService : IUserService
@@ -383,6 +385,18 @@ namespace BE_SWP391_OnDemandTutor.BusinessLogic.Services
                 throw new Exception("User does not exist");
             }
             user.ProfileImage = imageUrl;
+            await _context.SaveChangesAsync();
+
+            return user.Adapt<UserViewModel>();
+        }
+        public async Task<UserViewModel> UpdateUserRole(int userId, string role)
+        {
+            var user = await _context.Users.FindAsync(userId);
+            if (user is null)
+            {
+                throw new Exception("User does not exist");
+            }
+            user.Role = role;
             await _context.SaveChangesAsync();
 
             return user.Adapt<UserViewModel>();
