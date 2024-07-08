@@ -25,6 +25,7 @@ namespace BE_SWP391_OnDemandTutor.BusinessLogic.Services
         Task<List<BookingDetailViewModel>> GetAllBooking();
         Task<List<BookingDetailViewModel>> GetBookingByTutorId(int tutorId);
         Task<List<BookingDetailViewModel>> GetBookingByStudentId(int studentId);
+        Task<bool> CancelBookingAsync(int bookingId, string cancellationReason);
 
 
     }
@@ -415,5 +416,24 @@ namespace BE_SWP391_OnDemandTutor.BusinessLogic.Services
 
             return existingModel.Adapt<BookingViewModel>();
         }
+
+        public async Task<bool> CancelBookingAsync(int bookingId, string cancellationReason) // Ensure 'public' matches the interface
+        {
+            var booking = await _context.Bookings.FindAsync(bookingId);
+            if (booking == null)
+            {
+                return false;
+            }
+
+            booking.CancellationReason = cancellationReason;
+            booking.IsCancelled = true; // Optional: To mark the booking as cancelled
+
+            _context.Bookings.Remove(booking);
+            await _context.SaveChangesAsync();
+
+            return true;
+        }
+
+
     }
 }

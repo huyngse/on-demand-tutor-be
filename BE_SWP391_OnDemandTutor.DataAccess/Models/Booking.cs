@@ -14,6 +14,8 @@ namespace BE_SWP391_OnDemandTutor.DataAccess.Models
         public DateTime? EndDate { get; set; }
         public User? User { get; set; }
 		public Schedule? Schedule { get; set; }
-	}
+        public string CancellationReason { get; set; }
+        public bool IsCancelled { get; set; }
+    }
 }
 

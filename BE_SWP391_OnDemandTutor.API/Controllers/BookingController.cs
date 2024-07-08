@@ -141,5 +141,23 @@ namespace BE_SWP391_OnDemandTutor.Presentation.Controllers
 
             return Ok(new { Message = $"Booking with ID '{bookingId}' deleted successfully." });
         }
+
+        [MapToApiVersion("1")]
+        [HttpDelete("{bookingId:int}")]
+        public async Task<ActionResult<bool>> CancelBooking(int bookingId, [FromBody] CancelBookingRequestModel request)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            var result = await _bookingService.CancelBookingAsync(bookingId, request.CancellationReason);
+            if (!result)
+            {
+                return NotFound();
+            }
+
+            return Ok(new { Message = $"Booking with ID '{bookingId}' cancelled successfully." });
+        }
     }
 }
