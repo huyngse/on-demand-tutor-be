@@ -104,10 +104,10 @@ namespace BE_SWP391_OnDemandTutor.Presentation.Controllers
         }
 
         [MapToApiVersion("1")]
-        [HttpGet("idTmp")]
-        public async Task<ActionResult<UserViewModel>> GetById(int idTmp)
+        [HttpGet("{userId:int}")]
+        public async Task<ActionResult<UserViewModel>> GetById(int userId)
         {
-            var userDetail = await _userService.GetById(idTmp);
+            var userDetail = await _userService.GetById(userId);
 
             if (userDetail == null)
             {
@@ -118,10 +118,49 @@ namespace BE_SWP391_OnDemandTutor.Presentation.Controllers
 
 
         [MapToApiVersion("1")]
-        [HttpPut]
-        public async Task<ActionResult<UserViewModel>> UpdateUser([FromBody] UpdateUserRequestModel userCreate)
+        [HttpPut("{userId:int}")]
+        public async Task<ActionResult<UserViewModel>> UpdateUser(int userId, [FromBody] UpdateUserRequestModel userCreate)
         {
-            var userUpdated = await _userService.UpdateUser(userCreate);
+            var userUpdated = await _userService.UpdateUser(userId, userCreate);
+
+            if (userUpdated == null)
+            {
+                return NotFound("");
+            }
+            return userUpdated;
+        }
+
+        [MapToApiVersion("1")]
+        [HttpPut("status/{userId}")]
+        public async Task<ActionResult<UserViewModel>> UpdateUserStatus(int userId)
+        {
+            var userUpdated = await _userService.UpdateUserStatus(userId);
+
+            if (userUpdated == null)
+            {
+                return NotFound("");
+            }
+            return userUpdated;
+        }
+
+        [MapToApiVersion("1")]
+        [HttpPut("tutor/{userId}")]
+        public async Task<ActionResult<UserViewModel>> UpdateTutorProfile(int userId, [FromBody] UpdateTutorProfileRequestModel request)
+        {
+            var userUpdated = await _userService.UpdateTutorProfile(userId, request);
+
+            if (userUpdated == null)
+            {
+                return NotFound("");
+            }
+            return userUpdated;
+        }
+
+        [MapToApiVersion("1")]
+        [HttpPut("role/{userId}")]
+        public async Task<ActionResult<UserViewModel>> ChangeUserRole(int userId, [FromBody] string role)
+        {
+            var userUpdated = await _userService.UpdateUserRole(userId, role);
 
             if (userUpdated == null)
             {
@@ -134,7 +173,7 @@ namespace BE_SWP391_OnDemandTutor.Presentation.Controllers
         [HttpPut("profileImage/{userId:int}")]
         public async Task<ActionResult<UserViewModel>> UpdateUserProfileImage(int userId, [FromBody] string imageUrl)
         {
-            var userUpdated = await _userService.UpdateUserProfile(userId, imageUrl);
+            var userUpdated = await _userService.UpdateUserProfileImage(userId, imageUrl);
 
             if (userUpdated == null)
             {
@@ -143,5 +182,4 @@ namespace BE_SWP391_OnDemandTutor.Presentation.Controllers
             return userUpdated;
         }
     }
-
 }

@@ -21,13 +21,17 @@ namespace BE_SWP391_OnDemandTutor.BusinessLogic.Services
     {
         Task<string> Login(LoginRequestModel request);
         Task<UserViewModel> Register(RegisterRequestModel request);
-        Task<UserViewModel> UpdateUser(UpdateUserRequestModel request);
+        Task<UserViewModel> UpdateUser(int userId, UpdateUserRequestModel request);
         Task<List<UserViewModel>> GetAll();
         Task<List<TutorViewModel>> GetAllTutors();
         Task<TutorViewModel> GetTutorById(int userId);
         Task<(List<TutorViewModel>, int)> SearchTutors(SearchTutorQuery query);
         Task<UserViewModel> GetById(int id);
-        Task<UserViewModel> UpdateUserProfile(int userId, string imageUrl);
+        Task<UserViewModel> UpdateUserProfileImage(int userId, string imageUrl);
+        Task<UserViewModel> UpdateUserStatus(int userId);
+        Task<UserViewModel> UpdateTutorProfile(int userId, UpdateTutorProfileRequestModel request);
+        Task<UserViewModel> UpdateUserRole(int userId, string role);
+
     }
 
     public class UserService : IUserService
@@ -319,30 +323,43 @@ namespace BE_SWP391_OnDemandTutor.BusinessLogic.Services
         }
 
 
-        public async Task<UserViewModel> UpdateUser(UpdateUserRequestModel request)
+        public async Task<UserViewModel> UpdateUser(int userId, UpdateUserRequestModel request)
         {
-            var user = await _context.Users.FindAsync(request.UserId);
-            string passwordHash = BCrypt.Net.BCrypt.HashPassword(request.Password);
+            var user = await _context.Users.FindAsync(userId);
+            if (user is null)
+            {
+                throw new Exception("User does not exist");
+            }
             var usernameAvailable = await _context.Users.AnyAsync(u => u.Username == request.Username && u.UserId != user.UserId);
             if (usernameAvailable)
             {
                 throw new Exception("Username available.");
             }
-
-            var emailAvailable = await _context.Users.AnyAsync(u => u.EmailAddress == request.EmailAddress && u.UserId != user.UserId);
-            if (emailAvailable)
-            {
-                throw new Exception("Email available.");
-            }
-
             user.Username = request.Username;
-            user.Password = passwordHash;
-            user.FullName = request.Fullname;
+            user.FullName = request.FullName;
             user.PhoneNumber = request.PhoneNumber;
-            user.EmailAddress = request.EmailAddress;
             user.DateOfBirth = request.DateOfBirth;
             user.Gender = request.Gender;
-            user.Role = request.Role;
+            user.City = request.City;
+            user.District = request.District;
+            user.Ward = request.Ward;
+            user.Street = request.Street;
+
+            await _context.SaveChangesAsync();
+
+            return user.Adapt<UserViewModel>();
+        }
+        public async Task<UserViewModel> UpdateTutorProfile(int userId, UpdateTutorProfileRequestModel request)
+        {
+            var user = await _context.Users.FindAsync(userId);
+            if (user is null)
+            {
+                throw new Exception("User does not exist");
+            }
+            user.FullName = request.FullName;
+            user.PhoneNumber = request.PhoneNumber;
+            user.DateOfBirth = request.DateOfBirth;
+            user.Gender = request.Gender;
             user.City = request.City;
             user.District = request.District;
             user.Ward = request.Ward;
@@ -350,13 +367,12 @@ namespace BE_SWP391_OnDemandTutor.BusinessLogic.Services
             user.TutorType = request.TutorType;
             user.School = request.School;
             user.TutorDescription = request.TutorDescription;
-            user.IsActive = request.IsActive;
 
             await _context.SaveChangesAsync();
 
             return user.Adapt<UserViewModel>();
         }
-        public async Task<UserViewModel> UpdateUserProfile(int userId, string imageUrl)
+        public async Task<UserViewModel> UpdateUserProfileImage(int userId, string imageUrl)
         {
             var user = await _context.Users.FindAsync(userId);
             if (user is null)
@@ -364,6 +380,30 @@ namespace BE_SWP391_OnDemandTutor.BusinessLogic.Services
                 throw new Exception("User does not exist");
             }
             user.ProfileImage = imageUrl;
+            await _context.SaveChangesAsync();
+
+            return user.Adapt<UserViewModel>();
+        }
+        public async Task<UserViewModel> UpdateUserRole(int userId, string role)
+        {
+            var user = await _context.Users.FindAsync(userId);
+            if (user is null)
+            {
+                throw new Exception("User does not exist");
+            }
+            user.Role = role;
+            await _context.SaveChangesAsync();
+
+            return user.Adapt<UserViewModel>();
+        }
+        public async Task<UserViewModel> UpdateUserStatus(int userId)
+        {
+            var user = await _context.Users.FindAsync(userId);
+            if (user is null)
+            {
+                throw new Exception("User does not exist");
+            }
+            user.IsActive = !user.IsActive;
             await _context.SaveChangesAsync();
 
             return user.Adapt<UserViewModel>();
