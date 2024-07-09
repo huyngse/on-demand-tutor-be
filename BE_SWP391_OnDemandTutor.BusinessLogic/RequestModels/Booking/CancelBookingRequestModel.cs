@@ -9,5 +9,6 @@ namespace BE_SWP391_OnDemandTutor.BusinessLogic.RequestModels.Booking
     public class CancelBookingRequestModel
     {
         public string CancellationReason { get; set; } = "";
+        public string Status { get; set; } = "Cancelled";
     }
 }

@@ -143,7 +143,7 @@ namespace BE_SWP391_OnDemandTutor.Presentation.Controllers
         }
 
         [MapToApiVersion("1")]
-        [HttpDelete("{bookingId:int}")]
+        [HttpPut("cancel/{bookingId:int}")]
         public async Task<ActionResult<bool>> CancelBooking(int bookingId, [FromBody] CancelBookingRequestModel request)
         {
             if (!ModelState.IsValid)
@@ -151,7 +151,7 @@ namespace BE_SWP391_OnDemandTutor.Presentation.Controllers
                 return BadRequest(ModelState);
             }
 
-            var result = await _bookingService.CancelBookingAsync(bookingId, request.CancellationReason);
+            var result = await _bookingService.CancelBookingAsync(bookingId, request.CancellationReason, request.Status);
             if (!result)
             {
                 return NotFound();
