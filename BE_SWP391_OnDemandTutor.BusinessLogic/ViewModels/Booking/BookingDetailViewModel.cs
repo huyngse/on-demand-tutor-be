@@ -15,8 +15,8 @@ namespace BE_SWP391_OnDemandTutor.BusinessLogic.ViewModels.Booking
         public string Status { get; set; } = "";
         public DateTime? StartDate { get; set; }
         public DateTime? EndDate { get; set; }
-        public BookingUserViewModel? User { get; set; }
-        public BookingUserViewModel? Tutor { get; set; }
+        public UserViewModel? User { get; set; }
+        public UserViewModel? Tutor { get; set; }
         public BookingScheduleViewModel? Schedule { get; set; }
         public BookingClassViewModel? Class { get; set; }
     }

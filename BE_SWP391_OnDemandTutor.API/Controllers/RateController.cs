@@ -3,7 +3,7 @@ using BE_SWP391_OnDemandTutor.BusinessLogic.Services;
 using BE_SWP391_OnDemandTutor.BusinessLogic.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-
+using BE_SWP391_OnDemandTutor.Common.Paging;
 namespace BE_SWP391_OnDemandTutor.Presentation.Controllers
 {
 
@@ -37,10 +37,11 @@ namespace BE_SWP391_OnDemandTutor.Presentation.Controllers
         }
 
         [MapToApiVersion("1")]
-        [HttpGet]
-        public async Task<ActionResult<List<RateViewModel>>> GetAllAsync()
+        [HttpPost]
+        [Route("all")]
+        public async Task<ActionResult<List<RateViewModel>>> GetAllAsync([FromQuery] PagingSizeModel paging)
         {
-            var rate = await _rateService.GetAll();
+            var rate = await _rateService.GetAll(paging);
             if (rate == null)
             {
                 return NotFound("");

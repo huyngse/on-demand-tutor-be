@@ -2,6 +2,7 @@ using BE_SWP391_OnDemandTutor.BusinessLogic.RequestModels.User;
 using BE_SWP391_OnDemandTutor.BusinessLogic.Services;
 using BE_SWP391_OnDemandTutor.BusinessLogic.ViewModels;
 using BE_SWP391_OnDemandTutor.BusinessLogic.ViewModels.User;
+using BE_SWP391_OnDemandTutor.Common.Paging;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BE_SWP391_OnDemandTutor.Presentation.Controllers
@@ -45,10 +46,11 @@ namespace BE_SWP391_OnDemandTutor.Presentation.Controllers
         }
 
         [MapToApiVersion("1")]
-        [HttpGet]
-        public async Task<ActionResult<List<UserViewModel>>> GetAll()
+        [HttpPost]
+        [Route("all-users")]
+        public async Task<ActionResult<List<UserViewModel>>> GetAll([FromQuery] PagingSizeModel paging)
         {
-            var userList = await _userService.GetAll();
+            var userList = await _userService.GetAll(paging);
 
             if (userList == null)
             {
@@ -59,11 +61,11 @@ namespace BE_SWP391_OnDemandTutor.Presentation.Controllers
 
 
         [MapToApiVersion("1")]
-        [HttpGet]
-        [Route("tutor")]
-        public async Task<ActionResult<List<TutorViewModel>>> GetAllTutor()
+        [HttpPost]
+        [Route("all-tutors")]
+        public async Task<ActionResult<List<TutorViewModel>>> GetAllTutor([FromQuery] PagingSizeModel paging)
         {
-            var userList = await _userService.GetAllTutors();
+            var userList = await _userService.GetAllTutors(paging);
 
             if (userList == null)
             {

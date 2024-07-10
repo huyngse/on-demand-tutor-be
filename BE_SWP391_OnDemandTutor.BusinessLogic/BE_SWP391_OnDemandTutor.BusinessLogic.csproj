@@ -20,6 +20,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\BE_SWP391_OnDemandTutor.DataAccess\BE_SWP391_OnDemandTutor.DataAccess.csproj" />
+    <ProjectReference Include="..\BE_SWP391_OnDemandTutor.Common\BE_SWP391_OnDemandTutor.Common.csproj" />
   </ItemGroup>
 
   <ItemGroup>

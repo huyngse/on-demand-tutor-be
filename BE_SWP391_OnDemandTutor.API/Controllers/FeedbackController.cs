@@ -1,6 +1,7 @@
 using BE_SWP391_OnDemandTutor.BusinessLogic.RequestModels.Feedback;
 using BE_SWP391_OnDemandTutor.BusinessLogic.Services;
 using BE_SWP391_OnDemandTutor.BusinessLogic.ViewModels;
+using BE_SWP391_OnDemandTutor.Common.Paging;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -36,10 +37,11 @@ namespace BE_SWP391_OnDemandTutor.Presentation.Controllers
         }
 
         [MapToApiVersion("1")]
-        [HttpGet]
-        public async Task<ActionResult<List<FeedbackViewModel>>> GetAll()
+        [HttpPost]
+        [Route("all")]
+        public async Task<ActionResult<List<FeedbackViewModel>>> GetAll(PagingSizeModel paging)
         {
-            var feedback = await _feedbackService.GetAll();
+            var feedback = await _feedbackService.GetAll(paging);
             if (feedback == null)
             {
                 return NotFound("");

@@ -1,6 +1,7 @@
 using BE_SWP391_OnDemandTutor.BusinessLogic.RequestModels.Feedback;
 using BE_SWP391_OnDemandTutor.BusinessLogic.RequestModels.Rate;
 using BE_SWP391_OnDemandTutor.BusinessLogic.ViewModels;
+using BE_SWP391_OnDemandTutor.Common.Paging;
 using BE_SWP391_OnDemandTutor.DataAccess.Models;
 using Mapster;
 using Microsoft.EntityFrameworkCore;
@@ -14,7 +15,7 @@ namespace BE_SWP391_OnDemandTutor.BusinessLogic.Services
         Task<FeedbackViewModel> CreateFeedbacksAsync(CreateFeedbackRequestModel feedbacksCreate);
         Task<FeedbackViewModel> UpdateFeedbacks(UpdateFeedbackRequestModel feedbacksUpdate);
         Task<bool> DeleteFeedback(int idTmp);
-        Task<List<FeedbackViewModel>> GetAll();
+        Task<List<FeedbackViewModel>> GetAll(PagingSizeModel paging);
         Task<FeedbackViewModel> GetById(int idTmp);
     }
 
@@ -67,10 +68,10 @@ namespace BE_SWP391_OnDemandTutor.BusinessLogic.Services
             return true;
         }
 
-        public async Task<List<FeedbackViewModel>> GetAll()
+        public async Task<List<FeedbackViewModel>> GetAll(PagingSizeModel paging)
         {
             var feedbacks = await _context.Feedbacks.ToListAsync();
-            return feedbacks.Select(feedbacks => new FeedbackViewModel
+            return feedbacks.Skip((paging.Page - 1) * paging.Limit).Take(paging.Limit).Select(feedbacks => new FeedbackViewModel
             {
                 FeedbackID = feedbacks.FeedbackID,
                 Evaluation = feedbacks.Evaluation,

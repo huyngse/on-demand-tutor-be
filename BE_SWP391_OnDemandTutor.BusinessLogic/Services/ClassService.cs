@@ -7,6 +7,7 @@ using Microsoft.EntityFrameworkCore;
 using System.Linq.Dynamic.Core;
 using OnDemandTutor.DataAccess.ExceptionModels;
 using BE_SWP391_OnDemandTutor.BusinessLogic.ViewModels.Class;
+using BE_SWP391_OnDemandTutor.Common.Paging;
 
 namespace BE_SWP391_OnDemandTutor.BusinessLogic.Services
 {
@@ -18,7 +19,7 @@ namespace BE_SWP391_OnDemandTutor.BusinessLogic.Services
         Task<ClassViewModel> CreateClass(CreateClassRequestModel classCreate);
         Task<ClassViewModel> GetById(int idTmp);
         Task<(bool Success, string ClassName)> DeactivateClass(int idTmp);
-        Task<List<ClassViewModel>> GetAllClasses();
+        Task<List<ClassViewModel>> GetAllClasses(PagingSizeModel paging);
         Task<List<TutorDetailClassViewModel>> GetClassByTutorId(int userId);
     }
 
@@ -160,7 +161,7 @@ namespace BE_SWP391_OnDemandTutor.BusinessLogic.Services
 
             return true;
         }
-        public async Task<List<ClassViewModel>> GetAllClasses()
+        public async Task<List<ClassViewModel>> GetAllClasses(PagingSizeModel paging)
         {
             var classEntities = await _context.Classes
                 .Include(c => c.Student)
@@ -168,7 +169,7 @@ namespace BE_SWP391_OnDemandTutor.BusinessLogic.Services
                 .Include(c => c.Schedules)
                 .ToListAsync();
 
-            var classViewModels = classEntities.Select(c => c.Adapt<ClassViewModel>()).ToList();
+            var classViewModels = classEntities.Skip((paging.Page - 1) * paging.Limit).Take(paging.Limit).Select(c => c.Adapt<ClassViewModel>()).ToList();
 
             return classViewModels;
         }

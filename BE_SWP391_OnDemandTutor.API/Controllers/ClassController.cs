@@ -2,10 +2,10 @@
 
 using BE_SWP391_OnDemandTutor.BusinessLogic.RequestModels.Class;
 using BE_SWP391_OnDemandTutor.BusinessLogic.Services;
-using BE_SWP391_OnDemandTutor.BusinessLogic.ViewModels;
 using BE_SWP391_OnDemandTutor.BusinessLogic.ViewModels.Class;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using BE_SWP391_OnDemandTutor.Common.Paging;
 
 namespace BE_SWP391_OnDemandTutor.Presentation.Controllers
 {
@@ -96,10 +96,11 @@ namespace BE_SWP391_OnDemandTutor.Presentation.Controllers
         }
 
 
-        [HttpGet]
-        public async Task<IActionResult> GetAllClasses()
-        {
-            var classViewModels = await _classService.GetAllClasses();
+        [HttpPost]
+        [Route("all")]
+        public async Task<IActionResult> GetAllClasses([FromQuery] PagingSizeModel paging)
+        { 
+            var classViewModels = await _classService.GetAllClasses(paging);
             return Ok(classViewModels);
         }
 

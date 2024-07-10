@@ -1,5 +1,5 @@
 ﻿using System;
-namespace BE_SWP391_OnDemandTutor.DataAccess.Paging
+namespace BE_SWP391_OnDemandTutor.Common.Paging
 {
 
     public class PagingModel<T> : PagingSizeModel

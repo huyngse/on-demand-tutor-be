@@ -2,6 +2,7 @@ using BE_SWP391_OnDemandTutor.BusinessLogic.RequestModels.Schedule;
 using BE_SWP391_OnDemandTutor.BusinessLogic.RequestModels.TutorDegree;
 using BE_SWP391_OnDemandTutor.BusinessLogic.Services;
 using BE_SWP391_OnDemandTutor.BusinessLogic.ViewModels;
+using BE_SWP391_OnDemandTutor.Common.Paging;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BE_SWP391_OnDemandTutor.Presentation.Controllers
@@ -35,10 +36,11 @@ namespace BE_SWP391_OnDemandTutor.Presentation.Controllers
         }
 
         [MapToApiVersion("1")]
-        [HttpGet]
-        public async Task<ActionResult<List<TutorDegreeViewModel>>> GetAll()
+        [HttpPost]
+        [Route("all")]
+        public async Task<ActionResult<List<TutorDegreeViewModel>>> GetAll([FromQuery] PagingSizeModel paging)
         {
-            var degree = await _tutordegreeService.GetAll();
+            var degree = await _tutordegreeService.GetAll(paging);
             if (degree == null)
             {
                 return NotFound("");

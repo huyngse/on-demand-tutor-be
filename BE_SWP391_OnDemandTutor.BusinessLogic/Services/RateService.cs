@@ -3,8 +3,8 @@ using BE_SWP391_OnDemandTutor.BusinessLogic.RequestModels.Rate;
 using BE_SWP391_OnDemandTutor.BusinessLogic.ViewModels;
 using BE_SWP391_OnDemandTutor.DataAccess.Models;
 using Microsoft.EntityFrameworkCore;
-using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 using OnDemandTutor.DataAccess.ExceptionModels;
+using BE_SWP391_OnDemandTutor.Common.Paging;
 
 namespace BE_SWP391_OnDemandTutor.BusinessLogic.Services
 {
@@ -14,7 +14,7 @@ namespace BE_SWP391_OnDemandTutor.BusinessLogic.Services
         Task<RateViewModel> CreateRateAsync(CreateRateRequestModel rateCreate);
         Task<RateViewModel> UpdateRate(UpdateRateRequestModel rateUpdate);
         Task<bool> DeleteRate(int idTmp);
-        Task<List<RateViewModel>> GetAll();
+        Task<List<RateViewModel>> GetAll(PagingSizeModel paging);
         Task<RateViewModel> GetById(int idTmp);
     }
 
@@ -65,10 +65,10 @@ namespace BE_SWP391_OnDemandTutor.BusinessLogic.Services
             return true;
         }
 
-        public async Task<List<RateViewModel>> GetAll()
+        public async Task<List<RateViewModel>> GetAll(PagingSizeModel paging)
         {
             var rate = await _context.Rates.ToListAsync();
-            return rate.Select(rate => new RateViewModel
+            return rate.Skip((paging.Page - 1) * paging.Limit).Take(paging.Limit).Select(rate => new RateViewModel
             {
                 RatingId = rate.RatingId,
                 NumberStars = rate.NumberStars,

@@ -1,5 +1,5 @@
 ﻿using System;
-namespace BE_SWP391_OnDemandTutor.DataAccess.Paging
+namespace BE_SWP391_OnDemandTutor.Common.Paging
 {
 
     public class PagedResult<T>
@@ -11,4 +11,3 @@ namespace BE_SWP391_OnDemandTutor.DataAccess.Paging
         public int Total { get; set; }
     }
 }
-

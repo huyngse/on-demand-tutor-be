@@ -8,11 +8,11 @@ using Microsoft.IdentityModel.Tokens;
 using Mapster;
 using System.Data;
 using System.IdentityModel.Tokens.Jwt;
-using System.IO;
 using System.Security.Claims;
 using System.Text;
 using OnDemandTutor.DataAccess.ExceptionModels;
 using BE_SWP391_OnDemandTutor.BusinessLogic.ViewModels.User;
+using BE_SWP391_OnDemandTutor.Common.Paging;
 
 namespace BE_SWP391_OnDemandTutor.BusinessLogic.Services
 {
@@ -22,8 +22,8 @@ namespace BE_SWP391_OnDemandTutor.BusinessLogic.Services
         Task<string> Login(LoginRequestModel request);
         Task<UserViewModel> Register(RegisterRequestModel request);
         Task<UserViewModel> UpdateUser(int userId, UpdateUserRequestModel request);
-        Task<List<UserViewModel>> GetAll();
-        Task<List<TutorViewModel>> GetAllTutors();
+        Task<List<UserViewModel>> GetAll(PagingSizeModel paging);
+        Task<List<TutorViewModel>> GetAllTutors(PagingSizeModel paging);
         Task<TutorViewModel> GetTutorById(int userId);
         Task<(List<TutorViewModel>, int)> SearchTutors(SearchTutorQuery query);
         Task<UserViewModel> GetById(int id);
@@ -44,13 +44,13 @@ namespace BE_SWP391_OnDemandTutor.BusinessLogic.Services
             _configuration = configuration;
         }
 
-        public async Task<List<UserViewModel>> GetAll()
+        public async Task<List<UserViewModel>> GetAll(PagingSizeModel paging)
         {
             var result = await _context.Users.ToListAsync();
 
-            return result.Select(user => user.Adapt<UserViewModel>()).ToList();
+            return result.Skip((paging.Page - 1) * paging.Limit).Take(paging.Limit).Select(user => user.Adapt<UserViewModel>()).ToList();
         }
-        public async Task<List<TutorViewModel>> GetAllTutors()
+        public async Task<List<TutorViewModel>> GetAllTutors(PagingSizeModel paging)
         {
             var result = await _context.Users
                 .Include(u => u.TutorClasses)
@@ -66,6 +66,7 @@ namespace BE_SWP391_OnDemandTutor.BusinessLogic.Services
                 var bookings = u.TutorClasses
                 .SelectMany(c => c.Schedules)
                 .SelectMany(s => s.Bookings)
+                .Skip(paging.Page - 1).Take(paging.Limit)
                 .Select(b => new TutorBookingViewModel
                 {
                     Address = b.Address,

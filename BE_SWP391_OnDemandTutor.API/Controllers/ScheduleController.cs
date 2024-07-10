@@ -1,7 +1,6 @@
 using BE_SWP391_OnDemandTutor.BusinessLogic.RequestModels.Schedule;
 using BE_SWP391_OnDemandTutor.BusinessLogic.Services;
-using BE_SWP391_OnDemandTutor.BusinessLogic.ViewModels;
-using BE_SWP391_OnDemandTutor.DataAccess.Models;
+using BE_SWP391_OnDemandTutor.Common.Paging;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BE_SWP391_OnDemandTutor.Presentation.Controllers
@@ -35,10 +34,11 @@ namespace BE_SWP391_OnDemandTutor.Presentation.Controllers
         }
 
         [MapToApiVersion("1")]
-        [HttpGet]
-        public async Task<IActionResult> GetAll()
+        [HttpPost]
+        [Route("all")]
+        public async Task<IActionResult> GetAll([FromQuery] PagingSizeModel paging)
         {
-            var schedules = await _scheduleService.GetAll();
+            var schedules = await _scheduleService.GetAll(paging);
             if (schedules == null)
             {
                 return NotFound("");

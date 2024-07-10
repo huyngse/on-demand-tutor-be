@@ -2,11 +2,11 @@
 using BE_SWP391_OnDemandTutor.BusinessLogic.ViewModels.Booking;
 using BE_SWP391_OnDemandTutor.DataAccess.Models;
 using Microsoft.EntityFrameworkCore;
-using System;
 using Mapster;
 using System.Linq.Dynamic.Core;
 using OnDemandTutor.DataAccess.ExceptionModels;
-using BE_SWP391_OnDemandTutor.DataAccess.Paging;
+using BE_SWP391_OnDemandTutor.Common.Paging;
+
 
 namespace BE_SWP391_OnDemandTutor.BusinessLogic.Services
 {
@@ -19,7 +19,7 @@ namespace BE_SWP391_OnDemandTutor.BusinessLogic.Services
         Task<BookingViewModel> GetById(int bookingId);
         Task<BookingDetailViewModel> GetDetailById(int bookingId);
         Task<bool> DeleteBooking(int bookingId);
-        Task<List<BookingViewModel>> GetAllBooking();
+        Task<List<BookingDetailViewModel>> GetAllBooking(PagingSizeModel paging);
         Task<List<BookingDetailViewModel>> GetBookingByTutorId(int tutorId);
         Task<List<BookingDetailViewModel>> GetBookingByStudentId(int studentId);
         Task<bool> CancelBookingAsync(int bookingId, string cancellationReason, string status);
@@ -65,7 +65,7 @@ namespace BE_SWP391_OnDemandTutor.BusinessLogic.Services
             return true;
         }
 
-        public async Task<List<BookingViewModel>> GetAllBooking()
+        public async Task<List<BookingDetailViewModel>> GetAllBooking(PagingSizeModel paging)
         {
             var booking = await _context.Bookings
                 .Include(b => b.Schedule)
@@ -73,7 +73,7 @@ namespace BE_SWP391_OnDemandTutor.BusinessLogic.Services
                 .ThenInclude(b => b.Tutor)
                 .Include(b => b.User)
                 .ToListAsync();
-            return booking.Select(b => b.Adapt<BookingViewModel>()).ToList();
+            return booking.Skip((paging.Page - 1) * paging.Limit).Take(paging.Limit).Select(b => b.Adapt<BookingDetailViewModel>()).ToList();
         }
 
 
