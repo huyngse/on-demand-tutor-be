@@ -1,14 +1,12 @@
 ﻿using BE_SWP391_OnDemandTutor.BusinessLogic.RequestModels.Booking;
-using BE_SWP391_OnDemandTutor.BusinessLogic.RequestModels.Feedback;
-using BE_SWP391_OnDemandTutor.BusinessLogic.ViewModels;
 using BE_SWP391_OnDemandTutor.BusinessLogic.ViewModels.Booking;
 using BE_SWP391_OnDemandTutor.DataAccess.Models;
 using Microsoft.EntityFrameworkCore;
 using System;
 using Mapster;
-using BE_SWP391_OnDemandTutor.BusinessLogic.RequestModels.Rate;
 using System.Linq.Dynamic.Core;
 using OnDemandTutor.DataAccess.ExceptionModels;
+using BE_SWP391_OnDemandTutor.DataAccess.Paging;
 
 namespace BE_SWP391_OnDemandTutor.BusinessLogic.Services
 {
@@ -17,12 +15,11 @@ namespace BE_SWP391_OnDemandTutor.BusinessLogic.Services
     {
         Task<BookingViewModel> UpdateBooking(int bookingId, UpdateBookingViewModel bookingUpdate);
         Task<BookingViewModel> UpdateBookingStatus(int bookingId, string stauts);
-
         Task<BookingViewModel> CreateBooking(CreateBookingRequestModel bookingCreate);
         Task<BookingViewModel> GetById(int bookingId);
         Task<BookingDetailViewModel> GetDetailById(int bookingId);
         Task<bool> DeleteBooking(int bookingId);
-        Task<List<BookingDetailViewModel>> GetAllBooking();
+        Task<List<BookingViewModel>> GetAllBooking();
         Task<List<BookingDetailViewModel>> GetBookingByTutorId(int tutorId);
         Task<List<BookingDetailViewModel>> GetBookingByStudentId(int studentId);
         Task<bool> CancelBookingAsync(int bookingId, string cancellationReason, string status);
@@ -31,12 +28,12 @@ namespace BE_SWP391_OnDemandTutor.BusinessLogic.Services
     }
     public class BookingService : IBookingService
     {
-
         private readonly BE_SWP391_OnDemandTutorDbContext _context;
 
         public BookingService(BE_SWP391_OnDemandTutorDbContext context)
         {
             _context = context;
+            
         }
         public async Task<BookingViewModel> CreateBooking(CreateBookingRequestModel bookingCreate)
         {
@@ -68,7 +65,7 @@ namespace BE_SWP391_OnDemandTutor.BusinessLogic.Services
             return true;
         }
 
-        public async Task<List<BookingDetailViewModel>> GetAllBooking()
+        public async Task<List<BookingViewModel>> GetAllBooking()
         {
             var booking = await _context.Bookings
                 .Include(b => b.Schedule)
@@ -76,8 +73,9 @@ namespace BE_SWP391_OnDemandTutor.BusinessLogic.Services
                 .ThenInclude(b => b.Tutor)
                 .Include(b => b.User)
                 .ToListAsync();
-            return booking.Select(b => b.Adapt<BookingDetailViewModel>()).ToList();
+            return booking.Select(b => b.Adapt<BookingViewModel>()).ToList();
         }
+
 
         public async Task<List<BookingDetailViewModel>> GetBookingByTutorId(int tutorId)
         {
@@ -89,8 +87,8 @@ namespace BE_SWP391_OnDemandTutor.BusinessLogic.Services
                .Where(b => b.Schedule.Class.TutorId == tutorId)
                .ToListAsync();
             return bookings.Select(b => b.Adapt<BookingDetailViewModel>()).ToList();
-        
-    }
+
+        }
         public async Task<List<BookingDetailViewModel>> GetBookingByStudentId(int studentId)
         {
             var booking = await _context.Bookings
@@ -172,7 +170,6 @@ namespace BE_SWP391_OnDemandTutor.BusinessLogic.Services
 
             return true;
         }
-
 
     }
 }

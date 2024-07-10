@@ -412,6 +412,7 @@ public class BE_SWP391_OnDemandTutorDbContext : DbContext
                 District = "Quận Thủ Đức",
                 Active = true,
                 CreatedDate = new DateTime(2023, 7, 1, 18, 30, 0),
+                MeetingLink = "https://meet.google.com"
             },
             new Class
             {
@@ -428,6 +429,7 @@ public class BE_SWP391_OnDemandTutorDbContext : DbContext
                 District = "Quận Gò Vấp",
                 Active = false,
                 CreatedDate = new DateTime(2023, 7, 1, 18, 30, 0),
+                MeetingLink = "https://meet.google.com"
             },
             new Class
             {
@@ -443,7 +445,8 @@ public class BE_SWP391_OnDemandTutorDbContext : DbContext
                 Ward = "Phường Tam Phú",
                 TutorId = 4,
                 Active = true,
-                ClassFee = 500000
+                ClassFee = 500000,
+                MeetingLink = "https://meet.google.com"
             },
             new Class
             {
@@ -459,7 +462,8 @@ public class BE_SWP391_OnDemandTutorDbContext : DbContext
                 District = "Quận Gò Vấp",
                 Ward = "Phường 12",
                 Active = true,
-                ClassFee = 800000
+                ClassFee = 800000,
+                MeetingLink = "https://meet.google.com"
             },
             new Class
             {
@@ -475,7 +479,8 @@ public class BE_SWP391_OnDemandTutorDbContext : DbContext
                 District = "Quận Thủ Đức",
                 Ward = "Phường Tam Phú",
                 Active = true,
-                ClassFee = 400000
+                ClassFee = 400000,
+                MeetingLink = "https://meet.google.com"
             }
             );
         modelBuilder.Entity<Schedule>().HasData
@@ -488,7 +493,8 @@ public class BE_SWP391_OnDemandTutorDbContext : DbContext
                 Description = "Lịch lập trình buổi sáng các ngày trong tuần",
                 DateOfWeek = DayGroup.MonWedFri, // Thứ 2, 4, 6
                 StartTime = new DateTime(2024, 6, 7, 8, 0, 0), // 8:00 AM
-                EndTime = new DateTime(2024, 6, 7, 10, 0, 0), // 10:00 AM
+                EndTime = new DateTime(2024, 6, 7, 10, 0, 0), // 10:00 AM,
+
             },
           new Schedule
           {

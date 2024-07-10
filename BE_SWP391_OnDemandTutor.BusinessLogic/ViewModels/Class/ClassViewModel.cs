@@ -26,6 +26,7 @@ namespace BE_SWP391_OnDemandTutor.BusinessLogic.ViewModels
         public string District { get; set; }
         public string Ward { get; set; }
         public string City { get; set; }
+        public string MeetingLink { get; set; }
         public List<ScheduleViewModel> Schedules { get; set; }
         public UserViewModel Tutor { get; set; }
         public UserViewModel Student { get; set; }
