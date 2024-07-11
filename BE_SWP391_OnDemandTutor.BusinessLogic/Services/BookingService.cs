@@ -427,8 +427,6 @@ namespace BE_SWP391_OnDemandTutor.BusinessLogic.Services
 
             booking.CancellationReason = cancellationReason;
             booking.Status = status;
-
-            _context.Bookings.Remove(booking);
             await _context.SaveChangesAsync();
 
             return true;
