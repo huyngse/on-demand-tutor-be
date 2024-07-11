@@ -46,7 +46,7 @@ namespace BE_SWP391_OnDemandTutor.Presentation.Controllers
         }
 
         [MapToApiVersion("1")]
-        [HttpPost]
+        [HttpGet]
         [Route("all-users")]
         public async Task<ActionResult<List<UserViewModel>>> GetAll([FromQuery] PagingSizeModel paging)
         {
@@ -61,7 +61,7 @@ namespace BE_SWP391_OnDemandTutor.Presentation.Controllers
 
 
         [MapToApiVersion("1")]
-        [HttpPost]
+        [HttpGet]
         [Route("all-tutors")]
         public async Task<ActionResult<List<TutorViewModel>>> GetAllTutor([FromQuery] PagingSizeModel paging)
         {

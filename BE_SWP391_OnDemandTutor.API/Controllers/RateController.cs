@@ -37,8 +37,7 @@ namespace BE_SWP391_OnDemandTutor.Presentation.Controllers
         }
 
         [MapToApiVersion("1")]
-        [HttpPost]
-        [Route("all")]
+        [HttpGet]
         public async Task<ActionResult<List<RateViewModel>>> GetAllAsync([FromQuery] PagingSizeModel paging)
         {
             var rate = await _rateService.GetAll(paging);
