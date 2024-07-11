@@ -23,17 +23,11 @@ namespace BE_SWP391_OnDemandTutor.Presentation.Controllers
         }
 
         [HttpPost]
-        [Authorize(Roles = "Administrator, Tutor")] 
+        //[Authorize(Roles = "Administrator, Tutor")]
         public async Task<IActionResult> CreateClass([FromBody] CreateClassRequestModel classCreate)
         {
-            
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
-            var result = await _classService.CreateClass(classCreate);
-            return result is not null ? CreatedAtAction(nameof(GetClassById), new { id = result.ClassId }, result): BadRequest("Failed to create Class.");
+            var createdClass = await _classService.CreateClass(classCreate);
+            return Ok(createdClass);
         }
 
         [HttpPut("deativate/{classId:int}")]

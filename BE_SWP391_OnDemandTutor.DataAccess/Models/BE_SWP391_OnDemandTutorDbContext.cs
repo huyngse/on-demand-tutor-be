@@ -513,6 +513,7 @@ public class BE_SWP391_OnDemandTutorDbContext : DbContext
                      BookingId = 1,
                      UserId = 1,
                      ScheduleId = 1,
+                     TutorId = 4,
                      CreateDate = new DateTime(2024, 6, 8, 9, 0, 0),
                      StartDate = new DateTime(2024, 6, 8, 9, 0, 0),
                      EndDate = new DateTime(2024, 10, 8, 9, 0, 0),
@@ -520,6 +521,6 @@ public class BE_SWP391_OnDemandTutorDbContext : DbContext
                      Status = "Pending",
                      Address = "17-13 Đ. Số 40, Linh Đông, Thủ Đức"
                  }
-            );
+            ); ;
     }
 }

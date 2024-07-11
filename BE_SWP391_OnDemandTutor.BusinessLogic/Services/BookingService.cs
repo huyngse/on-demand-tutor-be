@@ -6,7 +6,7 @@ using Mapster;
 using System.Linq.Dynamic.Core;
 using OnDemandTutor.DataAccess.ExceptionModels;
 using BE_SWP391_OnDemandTutor.Common.Paging;
-
+using BE_SWP391_OnDemandTutor.BusinessLogic.ViewModels.User;
 
 namespace BE_SWP391_OnDemandTutor.BusinessLogic.Services
 {
@@ -29,10 +29,12 @@ namespace BE_SWP391_OnDemandTutor.BusinessLogic.Services
     public class BookingService : IBookingService
     {
         private readonly BE_SWP391_OnDemandTutorDbContext _context;
+        private readonly IUserService _userService;
 
-        public BookingService(BE_SWP391_OnDemandTutorDbContext context)
+        public BookingService(BE_SWP391_OnDemandTutorDbContext context, IUserService userService)
         {
             _context = context;
+            _userService = userService;
             
         }
         public async Task<BookingViewModel> CreateBooking(CreateBookingRequestModel bookingCreate)
@@ -67,15 +69,28 @@ namespace BE_SWP391_OnDemandTutor.BusinessLogic.Services
 
         public async Task<List<BookingDetailViewModel>> GetAllBooking(PagingSizeModel paging)
         {
-            var booking = await _context.Bookings
+            // Fetch all bookings with related entities
+            var bookings = await _context.Bookings
                 .Include(b => b.Schedule)
-                .ThenInclude(b => b.Class)
-                .ThenInclude(b => b.Tutor)
+                .ThenInclude(s => s.Class)
                 .Include(b => b.User)
                 .ToListAsync();
-            return booking.Skip((paging.Page - 1) * paging.Limit).Take(paging.Limit).Select(b => b.Adapt<BookingDetailViewModel>()).ToList();
-        }
+            var pagedBookings = bookings.Skip((paging.Page - 1) * paging.Limit).Take(paging.Limit).ToList();
 
+            var bookingDetailViewModels = new List<BookingDetailViewModel>();
+
+            foreach (var booking in pagedBookings)
+            {
+                var bookingDetail = booking.Adapt<BookingDetailViewModel>();
+
+                // Retrieve tutor details using your service
+                var tutor = await _userService.GetTutorById(booking.Schedule.Class.TutorId);
+                bookingDetail.Tutor = tutor.Adapt<TutorViewModel>();
+                bookingDetailViewModels.Add(bookingDetail);
+            }
+
+            return bookingDetailViewModels;
+        }
 
         public async Task<List<BookingDetailViewModel>> GetBookingByTutorId(int tutorId)
         {
