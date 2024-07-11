@@ -2,6 +2,7 @@ using BE_SWP391_OnDemandTutor.BusinessLogic.RequestModels.Schedule;
 using BE_SWP391_OnDemandTutor.BusinessLogic.ViewModels;
 using BE_SWP391_OnDemandTutor.BusinessLogic.ViewModels.Booking;
 using BE_SWP391_OnDemandTutor.BusinessLogic.ViewModels.Schedule;
+using BE_SWP391_OnDemandTutor.Common.Paging;
 using BE_SWP391_OnDemandTutor.DataAccess.Models;
 using Mapster;
 using Microsoft.EntityFrameworkCore;
@@ -13,7 +14,7 @@ namespace BE_SWP391_OnDemandTutor.BusinessLogic.Services
     {
         Task<ScheduleViewModel> GetById(int scheduleId);
         Task<ScheduleDetailViewModel> GetDetailById(int scheduleId);
-        Task<List<ScheduleDetailViewModel>> GetAll();
+        Task<List<ScheduleDetailViewModel>> GetAll(PagingSizeModel paging);
         Task<List<ScheduleDetailViewModel>> GetShedulesByClassId(int classId);
         Task<ScheduleViewModel> CreateSchedule(CreateScheduleRequestModel scheduleCreate);
         Task<ScheduleViewModel> UpdateSchedule(int scheduleId, UpdateScheduleRequestModel scheduleUpdate);
@@ -51,13 +52,13 @@ namespace BE_SWP391_OnDemandTutor.BusinessLogic.Services
             await _context.SaveChangesAsync();
             return true;
         }
-        public async Task<List<ScheduleDetailViewModel>> GetAll()
+        public async Task<List<ScheduleDetailViewModel>> GetAll(PagingSizeModel paging)
         {
             var schedules = await _context.Schedules
                 .Include(s => s.Bookings)
                 .ThenInclude(s => s.User).ToListAsync();
 
-            return schedules.Select(schedule =>
+            return schedules.Skip((paging.Page - 1) * paging.Limit).Take(paging.Limit).Select(schedule =>
             {
                 var bookingViewModels = schedule.Bookings.Select(booking => new ScheduleBookingViewModel
                 {

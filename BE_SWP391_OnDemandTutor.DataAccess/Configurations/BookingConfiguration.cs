@@ -18,6 +18,8 @@ namespace BE_SWP391_OnDemandTutor.DataAccess.Configurations
 
             builder.Property(c => c.Description).HasMaxLength(500).IsRequired();
 
+            builder.Property(c => c.TutorId).HasMaxLength(50).IsRequired();
+
             builder.Property(c => c.Status).HasMaxLength(50).IsRequired();
 
             builder.Property(c => c.Address).HasMaxLength(150).IsRequired();

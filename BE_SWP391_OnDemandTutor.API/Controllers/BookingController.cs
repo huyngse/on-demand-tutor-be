@@ -1,9 +1,7 @@
 ﻿using BE_SWP391_OnDemandTutor.BusinessLogic.RequestModels.Booking;
-using BE_SWP391_OnDemandTutor.BusinessLogic.RequestModels.Feedback;
 using BE_SWP391_OnDemandTutor.BusinessLogic.Services;
-using BE_SWP391_OnDemandTutor.BusinessLogic.ViewModels;
 using BE_SWP391_OnDemandTutor.BusinessLogic.ViewModels.Booking;
-using Microsoft.AspNetCore.Authorization;
+using BE_SWP391_OnDemandTutor.Common.Paging;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BE_SWP391_OnDemandTutor.Presentation.Controllers
@@ -24,10 +22,11 @@ namespace BE_SWP391_OnDemandTutor.Presentation.Controllers
         }
        
         [MapToApiVersion("1")]
-        [HttpGet]
-        public async Task<ActionResult<List<BookingViewModel>>> GetAll()
+        [HttpPost]
+        [Route("all")]
+        public async Task<ActionResult<List<BookingDetailViewModel>>> GetAll([FromQuery] PagingSizeModel paging)
         {
-            var booking = await _bookingService.GetAllBooking();
+            var booking = await _bookingService.GetAllBooking(paging);
             if (booking == null)
             {
                 return NotFound("");

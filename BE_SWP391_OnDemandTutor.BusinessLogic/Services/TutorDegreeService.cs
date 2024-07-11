@@ -1,12 +1,11 @@
 using AutoMapper;
-using BE_SWP391_OnDemandTutor.BusinessLogic.RequestModels.Schedule;
 using BE_SWP391_OnDemandTutor.BusinessLogic.RequestModels.TutorDegree;
 using BE_SWP391_OnDemandTutor.BusinessLogic.ViewModels;
+using BE_SWP391_OnDemandTutor.Common.Paging;
 using BE_SWP391_OnDemandTutor.DataAccess.Models;
 using Mapster;
 using Microsoft.EntityFrameworkCore;
 using OnDemandTutor.DataAccess.ExceptionModels;
-using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace BE_SWP391_OnDemandTutor.BusinessLogic.Services
 {
@@ -14,7 +13,7 @@ namespace BE_SWP391_OnDemandTutor.BusinessLogic.Services
     public interface ITutorDegreeService
     {
         Task<TutorDegreeViewModel> GetById(int idTmp);
-        Task<List<TutorDegreeViewModel>> GetAll();
+        Task<List<TutorDegreeViewModel>> GetAll(PagingSizeModel paging);
         Task<TutorDegreeViewModel> CreateTutorDegree(CreateTutorDegreeRequestModel scheduleCreate);
         Task<TutorDegreeViewModel> UpdateDegree(UpdateTutorDegreeRequestModel scheduleUpdate);
         Task<bool> DeleteTutorDegree(int idTmp);
@@ -74,11 +73,11 @@ namespace BE_SWP391_OnDemandTutor.BusinessLogic.Services
             return true;
         }
 
-        public async Task<List<TutorDegreeViewModel>> GetAll()
+        public async Task<List<TutorDegreeViewModel>> GetAll(PagingSizeModel paging)
         {
             var degree = await _context.TutorDegrees.ToListAsync();
 
-            return degree.Adapt<List<TutorDegreeViewModel>>();
+            return degree.Skip((paging.Page - 1) * paging.Limit).Take(paging.Limit).Adapt<List<TutorDegreeViewModel>>();
         }
 
         public async Task<TutorDegreeViewModel> GetById(int idTmp)

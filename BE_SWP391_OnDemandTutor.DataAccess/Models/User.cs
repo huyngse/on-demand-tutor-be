@@ -4,7 +4,7 @@
     {
         public int UserId { get; set; }
         public string Username { get; set; } = String.Empty;
-        public string Password { get; set; } = "123456";
+        public string Password { get; set; } = String.Empty;
         public string FullName { get; set; } = String.Empty;
         public string ProfileImage { get; set; } = String.Empty;
         public string PhoneNumber { get; set; } = String.Empty;

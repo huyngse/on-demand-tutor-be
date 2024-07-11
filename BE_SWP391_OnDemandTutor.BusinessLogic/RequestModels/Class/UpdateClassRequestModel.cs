@@ -18,6 +18,7 @@ namespace BE_SWP391_OnDemandTutor.BusinessLogic.RequestModels.Class
         public string ClassLevel { get; set; }
         public float ClassFee { get; set; }
         public int? StudentId { get; set; }
+        public string MeetingLink { get; set; }
         //public int ScheduleId { get; set; }
         public string District { get; set; }
         public string Ward { get; set; }

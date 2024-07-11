@@ -13,6 +13,7 @@
         public string City { get; set; } = String.Empty;
         public string District { get; set; } = String.Empty;
         public string Ward { get; set; } = String.Empty;
+        public string  MeetingLink { get; set; }
         public bool Active { get; set; }
         public float ClassFee { get; set; }
         public int? StudentId { get; set; }

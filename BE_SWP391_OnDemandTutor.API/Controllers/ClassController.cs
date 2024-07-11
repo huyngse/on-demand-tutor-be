@@ -2,10 +2,10 @@
 
 using BE_SWP391_OnDemandTutor.BusinessLogic.RequestModels.Class;
 using BE_SWP391_OnDemandTutor.BusinessLogic.Services;
-using BE_SWP391_OnDemandTutor.BusinessLogic.ViewModels;
 using BE_SWP391_OnDemandTutor.BusinessLogic.ViewModels.Class;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using BE_SWP391_OnDemandTutor.Common.Paging;
 
 namespace BE_SWP391_OnDemandTutor.Presentation.Controllers
 {
@@ -23,17 +23,11 @@ namespace BE_SWP391_OnDemandTutor.Presentation.Controllers
         }
 
         [HttpPost]
-        [Authorize(Roles = "Administrator, Tutor")] 
+        //[Authorize(Roles = "Administrator, Tutor")]
         public async Task<IActionResult> CreateClass([FromBody] CreateClassRequestModel classCreate)
         {
-            
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
-            var result = await _classService.CreateClass(classCreate);
-            return result is not null ? CreatedAtAction(nameof(GetClassById), new { id = result.ClassId }, result): BadRequest("Failed to create Class.");
+            var createdClass = await _classService.CreateClass(classCreate);
+            return Ok(createdClass);
         }
 
         [HttpPut("deativate/{classId:int}")]
@@ -96,10 +90,11 @@ namespace BE_SWP391_OnDemandTutor.Presentation.Controllers
         }
 
 
-        [HttpGet]
-        public async Task<IActionResult> GetAllClasses()
-        {
-            var classViewModels = await _classService.GetAllClasses();
+        [HttpPost]
+        [Route("all")]
+        public async Task<IActionResult> GetAllClasses([FromQuery] PagingSizeModel paging)
+        { 
+            var classViewModels = await _classService.GetAllClasses(paging);
             return Ok(classViewModels);
         }
 

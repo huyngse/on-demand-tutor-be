@@ -6,6 +6,7 @@ namespace BE_SWP391_OnDemandTutor.DataAccess.Models
 		public int BookingId { get; set; }
 		public int UserId { get; set; }
 		public int ScheduleId { get; set; }
+		public int  TutorId { get; set; }
 		public DateTime CreateDate { get; set; } = DateTime.Now;
         public string Description { get; set; } = "";
 		public string Status { get; set; } = "Pending";

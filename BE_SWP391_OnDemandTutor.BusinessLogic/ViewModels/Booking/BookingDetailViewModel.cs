@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using BE_SWP391_OnDemandTutor.BusinessLogic.ViewModels.User;
 
 namespace BE_SWP391_OnDemandTutor.BusinessLogic.ViewModels.Booking
 {
@@ -15,8 +16,8 @@ namespace BE_SWP391_OnDemandTutor.BusinessLogic.ViewModels.Booking
         public string Status { get; set; } = "";
         public DateTime? StartDate { get; set; }
         public DateTime? EndDate { get; set; }
-        public BookingUserViewModel? User { get; set; }
-        public BookingUserViewModel? Tutor { get; set; }
+        public UserViewModel? User { get; set; }
+        public TutorViewModel? Tutor { get; set; }
         public BookingScheduleViewModel? Schedule { get; set; }
         public BookingClassViewModel? Class { get; set; }
     }

@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BE_SWP391_OnDemandTutor.API
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BE_SWP391_OnDemandTutor.BusinessLogic", "BE_SWP391_OnDemandTutor.BusinessLogic\BE_SWP391_OnDemandTutor.BusinessLogic.csproj", "{0AD42D95-D060-400B-A8FF-25A729AA63A8}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BE_SWP391_OnDemandTutor.Common", "BE_SWP391_OnDemandTutor.Common\BE_SWP391_OnDemandTutor.Common.csproj", "{78FED138-FEF8-4483-A411-0368CBD0E3B4}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{0AD42D95-D060-400B-A8FF-25A729AA63A8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0AD42D95-D060-400B-A8FF-25A729AA63A8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0AD42D95-D060-400B-A8FF-25A729AA63A8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{78FED138-FEF8-4483-A411-0368CBD0E3B4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{78FED138-FEF8-4483-A411-0368CBD0E3B4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{78FED138-FEF8-4483-A411-0368CBD0E3B4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{78FED138-FEF8-4483-A411-0368CBD0E3B4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
