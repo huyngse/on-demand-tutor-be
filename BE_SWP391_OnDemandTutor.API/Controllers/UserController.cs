@@ -47,7 +47,6 @@ namespace BE_SWP391_OnDemandTutor.Presentation.Controllers
 
         [MapToApiVersion("1")]
         [HttpGet]
-        [Route("all-users")]
         public async Task<ActionResult<List<UserViewModel>>> GetAll([FromQuery] PagingSizeModel paging)
         {
             var userList = await _userService.GetAll(paging);
@@ -62,7 +61,7 @@ namespace BE_SWP391_OnDemandTutor.Presentation.Controllers
 
         [MapToApiVersion("1")]
         [HttpGet]
-        [Route("all-tutors")]
+        [Route("tutor")]
         public async Task<ActionResult<List<TutorViewModel>>> GetAllTutor([FromQuery] PagingSizeModel paging)
         {
             var userList = await _userService.GetAllTutors(paging);
