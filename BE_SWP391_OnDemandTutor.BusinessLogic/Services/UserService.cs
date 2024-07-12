@@ -31,7 +31,7 @@ namespace BE_SWP391_OnDemandTutor.BusinessLogic.Services
         Task<UserViewModel> UpdateUserStatus(int userId);
         Task<UserViewModel> UpdateTutorProfile(int userId, UpdateTutorProfileRequestModel request);
         Task<UserViewModel> UpdateUserRole(int userId, string role);
-
+        Task<UserViewModel> GetUserByEmail(string email);
     }
 
     public class UserService : IUserService
@@ -144,6 +144,16 @@ namespace BE_SWP391_OnDemandTutor.BusinessLogic.Services
         public async Task<UserViewModel> GetById(int id)
         {
             var user = await _context.Users.FindAsync(id);
+            if (user == null)
+            {
+                throw new BadRequestException("User not found");
+            }
+
+            return user.Adapt<UserViewModel>();
+        }
+        public async Task<UserViewModel> GetUserByEmail(string email)
+        {
+            var user = await _context.Users.FirstOrDefaultAsync(u => u.EmailAddress == email);
             if (user == null)
             {
                 throw new BadRequestException("User not found");
