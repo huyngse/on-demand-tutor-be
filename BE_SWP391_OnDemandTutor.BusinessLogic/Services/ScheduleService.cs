@@ -60,42 +60,8 @@ namespace BE_SWP391_OnDemandTutor.BusinessLogic.Services
 
             return schedules.Skip((paging.Page - 1) * paging.Limit).Take(paging.Limit).Select(schedule =>
             {
-                var bookingViewModels = schedule.Bookings.Select(booking => new ScheduleBookingViewModel
-                {
-                    Address = booking.Address,
-                    BookingId = booking.BookingId,
-                    CreateDate = booking.CreateDate,
-                    Description = booking.Description,
-                    EndDate = booking.EndDate,
-                    StartDate = booking.StartDate,
-                    Status = booking.Status,
-                    Student = new ScheduleUserViewModel
-                    {
-                        FullName = booking.User.FullName,
-                        EmailAddress = booking.User.EmailAddress,
-                        District = booking.User.District,
-                        UserId = booking.User.UserId,
-                        City = booking.User.City,
-                        DateOfBirth = booking.User.DateOfBirth,
-                        Gender = booking.User.Gender,
-                        PhoneNumber = booking.User.PhoneNumber,
-                        ProfileImage = booking.User.ProfileImage,
-                        Street = booking.User.Street,
-                        Username = booking.User.Username,
-                        Ward = booking.User.Ward
-                    }
-                }).ToList();
-                return new ScheduleDetailViewModel
-                {
-                    ScheduleID = schedule.ScheduleID,
-                    Title = schedule.Title,
-                    Description = schedule.Description,
-                    ClassID = schedule.ClassID,
-                    DateOfWeek = schedule.DateOfWeek,
-                    EndTime = schedule.EndTime,
-                    StartTime = schedule.StartTime,
-                    Bookings = bookingViewModels
-                };
+            var bookingViewModels = schedule.Bookings.Select(booking => booking.Adapt<ScheduleBookingViewModel>() ).ToList();
+                return schedule.Adapt<ScheduleDetailViewModel>() ;
             }
             ).ToList(); ;
         }
@@ -106,46 +72,12 @@ namespace BE_SWP391_OnDemandTutor.BusinessLogic.Services
                 .Include(s => s.Bookings)
                 .ThenInclude(s => s.User).ToListAsync();
 
-            return schedules.Select(schedule =>
-            {
-                var bookingViewModels = schedule.Bookings.Select(booking => new ScheduleBookingViewModel
-                {
-                    Address = booking.Address,
-                    BookingId = booking.BookingId,
-                    CreateDate = booking.CreateDate,
-                    Description = booking.Description,
-                    EndDate = booking.EndDate,
-                    StartDate = booking.StartDate,
-                    Status = booking.Status,
-                    Student = new ScheduleUserViewModel
-                    {
-                        FullName = booking.User.FullName,
-                        EmailAddress = booking.User.EmailAddress,
-                        District = booking.User.District,
-                        UserId = booking.User.UserId,
-                        City = booking.User.City,
-                        DateOfBirth = booking.User.DateOfBirth,
-                        Gender = booking.User.Gender,
-                        PhoneNumber = booking.User.PhoneNumber,
-                        ProfileImage = booking.User.ProfileImage,
-                        Street = booking.User.Street,
-                        Username = booking.User.Username,
-                        Ward = booking.User.Ward
-                    }
-                }).ToList();
-                return new ScheduleDetailViewModel
-                {
-                    ScheduleID = schedule.ScheduleID,
-                    Title = schedule.Title,
-                    Description = schedule.Description,
-                    ClassID = schedule.ClassID,
-                    DateOfWeek = schedule.DateOfWeek,
-                    EndTime = schedule.EndTime,
-                    StartTime = schedule.StartTime,
-                    Bookings = bookingViewModels
-                };
-            }
-            ).Where(s => s.ClassID == classId).ToList(); ;
+            var result = schedules.Select(schedule =>
+            {var bookingViewModels = schedule.Bookings.Select(booking => booking.Adapt<ScheduleBookingViewModel>()
+                ).ToList();
+                return schedule.Adapt<ScheduleDetailViewModel>();
+            }).Where(s => s.ClassID == classId).ToList();
+            return result;
         }
 
         public async Task<ScheduleViewModel> GetById(int scheduleId)
@@ -164,42 +96,8 @@ namespace BE_SWP391_OnDemandTutor.BusinessLogic.Services
             {
                 return null;
             }
-            var bookingViewModels = schedule.Bookings.Select(booking => new ScheduleBookingViewModel
-            {
-                Address = booking.Address,
-                BookingId = booking.BookingId,
-                CreateDate = booking.CreateDate,
-                Description = booking.Description,
-                EndDate = booking.EndDate,
-                StartDate = booking.StartDate,
-                Status = booking.Status,
-                Student = new ScheduleUserViewModel
-                {
-                    FullName = booking.User.FullName,
-                    EmailAddress = booking.User.EmailAddress,
-                    District = booking.User.District,
-                    UserId = booking.User.UserId,
-                    City = booking.User.City,
-                    DateOfBirth = booking.User.DateOfBirth,
-                    Gender = booking.User.Gender,
-                    PhoneNumber = booking.User.PhoneNumber,
-                    ProfileImage = booking.User.ProfileImage,
-                    Street = booking.User.Street,
-                    Username = booking.User.Username,
-                    Ward = booking.User.Ward
-                }
-            }).ToList();
-            return new ScheduleDetailViewModel
-            {
-                ScheduleID = schedule.ScheduleID,
-                Title = schedule.Title,
-                Description = schedule.Description,
-                ClassID = schedule.ClassID,
-                DateOfWeek = schedule.DateOfWeek,
-                EndTime = schedule.EndTime,
-                StartTime = schedule.StartTime,
-                Bookings = bookingViewModels
-            };
+            var bookingViewModels = schedule.Bookings.Select(booking => booking.Adapt<ScheduleBookingViewModel>()).ToList();
+            return schedule.Adapt<ScheduleDetailViewModel>();
         }
 
 

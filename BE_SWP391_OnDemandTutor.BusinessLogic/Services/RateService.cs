@@ -68,15 +68,7 @@ namespace BE_SWP391_OnDemandTutor.BusinessLogic.Services
         public async Task<List<RateViewModel>> GetAll(PagingSizeModel paging)
         {
             var rate = await _context.Rates.ToListAsync();
-            return rate.Skip((paging.Page - 1) * paging.Limit).Take(paging.Limit).Select(rate => new RateViewModel
-            {
-                RatingId = rate.RatingId,
-                NumberStars = rate.NumberStars,
-                StudentId = rate.StudentId,
-                TutorId = rate.TutorId,
-                SubjectId = rate.SubjectId,
-
-            }).ToList();
+            return rate.Skip((paging.Page - 1) * paging.Limit).Take(paging.Limit).Select(rate=> rate.Adapt<RateViewModel>()).ToList();
         }
 
         public async Task<RateViewModel> GetById(int idTmp)
@@ -87,13 +79,6 @@ namespace BE_SWP391_OnDemandTutor.BusinessLogic.Services
                 throw new NotFoundException("Can not find the Rate");
             }
 
-            //return new RateViewModel
-            //{
-            //    RatingId = rate.RatingId,
-            //    StudentId = rate.StudentId,
-            //    TutorId = rate.TutorId,
-            //    NumberStars = rate.NumberStars,
-            //};
             return rate.Adapt<RateViewModel>();
         }
     }
