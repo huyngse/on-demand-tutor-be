@@ -10,9 +10,9 @@ namespace BE_SWP391_OnDemandTutor.Common.Paging
 
     public class PagingSizeModel
     {
-        public required int Page { get; set; }
+        public required int Page { get; set; } = 1;
 
-        public required int Limit { get; set; }
+        public required int Limit { get; set; } = 100;
     }
 
 

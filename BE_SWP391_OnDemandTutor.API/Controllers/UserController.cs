@@ -3,7 +3,10 @@ using BE_SWP391_OnDemandTutor.BusinessLogic.Services;
 using BE_SWP391_OnDemandTutor.BusinessLogic.ViewModels;
 using BE_SWP391_OnDemandTutor.BusinessLogic.ViewModels.User;
 using BE_SWP391_OnDemandTutor.Common.Paging;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using OnDemandTutor.DataAccess.ExceptionModels;
+using System.IdentityModel.Tokens.Jwt;
 
 namespace BE_SWP391_OnDemandTutor.Presentation.Controllers
 {
@@ -46,8 +49,7 @@ namespace BE_SWP391_OnDemandTutor.Presentation.Controllers
         }
 
         [MapToApiVersion("1")]
-        [HttpPost]
-        [Route("all-users")]
+        [HttpGet]
         public async Task<ActionResult<List<UserViewModel>>> GetAll([FromQuery] PagingSizeModel paging)
         {
             var userList = await _userService.GetAll(paging);
@@ -61,8 +63,8 @@ namespace BE_SWP391_OnDemandTutor.Presentation.Controllers
 
 
         [MapToApiVersion("1")]
-        [HttpPost]
-        [Route("all-tutors")]
+        [HttpGet]
+        [Route("tutor")]
         public async Task<ActionResult<List<TutorViewModel>>> GetAllTutor([FromQuery] PagingSizeModel paging)
         {
             var userList = await _userService.GetAllTutors(paging);
@@ -182,6 +184,39 @@ namespace BE_SWP391_OnDemandTutor.Presentation.Controllers
                 return NotFound("");
             }
             return userUpdated;
+        }
+
+        [Authorize]
+        [HttpGet("/checkToken")]
+        public async Task<IActionResult> CheckToken()
+        {
+            Request.Headers.TryGetValue("Authorization", out var token);
+            token = token.ToString().Split()[1];
+            // Here goes your token validation logic
+            if (string.IsNullOrWhiteSpace(token))
+            {
+                throw new BadRequestException("Authorization header is missing or invalid.");
+            }
+            // Decode the JWT token
+            var handler = new JwtSecurityTokenHandler();
+            var jwtToken = handler.ReadJwtToken(token);
+
+            // Check if the token is expired
+            if (jwtToken.ValidTo < DateTime.UtcNow)
+            {
+                throw new BadRequestException("Token has expired.");
+            }
+
+            string email = jwtToken.Claims.FirstOrDefault(c => c.Type == "email")?.Value;
+
+            var user = await _userService.GetUserByEmail(email);
+            if (user == null)
+            {
+                return BadRequest("email is in valid");
+            }
+
+            // If token is valid, return success response
+            return Ok(user);
         }
     }
 }

@@ -36,8 +36,7 @@ namespace BE_SWP391_OnDemandTutor.Presentation.Controllers
         }
 
         [MapToApiVersion("1")]
-        [HttpPost]
-        [Route("all")]
+        [HttpGet]
         public async Task<ActionResult<List<TutorDegreeViewModel>>> GetAll([FromQuery] PagingSizeModel paging)
         {
             var degree = await _tutordegreeService.GetAll(paging);

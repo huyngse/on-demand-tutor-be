@@ -90,8 +90,7 @@ namespace BE_SWP391_OnDemandTutor.Presentation.Controllers
         }
 
 
-        [HttpPost]
-        [Route("all")]
+        [HttpGet]
         public async Task<IActionResult> GetAllClasses([FromQuery] PagingSizeModel paging)
         { 
             var classViewModels = await _classService.GetAllClasses(paging);

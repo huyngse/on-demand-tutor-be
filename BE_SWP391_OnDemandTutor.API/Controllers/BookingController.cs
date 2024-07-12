@@ -22,8 +22,7 @@ namespace BE_SWP391_OnDemandTutor.Presentation.Controllers
         }
        
         [MapToApiVersion("1")]
-        [HttpPost]
-        [Route("all")]
+        [HttpGet]
         public async Task<ActionResult<List<BookingDetailViewModel>>> GetAll([FromQuery] PagingSizeModel paging)
         {
             var booking = await _bookingService.GetAllBooking(paging);
