@@ -109,13 +109,17 @@ namespace BE_SWP391_OnDemandTutor.BusinessLogic.Services
             var tutorResult = await result.Skip(skipNumber).Take(query.PageSize).ToListAsync();
             return (tutorResult.Select(u =>
             {
+                var t = u.Adapt<TutorViewModel>();
                 var classes = u.TutorClasses.Select(c => c.Adapt<TutorClassViewModel>()).ToList();
                 var degrees = u.TutorDegrees.Select(d => d.Adapt<TutorDegreeViewModel>()).ToList();
                 var bookings = u.TutorClasses
                 .SelectMany(c => c.Schedules)
                 .SelectMany(s => s.Bookings)
                 .Select(b => b.Adapt<TutorBookingViewModel>()).ToList();
-                return u.Adapt<TutorViewModel>();
+                t.Classes = classes;
+                t.TutorDegrees = degrees;
+                t.Bookings = bookings;
+                return t;
             }
             ).ToList(), totalCount);
         }
