@@ -67,41 +67,9 @@ namespace BE_SWP391_OnDemandTutor.BusinessLogic.Services
                 .SelectMany(c => c.Schedules)
                 .SelectMany(s => s.Bookings)
                 .Skip(paging.Page - 1).Take(paging.Limit)
-                .Select(b => new TutorBookingViewModel
-                {
-                    Address = b.Address,
-                    BookingId = b.BookingId,
-                    ClassFee = b.Schedule.Class.ClassFee,
-                    CreateDate = b.CreateDate,
-                    Description = b.Description,
-                    EndDate = b.EndDate,
-                    ScheduleId = b.ScheduleId,
-                    StartDate = b.StartDate,
-                    Status = b.Status
-                }).ToList();
-                return new TutorViewModel
-                {
-                    City = u.City,
-                    DateOfBirth = u.DateOfBirth,
-                    District = u.District,
-                    FullName = u.FullName,
-                    EmailAddress = u.EmailAddress,
-                    Gender = u.Gender,
-                    IsActive = u.IsActive,
-                    PhoneNumber = u.PhoneNumber,
-                    ProfileImage = u.ProfileImage,
-                    School = u.School,
-                    Street = u.Street,
-                    Role = u.Role,
-                    UserId = u.UserId,
-                    TutorDescription = u.TutorDescription,
-                    Username = u.Username,
-                    TutorType = u.TutorType,
-                    Ward = u.Ward,
-                    Bookings = bookings,
-                    Classes = classes,
-                    TutorDegrees = degrees
-                };
+                .Select(b => b.Adapt<TutorBookingViewModel>()).ToList();
+             
+                return u.Adapt<TutorViewModel>();
             }
             ).ToList();
             return tutorResult;
@@ -146,41 +114,8 @@ namespace BE_SWP391_OnDemandTutor.BusinessLogic.Services
                 var bookings = u.TutorClasses
                 .SelectMany(c => c.Schedules)
                 .SelectMany(s => s.Bookings)
-                .Select(b => new TutorBookingViewModel
-                {
-                    Address = b.Address,
-                    BookingId = b.BookingId,
-                    ClassFee = b.Schedule.Class.ClassFee,
-                    CreateDate = b.CreateDate,
-                    Description = b.Description,
-                    EndDate = b.EndDate,
-                    ScheduleId = b.ScheduleId,
-                    StartDate = b.StartDate,
-                    Status = b.Status
-                }).ToList();
-                return new TutorViewModel
-                {
-                    City = u.City,
-                    DateOfBirth = u.DateOfBirth,
-                    District = u.District,
-                    FullName = u.FullName,
-                    EmailAddress = u.EmailAddress,
-                    Gender = u.Gender,
-                    IsActive = u.IsActive,
-                    PhoneNumber = u.PhoneNumber,
-                    ProfileImage = u.ProfileImage,
-                    School = u.School,
-                    Street = u.Street,
-                    Role = u.Role,
-                    UserId = u.UserId,
-                    TutorDescription = u.TutorDescription,
-                    Username = u.Username,
-                    TutorType = u.TutorType,
-                    Ward = u.Ward,
-                    Bookings = bookings,
-                    Classes = classes,
-                    TutorDegrees = degrees
-                };
+                .Select(b => b.Adapt<TutorBookingViewModel>()).ToList();
+                return u.Adapt<TutorViewModel>();
             }
             ).ToList(), totalCount);
         }
@@ -192,7 +127,7 @@ namespace BE_SWP391_OnDemandTutor.BusinessLogic.Services
                 .ThenInclude(s => s.Bookings)
                 .Include(u => u.TutorDegrees)
                 .FirstOrDefaultAsync(u => u.UserId == userId);
-            if (result == null || result.Role != "Tutor")
+            if ( result.Role != "Tutor")
             {
                 throw new NotFoundException($"No Tutor with ID {userId} founded");
             }
@@ -202,41 +137,8 @@ namespace BE_SWP391_OnDemandTutor.BusinessLogic.Services
             var bookings = result.TutorClasses
             .SelectMany(c => c.Schedules)
             .SelectMany(s => s.Bookings)
-            .Select(b => new TutorBookingViewModel
-            {
-                Address = b.Address,
-                BookingId = b.BookingId,
-                ClassFee = b.Schedule.Class.ClassFee,
-                CreateDate = b.CreateDate,
-                Description = b.Description,
-                EndDate = b.EndDate,
-                ScheduleId = b.ScheduleId,
-                StartDate = b.StartDate,
-                Status = b.Status
-            }).ToList();
-            return new TutorViewModel
-            {
-                City = result.City,
-                DateOfBirth = result.DateOfBirth,
-                District = result.District,
-                FullName = result.FullName,
-                EmailAddress = result.EmailAddress,
-                Gender = result.Gender,
-                IsActive = result.IsActive,
-                PhoneNumber = result.PhoneNumber,
-                ProfileImage = result.ProfileImage,
-                School = result.School,
-                Street = result.Street,
-                Role = result.Role,
-                UserId = result.UserId,
-                TutorDescription = result.TutorDescription,
-                Username = result.Username,
-                TutorType = result.TutorType,
-                Ward = result.Ward,
-                Bookings = bookings,
-                Classes = classes,
-                TutorDegrees = degrees
-            };
+            .Select(b => b.Adapt<TutorBookingViewModel>()).ToList();
+            return result.Adapt<TutorViewModel>();
         }
 
         public async Task<UserViewModel> GetById(int id)
