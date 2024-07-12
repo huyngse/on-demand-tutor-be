@@ -23,19 +23,18 @@ namespace BE_SWP391_OnDemandTutor.BusinessLogic.Services
         Task<List<BookingDetailViewModel>> GetBookingByTutorId(int tutorId);
         Task<List<BookingDetailViewModel>> GetBookingByStudentId(int studentId);
         Task<bool> CancelBookingAsync(int bookingId, string cancellationReason, string status);
-
-
     }
     public class BookingService : IBookingService
     {
         private readonly BE_SWP391_OnDemandTutorDbContext _context;
         private readonly IUserService _userService;
+        private readonly IClassService _classService;
 
-        public BookingService(BE_SWP391_OnDemandTutorDbContext context, IUserService userService)
+        public BookingService(BE_SWP391_OnDemandTutorDbContext context, IUserService userService, IClassService classService)
         {
             _context = context;
             _userService = userService;
-            
+            _classService = classService;
         }
         public async Task<BookingViewModel> CreateBooking(CreateBookingRequestModel bookingCreate)
         {
@@ -82,8 +81,8 @@ namespace BE_SWP391_OnDemandTutor.BusinessLogic.Services
             foreach (var booking in pagedBookings)
             {
                 var bookingDetail = booking.Adapt<BookingDetailViewModel>();
-
-                // Retrieve tutor details using your service
+                var _class = await _classService.GetById(booking.Schedule.ClassID);
+                bookingDetail.Class = _class.Adapt<BookingClassViewModel>();
                 var tutor = await _userService.GetTutorById(booking.Schedule.Class.TutorId);
                 bookingDetail.Tutor = tutor.Adapt<TutorViewModel>();
                 bookingDetailViewModels.Add(bookingDetail);
@@ -101,22 +100,50 @@ namespace BE_SWP391_OnDemandTutor.BusinessLogic.Services
                .Include(b => b.User)
                .Where(b => b.Schedule.Class.TutorId == tutorId)
                .ToListAsync();
-            return bookings.Select(b => b.Adapt<BookingDetailViewModel>()).ToList();
+
+            var bookingDetailViewModels = new List<BookingDetailViewModel>();
+
+            foreach (var booking in bookings)
+            {
+                var bookingDetail = booking.Adapt<BookingDetailViewModel>();
+                var _class = await _classService.GetById(booking.Schedule.ClassID);
+                bookingDetail.Class = _class.Adapt<BookingClassViewModel>();
+                var tutor = await _userService.GetTutorById(booking.Schedule.Class.TutorId);
+                bookingDetail.Tutor = tutor.Adapt<TutorViewModel>();
+                bookingDetailViewModels.Add(bookingDetail);
+            }
+
+            return bookingDetailViewModels;
 
         }
         public async Task<List<BookingDetailViewModel>> GetBookingByStudentId(int studentId)
         {
-            var booking = await _context.Bookings
+            var bookings = await _context.Bookings
+                .Where(b => b.UserId == studentId)
                 .Include(b => b.Schedule)
                 .ThenInclude(b => b.Class)
                 .ThenInclude(b => b.Tutor)
                 .Include(b => b.User)
                 .ToListAsync();
-            return booking.Select(b => b.Adapt<BookingDetailViewModel>()).ToList();
+
+            var bookingDetailViewModels = new List<BookingDetailViewModel>();
+
+            foreach (var booking in bookings)
+            {
+                var bookingDetail = booking.Adapt<BookingDetailViewModel>();
+                var _class = await _classService.GetById(booking.Schedule.ClassID);
+                bookingDetail.Class = _class.Adapt<BookingClassViewModel>();
+                var tutor = await _userService.GetTutorById(booking.Schedule.Class.TutorId);
+                bookingDetail.Tutor = tutor.Adapt<TutorViewModel>();
+                bookingDetailViewModels.Add(bookingDetail);
+            }
+
+            return bookingDetailViewModels;
         }
         public async Task<BookingViewModel> GetById(int bookingId)
         {
             var booking = await _context.Bookings.FirstOrDefaultAsync(b => b.BookingId == bookingId);
+
             if (booking == null)
             {
                 throw new NotFoundException("Can not find the Booking");
@@ -135,7 +162,13 @@ namespace BE_SWP391_OnDemandTutor.BusinessLogic.Services
             {
                 throw new NotFoundException("Can not find the Booking");
             }
-            return booking.Adapt<BookingDetailViewModel>();
+            var bookingDetail = booking.Adapt<BookingDetailViewModel>();
+            var _class = await _classService.GetById(booking.Schedule.ClassID);
+            bookingDetail.Class = _class.Adapt<BookingClassViewModel>();
+            var tutor = await _userService.GetTutorById(booking.Schedule.Class.TutorId);
+            bookingDetail.Tutor = tutor.Adapt<TutorViewModel>();
+
+            return bookingDetail;
         }
 
         public async Task<BookingViewModel> UpdateBooking(int bookingId, UpdateBookingViewModel updateModel)
