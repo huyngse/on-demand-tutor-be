@@ -7,6 +7,7 @@ using System.Linq.Dynamic.Core;
 using OnDemandTutor.DataAccess.ExceptionModels;
 using BE_SWP391_OnDemandTutor.Common.Paging;
 using BE_SWP391_OnDemandTutor.BusinessLogic.ViewModels.User;
+using BE_SWP391_OnDemandTutor.BusinessLogic.ViewModels;
 
 namespace BE_SWP391_OnDemandTutor.BusinessLogic.Services
 {
@@ -85,6 +86,8 @@ namespace BE_SWP391_OnDemandTutor.BusinessLogic.Services
                 bookingDetail.Class = _class.Adapt<BookingClassViewModel>();
                 var tutor = await _userService.GetTutorById(booking.Schedule.Class.TutorId);
                 bookingDetail.Tutor = tutor.Adapt<TutorViewModel>();
+                var user = await _userService.GetById(booking.UserId);
+                bookingDetail.Student = user.Adapt<UserViewModel>();
                 bookingDetailViewModels.Add(bookingDetail);
             }
 
@@ -110,6 +113,8 @@ namespace BE_SWP391_OnDemandTutor.BusinessLogic.Services
                 bookingDetail.Class = _class.Adapt<BookingClassViewModel>();
                 var tutor = await _userService.GetTutorById(booking.Schedule.Class.TutorId);
                 bookingDetail.Tutor = tutor.Adapt<TutorViewModel>();
+                var user = await _userService.GetById(booking.UserId);
+                bookingDetail.Student = user.Adapt<UserViewModel>();
                 bookingDetailViewModels.Add(bookingDetail);
             }
 
@@ -135,6 +140,8 @@ namespace BE_SWP391_OnDemandTutor.BusinessLogic.Services
                 bookingDetail.Class = _class.Adapt<BookingClassViewModel>();
                 var tutor = await _userService.GetTutorById(booking.Schedule.Class.TutorId);
                 bookingDetail.Tutor = tutor.Adapt<TutorViewModel>();
+                var user = await _userService.GetById(booking.UserId);
+                bookingDetail.Student = user.Adapt<UserViewModel>();
                 bookingDetailViewModels.Add(bookingDetail);
             }
 
@@ -167,7 +174,8 @@ namespace BE_SWP391_OnDemandTutor.BusinessLogic.Services
             bookingDetail.Class = _class.Adapt<BookingClassViewModel>();
             var tutor = await _userService.GetTutorById(booking.Schedule.Class.TutorId);
             bookingDetail.Tutor = tutor.Adapt<TutorViewModel>();
-
+            var user = await _userService.GetById(booking.UserId);
+            bookingDetail.Student = user.Adapt<UserViewModel>();
             return bookingDetail;
         }
 

@@ -44,11 +44,9 @@ namespace BE_SWP391_OnDemandTutor.BusinessLogic.Services
             _context.Classes.Add(classEntity);
             var rs = classEntity.Adapt<ClassViewModel>();
             var tutor =  await _userService.GetById(classEntity.TutorId);
-            var student = await _userService.GetById(classEntity.StudentId.Value);
-            if( tutor is not null && student is not null)
+            if( tutor is not null)
             {
                 rs.Tutor = tutor.Adapt<TutorViewModel>();
-                rs.Student = student.Adapt<UserViewModel>();
             }
            
             await _context.SaveChangesAsync();
@@ -118,16 +116,6 @@ namespace BE_SWP391_OnDemandTutor.BusinessLogic.Services
             {
                 throw new NotFoundException("Can not find the Class");
             }
-            if (classUpdate.StudentId.HasValue)
-            {
-                var studentExists = await _context.Users.AnyAsync(u => u.UserId == classUpdate.StudentId.Value);
-                if (!studentExists)
-                {
-                    // You can return a custom error message or handle it differently
-                    throw new NotFoundException("Can not find the StudentId");
-                }
-            }
-
             classEntity.ClassName = classUpdate.ClassName;
             classEntity.ClassInfo = classUpdate.ClassInfo;
             classEntity.ClassRequire = classUpdate.ClassRequire;
@@ -136,7 +124,6 @@ namespace BE_SWP391_OnDemandTutor.BusinessLogic.Services
             classEntity.ClassLevel = classUpdate.ClassLevel;
             classEntity.ClassFee = classUpdate.ClassFee;
             classEntity.StudentId = classUpdate.StudentId;
-
 
             _context.Classes.Update(classEntity);
             await _context.SaveChangesAsync();

@@ -61,6 +61,7 @@ namespace BE_SWP391_OnDemandTutor.BusinessLogic.Services
             result = result.Where(u => u.Role == "Tutor").ToList();
             var tutorResult = result.Select(u =>
             {
+                var t = u.Adapt<TutorViewModel>();
                 var classes = u.TutorClasses.Select(c => c.Adapt<TutorClassViewModel>()).ToList();
                 var degrees = u.TutorDegrees.Select(d => d.Adapt<TutorDegreeViewModel>()).ToList();
                 var bookings = u.TutorClasses
@@ -68,8 +69,10 @@ namespace BE_SWP391_OnDemandTutor.BusinessLogic.Services
                 .SelectMany(s => s.Bookings)
                 .Skip(paging.Page - 1).Take(paging.Limit)
                 .Select(b => b.Adapt<TutorBookingViewModel>()).ToList();
-             
-                return u.Adapt<TutorViewModel>();
+                t.Classes = classes;
+                t.TutorDegrees = degrees;
+                t.Bookings = bookings;
+                return t;
             }
             ).ToList();
             return tutorResult;
