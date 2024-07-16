@@ -24,6 +24,7 @@ namespace BE_SWP391_OnDemandTutor.BusinessLogic.Services
         Task<List<BookingDetailViewModel>> GetBookingByTutorId(int tutorId);
         Task<List<BookingDetailViewModel>> GetBookingByStudentId(int studentId);
         Task<bool> CancelBookingAsync(int bookingId, string cancellationReason, string status);
+        Task<List<BookingDetailViewModel>> GetBookingByScheduleId(int scheduleId);
     }
     public class BookingService : IBookingService
     {
@@ -102,6 +103,33 @@ namespace BE_SWP391_OnDemandTutor.BusinessLogic.Services
                .ThenInclude(c => c.Tutor)
                .Include(b => b.User)
                .Where(b => b.Schedule.Class.TutorId == tutorId)
+               .ToListAsync();
+
+            var bookingDetailViewModels = new List<BookingDetailViewModel>();
+
+            foreach (var booking in bookings)
+            {
+                var bookingDetail = booking.Adapt<BookingDetailViewModel>();
+                var _class = await _classService.GetById(booking.Schedule.ClassID);
+                bookingDetail.Class = _class.Adapt<BookingClassViewModel>();
+                var tutor = await _userService.GetTutorById(booking.Schedule.Class.TutorId);
+                bookingDetail.Tutor = tutor.Adapt<TutorViewModel>();
+                var user = await _userService.GetById(booking.UserId);
+                bookingDetail.Student = user.Adapt<UserViewModel>();
+                bookingDetailViewModels.Add(bookingDetail);
+            }
+
+            return bookingDetailViewModels;
+
+        }
+        public async Task<List<BookingDetailViewModel>> GetBookingByScheduleId(int scheduleId)
+        {
+            var bookings = await _context.Bookings
+               .Include(b => b.Schedule)
+               .ThenInclude(s => s.Class)
+               .ThenInclude(c => c.Tutor)
+               .Include(b => b.User)
+               .Where(b => b.Schedule.ScheduleID == scheduleId)
                .ToListAsync();
 
             var bookingDetailViewModels = new List<BookingDetailViewModel>();

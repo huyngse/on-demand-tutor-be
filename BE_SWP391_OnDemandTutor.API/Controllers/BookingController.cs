@@ -84,6 +84,13 @@ namespace BE_SWP391_OnDemandTutor.Presentation.Controllers
             return Ok(bookings);
         }
         [MapToApiVersion("1")]
+        [HttpGet("schedule/{scheduleId:int}")]
+        public async Task<ActionResult<BookingViewModel>> GetBookingByScheduleId(int scheduleId)
+        {
+            var bookings = await _bookingService.GetBookingByScheduleId(scheduleId);
+            return Ok(bookings);
+        }
+        [MapToApiVersion("1")]
         [HttpPost]
         public async Task<ActionResult<BookingViewModel>> CreateBooking(CreateBookingRequestModel bookingCreate)
         {
