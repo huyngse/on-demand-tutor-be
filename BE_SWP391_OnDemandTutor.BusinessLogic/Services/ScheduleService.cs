@@ -85,6 +85,7 @@ namespace BE_SWP391_OnDemandTutor.BusinessLogic.Services
                     EndDate = booking.EndDate,
                     StartDate = booking.StartDate,
                     Status = booking.Status,
+                    CancellationReason = booking.CancellationReason,
                     Student = new ScheduleUserViewModel
                     {
                         FullName = booking.User.FullName,
@@ -141,6 +142,7 @@ namespace BE_SWP391_OnDemandTutor.BusinessLogic.Services
                 EndDate = booking.EndDate,
                 StartDate = booking.StartDate,
                 Status = booking.Status,
+                CancellationReason = booking.CancellationReason,
                 Student = new ScheduleUserViewModel
                 {
                     FullName = booking.User.FullName,

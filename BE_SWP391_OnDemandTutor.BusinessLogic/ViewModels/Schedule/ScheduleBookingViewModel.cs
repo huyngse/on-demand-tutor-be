@@ -15,6 +15,8 @@ namespace BE_SWP391_OnDemandTutor.BusinessLogic.ViewModels.Schedule
         public string Address { get; set; } = "";
         public DateTime? StartDate { get; set; }
         public DateTime? EndDate { get; set; }
+        public string CancellationReason { get; set; } = "";
         public ScheduleUserViewModel Student { get; set; }
+
     }
 }
