@@ -168,7 +168,7 @@ namespace BE_SWP391_OnDemandTutor.BusinessLogic.Services
             }
             if (!string.IsNullOrWhiteSpace(query.ClassMethod) && query.ClassMethod != "All")
             {
-                result = result.Where(c => c.Ward.Contains(query.ClassMethod));
+                result = result.Where(c => c.ClassMethod.Contains(query.ClassMethod));
             }
             var totalCount = result.Count();
             var skipNumber = (query.PageNumber - 1) * query.PageSize;
