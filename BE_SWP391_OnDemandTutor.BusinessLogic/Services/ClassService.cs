@@ -22,6 +22,7 @@ namespace BE_SWP391_OnDemandTutor.BusinessLogic.Services
         Task<(bool Success, string ClassName)> DeactivateClass(int idTmp);
         Task<List<ClassViewModel>> GetAllClasses(PagingSizeModel paging);
         Task<List<TutorDetailClassViewModel>> GetClassByTutorId(int userId);
+        Task<(List<ClassViewModel>, int)> SearchClass(SearchClassQuery query);
     }
 
     public class ClassService : IClassService
@@ -141,6 +142,38 @@ namespace BE_SWP391_OnDemandTutor.BusinessLogic.Services
             var classViewModels = classEntities.Skip((paging.Page - 1) * paging.Limit).Take(paging.Limit).Select(c => c.Adapt<ClassViewModel>()).ToList();
 
             return classViewModels;
+        }
+        public async Task<(List<ClassViewModel>, int)> SearchClass(SearchClassQuery query)
+        {
+            var result = _context.Classes
+                .Include(c => c.Student)
+                .Include(c => c.Tutor)
+                .Include(c => c.Schedules)
+                .AsQueryable();
+            if (!string.IsNullOrWhiteSpace(query.ClassName))
+            {
+                result = result.Where(c => c.ClassName.Contains(query.ClassName));
+            }
+            if (!string.IsNullOrWhiteSpace(query.City))
+            {
+                result = result.Where(c => c.City.Contains(query.City));
+            }
+            if (!string.IsNullOrWhiteSpace(query.District))
+            {
+                result = result.Where(c => c.District.Contains(query.District));
+            }
+            if (!string.IsNullOrWhiteSpace(query.Ward))
+            {
+                result = result.Where(c => c.Ward.Contains(query.Ward));
+            }
+            if (!string.IsNullOrWhiteSpace(query.ClassMethod) && query.ClassMethod != "All")
+            {
+                result = result.Where(c => c.Ward.Contains(query.ClassMethod));
+            }
+            var totalCount = result.Count();
+            var skipNumber = (query.PageNumber - 1) * query.PageSize;
+            var classResult = await result.Skip(skipNumber).Take(query.PageSize).ToListAsync();
+            return (classResult.Select(c => c.Adapt<ClassViewModel>()).ToList(), totalCount);
         }
         public async Task<List<TutorDetailClassViewModel>> GetClassByTutorId(int userId)
         {
