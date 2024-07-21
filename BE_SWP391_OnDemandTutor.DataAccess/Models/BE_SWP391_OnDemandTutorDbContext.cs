@@ -481,6 +481,112 @@ public class BE_SWP391_OnDemandTutorDbContext : DbContext
                 Active = true,
                 ClassFee = 400000,
                 MeetingLink = "https://meet.google.com"
+            },
+            new Class
+            {
+                ClassId = 6,
+                ClassName = "Khóa học Lịch sử và Địa ly cấp THPT",
+                ClassInfo = "Khóa học giới thiệu cho các bạn trẻ về Lịch sử và Địa Lý cấp THPT",
+                ClassRequire = "Không yêu cầu kiến thức lập trình trước đó",
+                ClassMethod = "Trực tuyến",
+                ClassLevel = "Cơ bản",
+                CreatedDate = new DateTime(2023, 7, 25),
+                City = "Tỉnh Thừa Thiên Huế",
+                TutorId = 11,
+                District = "Thành phố Huế",
+                Ward = "Phường Phú Hội",
+                Active = true,
+                ClassFee = 250000,
+                MeetingLink = "https://meet.google.com"
+            },
+            new Class
+            {
+
+                ClassId = 7,
+                ClassName = "Tiếng anh cho người đi làm",
+                ClassInfo = "Khóa học đào tạo và luyện tập những kĩ năng cần thiết trong công việc cho người đi làm",
+                ClassRequire = "Yêu cầu kiến thức căn bản về Tiếng anh",
+                ClassMethod = "In-person",
+                ClassLevel = "Cơ bản",
+                CreatedDate = new DateTime(2023, 7, 30),
+                City = "Thành phố Đà Nẵng",
+                TutorId = 9,
+                District = "Quận Hải Châu",
+                Ward = "Phường Thạch Thang",
+                Active = true,
+                ClassFee = 500000,
+                MeetingLink = "https://meet.google.com"
+            },
+            new Class
+            {
+
+                ClassId = 8,
+                ClassName = "Văn học đại cương",
+                ClassInfo = "Khóa học giới thiệu về văn học trong nước và thế giới",
+                ClassRequire = "Không yêu cầu kiến thức văn học trước đó",
+                ClassMethod = "In-person",
+                ClassLevel = "Cơ bản",
+                CreatedDate = new DateTime(2023, 8, 02),
+                City = "Thành phố Hồ Chí Minh",
+                TutorId = 6,
+                District = "Quận Gò Vấp",
+                Ward = "Phường 1",
+                Active = true,
+                ClassFee = 350000,
+                MeetingLink = "https://meet.google.com"
+            },
+            new Class
+            {
+
+                ClassId = 9,
+                ClassName = "Toán cao cấp",
+                ClassInfo = "Khóa học toán cao cấp cho sinh viên đại học",
+                ClassRequire = "Yêu cầu những kiến thức toán cơ bản của cấp Trung học phổ thông",
+                ClassMethod = "Trực tuyến",
+                ClassLevel = "Cơ bản",
+                CreatedDate = new DateTime(2023, 8, 12),
+                City = "Thành phố Hà Nội",
+                TutorId = 7,
+                District = "Quận Hoàn Kiếm",
+                Ward = "Phường Hàng Bài",
+                Active = true,
+                ClassFee = 550000,
+                MeetingLink = "https://meet.google.com"
+            },
+            new Class
+            {
+
+                ClassId = 10,
+                ClassName = "Hóa học trung học phổ thông",
+                ClassInfo = "Khóa học môn Hóa học ở cấp độ trung học phổ thông",
+                ClassRequire = "Yêu cầu kiến thức cơ bản môn Hóa học",
+                ClassMethod = "In-person",
+                ClassLevel = "Cơ bản",
+                CreatedDate = new DateTime(2023, 8, 03),
+                City = "Tỉnh Khánh Hòa",
+                TutorId = 13,
+                District = "Thành phố Nha Trang",
+                Ward = "Phường Lộc Thọ",
+                Active = true,
+                ClassFee = 400000,
+                MeetingLink = "https://meet.google.com"
+            },
+            new Class
+            {
+                ClassId = 11,
+                ClassName = "Ôn thi Sinh học cho kì thi trung học phổ thông quốc gia",
+                ClassInfo = "Khóa ôn thi môn Sinh học cho kì thi trung học phổ thông quốc gia",
+                ClassRequire = "Yêu cầu kiến thức cơ bản môn Sinh học",
+                ClassMethod = "Trực tuyến",
+                ClassLevel = "Cơ bản",
+                CreatedDate = new DateTime(2023, 9, 03),
+                City = "Thành phồ Cần Thơ",
+                TutorId = 13,
+                District = "Quận Ninh Kiều",
+                Ward = "Phường An Khánh",
+                Active = true,
+                ClassFee = 400000,
+                MeetingLink = "https://meet.google.com"
             }
             );
         modelBuilder.Entity<Schedule>().HasData
@@ -505,6 +611,16 @@ public class BE_SWP391_OnDemandTutorDbContext : DbContext
               DateOfWeek = DayGroup.TueThuSat, // Thứ 3, 5, 7
               StartTime = new DateTime(2024, 6, 8, 9, 0, 0), // 9:00 AM
               EndTime = new DateTime(2024, 6, 8, 11, 0, 0), // 11:00 AM
+          },
+          new Schedule
+          {
+              ScheduleID = 3,
+              ClassID = 3,
+              Title = "Lịch lập trình JAVA buổi sáng",
+              Description = "Lịch lập trình buổi sáng các ngày trong tuần",
+              DateOfWeek = DayGroup.TueThuSat, // Thứ 3, 5, 7
+              StartTime = new DateTime(2024, 6, 8, 9, 0, 0), // 9:00 AM
+              EndTime = new DateTime(2024, 6, 8, 11, 0, 0), // 11:00 AM
           }
           );
         modelBuilder.Entity<Booking>().HasData(
@@ -521,6 +637,106 @@ public class BE_SWP391_OnDemandTutorDbContext : DbContext
                      Status = "Pending",
                      Address = "17-13 Đ. Số 40, Linh Đông, Thủ Đức"
                  }
-            ); ;
+            );
+        
+        modelBuilder.Entity<TutorDegree>().HasData(
+            new TutorDegree
+            {
+                DegreeId = 1,
+                DegreeName = "Bằng giải nhất cuộc thi học sinh giỏi toán cấp thành phố Hồ Chí Minh năm 2022",
+                Description = "Giải nhất cuộc thi học sinh giỏi toán cấp thành phố Hồ Chí Minh năm 2022",
+                DegreeImageUrl = "",
+                TutorId = 4
+            },
+
+            new TutorDegree
+            {
+                DegreeId = 2,
+                DegreeName = "Ielts 6.5",
+                Description = "Bằng tiếng anh Ielts 6.5",
+                DegreeImageUrl = "",
+                TutorId = 5
+            },
+            new TutorDegree
+            {
+                DegreeId = 3,
+                DegreeName = "Bằng giải nhất cuộc thi học sinh giỏi toán cấp thành phố Hà Nội",
+                Description = "Giải nhất cuộc thi học sinh giỏi toán cấp thành phố Hà Nội",
+                DegreeImageUrl = "",
+                TutorId = 7
+            },
+            new TutorDegree
+            {
+                DegreeId = 4,
+                DegreeName = "Bằng giải khuyến khích cuộc thi toán học sinh giỏi cấp thành phố Hồ Chí Minh năm 2022",
+                Description = "Giải khuyến khích cuộc thi toán học sinh giỏi cấp thành phố Hồ Chí Minh năm 2022",
+                DegreeImageUrl = "",
+                TutorId = 8
+            },
+            new TutorDegree
+            {
+                DegreeId = 5,
+                DegreeName = "Bằng Ielts 7.5",
+                Description = "Bằng tiếng anh Ielts 7.5",
+                DegreeImageUrl = "",
+                TutorId = 9
+            },
+            new TutorDegree
+            {
+                DegreeId = 6,
+                DegreeName = "Bằng giải nhất cuộc thi học sinh giỏi môn Sinh học cấp thành phố Cần Thơ",
+                Description = "Giải nhất cuộc thi học sinh giỏi môn Sinh học cấp thành phố Cần Thơ",
+                DegreeImageUrl = "",
+                TutorId = 10
+            },
+            new TutorDegree
+            {
+                DegreeId = 7,
+                DegreeName = "Bằng tốt nghiệp trường đại học sư phạm chuyên ngành Lịch Sử và Địa Lý",
+                Description = "Bằng tốt nghiệp trường đại học sư phạm chuyên ngành Lịch Sử và Địa Lý",
+                DegreeImageUrl = "",
+                TutorId = 11
+            },
+            new TutorDegree
+            {
+                DegreeId = 8,
+                DegreeName = "Bằng thạc sĩ trường đại học sư phạm Đà Lạt chuyên ngành công nghệ thông tin",
+                Description = "Bằng thạc sĩ trường đại học sư phạm Đà Lạt chuyên ngành công nghệ thông tin",
+                DegreeImageUrl = "",
+                TutorId = 12
+            },
+            new TutorDegree
+            {
+                DegreeId = 9,
+                DegreeName = "Bằng tốt nghiệp trường đại học Nha Trang chuyên ngành Công nghệ Sinh học",
+                Description = "Bằng tốt nghiệp trường đại học Nha Trang chuyên ngành Công nghệ Sinh học",
+                DegreeImageUrl = "",
+                TutorId = 13
+            },
+            new TutorDegree
+            {
+                DegreeId = 10,
+                DegreeName = "Bằng tốt nghiệp trường đại học Quy Nhơn chuyên ngành sư phạm Văn",
+                Description = "Bằng tốt nghiệp trường đại học Quy Nhơn chuyên ngành sư phạm Văn",
+                DegreeImageUrl = "",
+                TutorId = 14
+            },
+            new TutorDegree
+            {
+                DegreeId = 11,
+                DegreeName = "Bằng tốt nghiệp trường đại học Quốc Gia Hà Nội chuyên ngành Trí Tuệ Nhân Tạo",
+                Description = "Bằng tốt nghiệp trường đại học Quốc Gia Hà Nội chuyên ngành Trí Tuệ Nhân Tạo",
+                DegreeImageUrl = "",
+                TutorId = 15
+            },
+            new TutorDegree
+            {
+                DegreeId = 12,
+                DegreeName = "Bằng tốt nghiệp đại học Bách khoa Thành phố Hồ Chí Minh chuyên ngành công nghệ thông tin",
+                Description = "Bằng tốt nghiệp đại học Bách khoa Thành phố Hồ Chí Minh chuyên ngành công nghệ thông tin",
+                DegreeImageUrl = "",
+                TutorId = 16
+            }
+            );
     }
 }
