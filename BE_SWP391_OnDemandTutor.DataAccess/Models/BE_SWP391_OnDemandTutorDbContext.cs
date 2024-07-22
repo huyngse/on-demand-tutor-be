@@ -392,6 +392,27 @@ public class BE_SWP391_OnDemandTutorDbContext : DbContext
                     TutorType = "Giảng viên",
                     School = "Đại học Bách khoa Thành phố Hồ Chí Minh",
                     TutorDescription = "Tôi là một chuyên gia về Kỹ thuật Điện tử và Công nghệ Thông tin. Với nhiều năm kinh nghiệm giảng dạy, tôi cam kết sẽ mang đến cho các học sinh những bài học sáng tạo và có ích."
+                },
+                new User
+                {
+                    UserId = 1,
+                    Username = "student3",
+                    Password = "student3",
+                    FullName = "Nguyễn Anh Thư",
+                    ProfileImage = "",
+                    PhoneNumber = "0723827216",
+                    EmailAddress = "thuanh@gmail.com",
+                    DateOfBirth = new DateTime(2006, 4, 25),
+                    IsActive = true,
+                    Gender = "Female",
+                    Role = "Student",
+                    City = "Tỉnh Bình Định",
+                    District = "Thành phố Quy Nhơn",
+                    Ward = "Phường Trần Hưng Đạo ",
+                    Street = "Đường 2/9",
+                    TutorType = "",
+                    School = "",
+                    TutorDescription = ""
                 }
             );
 
@@ -621,6 +642,16 @@ public class BE_SWP391_OnDemandTutorDbContext : DbContext
               DateOfWeek = DayGroup.TueThuSat, // Thứ 3, 5, 7
               StartTime = new DateTime(2024, 6, 8, 9, 0, 0), // 9:00 AM
               EndTime = new DateTime(2024, 6, 8, 11, 0, 0), // 11:00 AM
+          },
+          new Schedule
+          {
+              ScheduleID = 4,
+              ClassID = 8,
+              Title = "Lịch Văn Học đại cươn buổi tối",
+              Description = "Lịch Văn Học đại cươn buổi tối các ngày trong tuần",
+              DateOfWeek = DayGroup.MonWedFri, // Thứ 2, 4, 6
+              StartTime = new DateTime(2024, 7, 20, 9, 0, 0), // 9:00 AM
+              EndTime = new DateTime(2024, 7, 20, 11, 0, 0), // 11:00 AM
           }
           );
         modelBuilder.Entity<Booking>().HasData(
@@ -630,6 +661,19 @@ public class BE_SWP391_OnDemandTutorDbContext : DbContext
                      UserId = 1,
                      ScheduleId = 1,
                      TutorId = 4,
+                     CreateDate = new DateTime(2024, 6, 8, 9, 0, 0),
+                     StartDate = new DateTime(2024, 6, 8, 9, 0, 0),
+                     EndDate = new DateTime(2024, 10, 8, 9, 0, 0),
+                     Description = "Con tôi đang gặp khó khăn trong việc học lập trình. Tôi muốn mời Thầy đến dạy thêm cho con tôi, để giúp con cải thiện và tiến bộ hơn trong môn này.\r\n\r\nCon tôi năng động và rất ham học hỏi, nhưng vẫn còn nhiều vấn đề cần phải khắc phục trong lập trình. Tôi nghĩ rằng sự hướng dẫn của Thầy sẽ rất hữu ích cho con.\r\n\r\nChúng tôi có thể thảo luận về lịch trình, địa điểm và các chi tiết khác. Tôi rất mong được sự giúp đỡ của Thầy để con tôi có thể vượt qua khó khăn và tiến bộ hơn trong lập trình.",
+                     Status = "Pending",
+                     Address = "17-13 Đ. Số 40, Linh Đông, Thủ Đức"
+                 },
+                 new Booking
+                 {
+                     BookingId = 2,
+                     UserId = 17,
+                     ScheduleId = 14,
+                     TutorId = 14,
                      CreateDate = new DateTime(2024, 6, 8, 9, 0, 0),
                      StartDate = new DateTime(2024, 6, 8, 9, 0, 0),
                      EndDate = new DateTime(2024, 10, 8, 9, 0, 0),
