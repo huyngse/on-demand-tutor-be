@@ -395,7 +395,7 @@ public class BE_SWP391_OnDemandTutorDbContext : DbContext
                 },
                 new User
                 {
-                    UserId = 1,
+                    UserId = 17,
                     Username = "student3",
                     Password = "student3",
                     FullName = "Nguyễn Anh Thư",
@@ -410,6 +410,27 @@ public class BE_SWP391_OnDemandTutorDbContext : DbContext
                     District = "Thành phố Quy Nhơn",
                     Ward = "Phường Trần Hưng Đạo ",
                     Street = "Đường 2/9",
+                    TutorType = "",
+                    School = "",
+                    TutorDescription = ""
+                },
+                new User
+                {
+                    UserId = 18,
+                    Username = "student4",
+                    Password = "student4",
+                    FullName = "Phạm Việt Hoàng",
+                    ProfileImage = "",
+                    PhoneNumber = "0358297185",
+                    EmailAddress = "pvh1801@gmail.com",
+                    DateOfBirth = new DateTime(2003, 01, 18),
+                    IsActive = true,
+                    Gender = "Male",
+                    Role = "Student",
+                    City = "Tỉnh Bà Rịa Vũng Tàu",
+                    District = "Thành phố Bà Rịa",
+                    Ward = "Phường Thắng Nhất",
+                    Street = "Đường Nguyễn Thiện Thuật",
                     TutorType = "",
                     School = "",
                     TutorDescription = ""
@@ -640,18 +661,119 @@ public class BE_SWP391_OnDemandTutorDbContext : DbContext
               Title = "Lịch lập trình JAVA buổi sáng",
               Description = "Lịch lập trình buổi sáng các ngày trong tuần",
               DateOfWeek = DayGroup.TueThuSat, // Thứ 3, 5, 7
-              StartTime = new DateTime(2024, 6, 8, 9, 0, 0), // 9:00 AM
-              EndTime = new DateTime(2024, 6, 8, 11, 0, 0), // 11:00 AM
+              StartTime = new DateTime(2024, 5, 20, 9, 0, 0), // 9:00 AM
+              EndTime = new DateTime(2024, 5, 20, 11, 0, 0), // 11:00 AM
           },
           new Schedule
           {
               ScheduleID = 4,
+              ClassID = 3,
+              Title = "Lịch lập trình JAVA buổi sáng",
+              Description = "Lịch lập trình buổi sáng các ngày trong tuần",
+              DateOfWeek = DayGroup.MonWedFri, // Thứ 2, 4, 6
+              StartTime = new DateTime(2024, 5, 20, 9, 0, 0), // 9:00 AM
+              EndTime = new DateTime(2024, 5, 20, 11, 0, 0), // 11:00 AM
+          },
+          new Schedule
+          {
+              ScheduleID = 5,
+              ClassID = 4,
+              Title = "Lịch học React.js nâng cao",
+              Description = "Lịch học React.js nâng cao buổi tối các ngày trong tuần",
+              DateOfWeek = DayGroup.MonWedFri, // Thứ 2, 4, 6
+              StartTime = new DateTime(2024, 6, 22, 19, 0, 0), // 7:00 PM
+              EndTime = new DateTime(2024, 6, 22, 21, 0, 0), // 9:00 PM
+          },
+          new Schedule
+          {
+              ScheduleID = 6,
+              ClassID = 5,
+              Title = "Lịch học C# cơ bản",
+              Description = "Lịch học C# cơ bản buổi tối các ngày trong tuần",
+              DateOfWeek = DayGroup.TueThuSat, // Thứ 3, 5, 7
+              StartTime = new DateTime(2024, 7, 28, 19, 0, 0), // 7:00 PM
+              EndTime = new DateTime(2024, 7, 28, 21, 0, 0), // 9:00 PM
+          },
+          new Schedule
+          {
+              ScheduleID = 7,
+              ClassID = 6,
+              Title = "Lịch học khóa học Lịch sử và Địa ly cấp THPT",
+              Description = "Lịch học khóa học Lịch sử và Địa ly cấp THPT",
+              DateOfWeek = DayGroup.MonWedFriSun, // Thứ 2, 4, 6, cn
+              StartTime = new DateTime(2024, 7, 28, 19, 0, 0), // 7:00 PM
+              EndTime = new DateTime(2024, 7, 28, 21, 0, 0), // 9:00 PM
+          },
+          new Schedule
+          {
+              ScheduleID = 8,
+              ClassID = 7,
+              Title = "Lịch học tiếng anh cho người đi làm",
+              Description = "Lịch học tiếng anh cho người đi làm",
+              DateOfWeek = DayGroup.MonWedFriSun, // Thứ 2, 4, 6, cn
+              StartTime = new DateTime(2024, 8, 2, 19, 0, 0), // 7:00 PM
+              EndTime = new DateTime(2024, 8, 2, 21, 0, 0), // 9:00 PM
+          },
+          
+          new Schedule
+          {
+              ScheduleID = 9,
               ClassID = 8,
               Title = "Lịch Văn Học đại cươn buổi tối",
               Description = "Lịch Văn Học đại cươn buổi tối các ngày trong tuần",
               DateOfWeek = DayGroup.MonWedFri, // Thứ 2, 4, 6
               StartTime = new DateTime(2024, 7, 20, 9, 0, 0), // 9:00 AM
               EndTime = new DateTime(2024, 7, 20, 11, 0, 0), // 11:00 AM
+          },
+          new Schedule
+          {
+              ScheduleID = 10,
+              ClassID = 9,
+              Title = "Lịch học toán cao cấp cho sinh viên đại học",
+              Description = "Lịch học toán cao cấp cho sinh viên đại học",
+              DateOfWeek = DayGroup.MonWedFri, // Thứ 2, 4, 6
+              StartTime = new DateTime(2024, 8, 12, 19, 0, 0), // 7:00 PM
+              EndTime = new DateTime(2024, 8, 12, 21, 0, 0), // 9:00 PM
+          },
+          new Schedule
+          {
+              ScheduleID = 11,
+              ClassID = 9,
+              Title = "Lịch học toán cao cấp cho sinh viên đại học",
+              Description = "Lịch học toán cao cấp cho sinh viên đại học",
+              DateOfWeek = DayGroup.TueThuSat, // Thứ 3, 5, 7
+              StartTime = new DateTime(2024, 8, 12, 19, 0, 0), // 7:00 PM
+              EndTime = new DateTime(2024, 8, 12, 21, 0, 0), // 9:00 PM
+          },
+          new Schedule
+          {
+              ScheduleID = 12,
+              ClassID = 10,
+              Title = "Lịch học Hóa học trung học phổ thông",
+              Description = "Lịch học Hóa học trung học phổ thông",
+              DateOfWeek = DayGroup.MonWedFri, // Thứ 2, 4, 6
+              StartTime = new DateTime(2024, 8, 03, 19, 0, 0), // 7:00 PM
+              EndTime = new DateTime(2024, 8, 03, 21, 0, 0), // 9:00 PM
+          },
+          new Schedule
+          {
+              ScheduleID = 13,
+              ClassID = 10,
+              Title = "Lịch học Hóa học trung học phổ thông",
+              Description = "Lịch học Hóa học trung học phổ thông",
+              DateOfWeek = DayGroup.TueThuSat, // Thứ 3, 5, 7
+              StartTime = new DateTime(2024, 8, 03, 19, 0, 0), // 7:00 PM
+              EndTime = new DateTime(2024, 8, 03, 21, 0, 0), // 9:00 PM
+          },
+          new Schedule
+          {
+              ScheduleID = 14,
+              ClassID = 11,
+              Title = "Lịch học Sinh học cho kì thi trung học phổ thông quốc gia",
+              Description = "Lịch học Sinh học cho kì thi trung học phổ thông quốc gia",
+              DateOfWeek = DayGroup.MonWedFriSun, // Thứ 2, 4, 6, cn
+              StartTime = new DateTime(2024, 9, 03, 18, 0, 0), // 6:00 PM
+              EndTime = new DateTime(2024, 9, 03, 21, 0, 0), // 9:00 PM
           }
           );
         modelBuilder.Entity<Booking>().HasData(
@@ -672,15 +794,29 @@ public class BE_SWP391_OnDemandTutorDbContext : DbContext
                  {
                      BookingId = 2,
                      UserId = 17,
-                     ScheduleId = 14,
+                     ScheduleId = 13,
                      TutorId = 14,
-                     CreateDate = new DateTime(2024, 6, 8, 9, 0, 0),
-                     StartDate = new DateTime(2024, 6, 8, 9, 0, 0),
-                     EndDate = new DateTime(2024, 10, 8, 9, 0, 0),
-                     Description = "Con tôi đang gặp khó khăn trong việc học lập trình. Tôi muốn mời Thầy đến dạy thêm cho con tôi, để giúp con cải thiện và tiến bộ hơn trong môn này.\r\n\r\nCon tôi năng động và rất ham học hỏi, nhưng vẫn còn nhiều vấn đề cần phải khắc phục trong lập trình. Tôi nghĩ rằng sự hướng dẫn của Thầy sẽ rất hữu ích cho con.\r\n\r\nChúng tôi có thể thảo luận về lịch trình, địa điểm và các chi tiết khác. Tôi rất mong được sự giúp đỡ của Thầy để con tôi có thể vượt qua khó khăn và tiến bộ hơn trong lập trình.",
+                     CreateDate = new DateTime(2024, 8, 12, 18, 0, 0),
+                     StartDate = new DateTime(2024, 8, 12, 18, 0, 0),
+                     EndDate = new DateTime(2024, 8, 12, 21, 0, 0),
+                     Description = "",
                      Status = "Pending",
-                     Address = "17-13 Đ. Số 40, Linh Đông, Thủ Đức"
+                     Address = "40 Đ. Nguyễn Văn Cừ, Ninh Kiều, An Khánh"
+                 },
+                 new Booking
+                 {
+                     BookingId = 3,
+                     UserId = 18,
+                     ScheduleId = 11,
+                     TutorId = 7,
+                     CreateDate = new DateTime(2024, 8, 12, 18, 0, 0),
+                     StartDate = new DateTime(2024, 8, 12, 19, 0, 0),
+                     EndDate = new DateTime(2024, 8, 12, 21, 0, 0),
+                     Description = "",
+                     Status = "Pending",
+                     Address = ""
                  }
+
             );
         
         modelBuilder.Entity<TutorDegree>().HasData(
@@ -689,7 +825,7 @@ public class BE_SWP391_OnDemandTutorDbContext : DbContext
                 DegreeId = 1,
                 DegreeName = "Bằng giải nhất cuộc thi học sinh giỏi toán cấp thành phố Hồ Chí Minh năm 2022",
                 Description = "Giải nhất cuộc thi học sinh giỏi toán cấp thành phố Hồ Chí Minh năm 2022",
-                DegreeImageUrl = "",
+                DegreeImageUrl = "https://loremflickr.com/640/480",
                 TutorId = 4
             },
 
@@ -698,7 +834,7 @@ public class BE_SWP391_OnDemandTutorDbContext : DbContext
                 DegreeId = 2,
                 DegreeName = "Ielts 6.5",
                 Description = "Bằng tiếng anh Ielts 6.5",
-                DegreeImageUrl = "",
+                DegreeImageUrl = "https://loremflickr.com/640/480",
                 TutorId = 5
             },
             new TutorDegree
@@ -706,7 +842,7 @@ public class BE_SWP391_OnDemandTutorDbContext : DbContext
                 DegreeId = 3,
                 DegreeName = "Bằng giải nhất cuộc thi học sinh giỏi toán cấp thành phố Hà Nội",
                 Description = "Giải nhất cuộc thi học sinh giỏi toán cấp thành phố Hà Nội",
-                DegreeImageUrl = "",
+                DegreeImageUrl = "https://loremflickr.com/640/480",
                 TutorId = 7
             },
             new TutorDegree
@@ -714,7 +850,7 @@ public class BE_SWP391_OnDemandTutorDbContext : DbContext
                 DegreeId = 4,
                 DegreeName = "Bằng giải khuyến khích cuộc thi toán học sinh giỏi cấp thành phố Hồ Chí Minh năm 2022",
                 Description = "Giải khuyến khích cuộc thi toán học sinh giỏi cấp thành phố Hồ Chí Minh năm 2022",
-                DegreeImageUrl = "",
+                DegreeImageUrl = "https://loremflickr.com/640/480",
                 TutorId = 8
             },
             new TutorDegree
@@ -722,7 +858,7 @@ public class BE_SWP391_OnDemandTutorDbContext : DbContext
                 DegreeId = 5,
                 DegreeName = "Bằng Ielts 7.5",
                 Description = "Bằng tiếng anh Ielts 7.5",
-                DegreeImageUrl = "",
+                DegreeImageUrl = "https://loremflickr.com/640/480",
                 TutorId = 9
             },
             new TutorDegree
@@ -730,7 +866,7 @@ public class BE_SWP391_OnDemandTutorDbContext : DbContext
                 DegreeId = 6,
                 DegreeName = "Bằng giải nhất cuộc thi học sinh giỏi môn Sinh học cấp thành phố Cần Thơ",
                 Description = "Giải nhất cuộc thi học sinh giỏi môn Sinh học cấp thành phố Cần Thơ",
-                DegreeImageUrl = "",
+                DegreeImageUrl = "https://loremflickr.com/640/480",
                 TutorId = 10
             },
             new TutorDegree
@@ -738,7 +874,7 @@ public class BE_SWP391_OnDemandTutorDbContext : DbContext
                 DegreeId = 7,
                 DegreeName = "Bằng tốt nghiệp trường đại học sư phạm chuyên ngành Lịch Sử và Địa Lý",
                 Description = "Bằng tốt nghiệp trường đại học sư phạm chuyên ngành Lịch Sử và Địa Lý",
-                DegreeImageUrl = "",
+                DegreeImageUrl = "https://loremflickr.com/640/480",
                 TutorId = 11
             },
             new TutorDegree
@@ -746,7 +882,7 @@ public class BE_SWP391_OnDemandTutorDbContext : DbContext
                 DegreeId = 8,
                 DegreeName = "Bằng thạc sĩ trường đại học sư phạm Đà Lạt chuyên ngành công nghệ thông tin",
                 Description = "Bằng thạc sĩ trường đại học sư phạm Đà Lạt chuyên ngành công nghệ thông tin",
-                DegreeImageUrl = "",
+                DegreeImageUrl = "https://loremflickr.com/640/480",
                 TutorId = 12
             },
             new TutorDegree
@@ -754,7 +890,7 @@ public class BE_SWP391_OnDemandTutorDbContext : DbContext
                 DegreeId = 9,
                 DegreeName = "Bằng tốt nghiệp trường đại học Nha Trang chuyên ngành Công nghệ Sinh học",
                 Description = "Bằng tốt nghiệp trường đại học Nha Trang chuyên ngành Công nghệ Sinh học",
-                DegreeImageUrl = "",
+                DegreeImageUrl = "https://loremflickr.com/640/480",
                 TutorId = 13
             },
             new TutorDegree
@@ -762,7 +898,7 @@ public class BE_SWP391_OnDemandTutorDbContext : DbContext
                 DegreeId = 10,
                 DegreeName = "Bằng tốt nghiệp trường đại học Quy Nhơn chuyên ngành sư phạm Văn",
                 Description = "Bằng tốt nghiệp trường đại học Quy Nhơn chuyên ngành sư phạm Văn",
-                DegreeImageUrl = "",
+                DegreeImageUrl = "https://loremflickr.com/640/480",
                 TutorId = 14
             },
             new TutorDegree
@@ -770,7 +906,7 @@ public class BE_SWP391_OnDemandTutorDbContext : DbContext
                 DegreeId = 11,
                 DegreeName = "Bằng tốt nghiệp trường đại học Quốc Gia Hà Nội chuyên ngành Trí Tuệ Nhân Tạo",
                 Description = "Bằng tốt nghiệp trường đại học Quốc Gia Hà Nội chuyên ngành Trí Tuệ Nhân Tạo",
-                DegreeImageUrl = "",
+                DegreeImageUrl = "https://loremflickr.com/640/480",
                 TutorId = 15
             },
             new TutorDegree
@@ -778,8 +914,18 @@ public class BE_SWP391_OnDemandTutorDbContext : DbContext
                 DegreeId = 12,
                 DegreeName = "Bằng tốt nghiệp đại học Bách khoa Thành phố Hồ Chí Minh chuyên ngành công nghệ thông tin",
                 Description = "Bằng tốt nghiệp đại học Bách khoa Thành phố Hồ Chí Minh chuyên ngành công nghệ thông tin",
-                DegreeImageUrl = "",
+                DegreeImageUrl = "https://loremflickr.com/640/480",
                 TutorId = 16
+            }
+            );
+        modelBuilder.Entity<Rate>().HasData(
+            new Rate
+            {
+                RatingId = 1,
+                StudentId = 2,
+                TutorId = 2,
+                NumberStars = 3,
+
             }
             );
     }

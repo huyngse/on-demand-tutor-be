@@ -4,7 +4,8 @@ namespace BE_SWP391_OnDemandTutor.DataAccess.Models
     public enum DayGroup
     {
         MonWedFri, // Thứ 2, 4, 6
-        TueThuSat  // Thứ 3, 5, 7
+        TueThuSat,  // Thứ 3, 5, 7
+        MonWedFriSun //Thứ 2, 4, 6, chủ nhật
     }
     public class Schedule
     {
