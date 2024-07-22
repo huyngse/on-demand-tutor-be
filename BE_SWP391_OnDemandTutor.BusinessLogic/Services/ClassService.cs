@@ -30,7 +30,7 @@ namespace BE_SWP391_OnDemandTutor.BusinessLogic.Services
         private readonly BE_SWP391_OnDemandTutorDbContext _context;
         private readonly IMapper _mapper;
         private readonly IUserService _userService;
-       
+
 
         public ClassService(BE_SWP391_OnDemandTutorDbContext context, IMapper mapper, IUserService userService)
         {
@@ -44,12 +44,12 @@ namespace BE_SWP391_OnDemandTutor.BusinessLogic.Services
             var classEntity = classCreate.Adapt<Class>();
             _context.Classes.Add(classEntity);
             var rs = classEntity.Adapt<ClassViewModel>();
-            var tutor =  await _userService.GetById(classEntity.TutorId);
-            if( tutor is not null)
+            var tutor = await _userService.GetById(classEntity.TutorId);
+            if (tutor is not null)
             {
                 rs.Tutor = tutor.Adapt<TutorViewModel>();
             }
-           
+
             await _context.SaveChangesAsync();
 
             return rs;
@@ -125,6 +125,10 @@ namespace BE_SWP391_OnDemandTutor.BusinessLogic.Services
             classEntity.ClassLevel = classUpdate.ClassLevel;
             classEntity.ClassFee = classUpdate.ClassFee;
             classEntity.StudentId = classUpdate.StudentId;
+            classEntity.City = classUpdate.City;
+            classEntity.District = classUpdate.District;
+            classEntity.Ward = classUpdate.Ward;
+            classEntity.MeetingLink = classUpdate.MeetingLink;
 
             _context.Classes.Update(classEntity);
             await _context.SaveChangesAsync();
