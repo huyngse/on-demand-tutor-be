@@ -6,6 +6,7 @@ using BE_SWP391_OnDemandTutor.BusinessLogic.ViewModels.Class;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using BE_SWP391_OnDemandTutor.Common.Paging;
+using BE_SWP391_OnDemandTutor.BusinessLogic.ViewModels;
 
 namespace BE_SWP391_OnDemandTutor.Presentation.Controllers
 {
@@ -17,7 +18,7 @@ namespace BE_SWP391_OnDemandTutor.Presentation.Controllers
 
         private IClassService _classService;
 
-         public ClassController(IClassService classService)
+        public ClassController(IClassService classService)
         {
             _classService = classService;
         }
@@ -92,7 +93,7 @@ namespace BE_SWP391_OnDemandTutor.Presentation.Controllers
 
         [HttpGet]
         public async Task<IActionResult> GetAllClasses([FromQuery] PagingSizeModel paging)
-        { 
+        {
             var classViewModels = await _classService.GetAllClasses(paging);
             return Ok(classViewModels);
         }
@@ -102,6 +103,17 @@ namespace BE_SWP391_OnDemandTutor.Presentation.Controllers
         {
             var classViewModels = await _classService.GetClassByTutorId(tutorId);
             return Ok(classViewModels);
+        }
+
+        [HttpGet("search")]
+        public async Task<ActionResult<List<ClassViewModel>>> SearchClass([FromQuery] SearchClassQuery  query)
+        {
+            var (classVMs, totalCount) = await _classService.SearchClass(query);
+            var totalPages = (int)Math.Ceiling((double)totalCount / query.PageSize);
+            Response.Headers.Append("X-Total-Count", totalCount.ToString());
+            Response.Headers.Append("X-Current-Page", query.PageNumber.ToString());
+            Response.Headers.Append("X-Total-Pages", totalPages.ToString());
+            return Ok(classVMs);
         }
 
     }

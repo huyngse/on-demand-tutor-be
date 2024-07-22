@@ -22,6 +22,7 @@ namespace BE_SWP391_OnDemandTutor.BusinessLogic.Services
         Task<(bool Success, string ClassName)> DeactivateClass(int idTmp);
         Task<List<ClassViewModel>> GetAllClasses(PagingSizeModel paging);
         Task<List<TutorDetailClassViewModel>> GetClassByTutorId(int userId);
+        Task<(List<ClassViewModel>, int)> SearchClass(SearchClassQuery query);
     }
 
     public class ClassService : IClassService
@@ -29,7 +30,7 @@ namespace BE_SWP391_OnDemandTutor.BusinessLogic.Services
         private readonly BE_SWP391_OnDemandTutorDbContext _context;
         private readonly IMapper _mapper;
         private readonly IUserService _userService;
-       
+
 
         public ClassService(BE_SWP391_OnDemandTutorDbContext context, IMapper mapper, IUserService userService)
         {
@@ -43,12 +44,12 @@ namespace BE_SWP391_OnDemandTutor.BusinessLogic.Services
             var classEntity = classCreate.Adapt<Class>();
             _context.Classes.Add(classEntity);
             var rs = classEntity.Adapt<ClassViewModel>();
-            var tutor =  await _userService.GetById(classEntity.TutorId);
-            if( tutor is not null)
+            var tutor = await _userService.GetById(classEntity.TutorId);
+            if (tutor is not null)
             {
                 rs.Tutor = tutor.Adapt<TutorViewModel>();
             }
-           
+
             await _context.SaveChangesAsync();
 
             return rs;
@@ -124,6 +125,10 @@ namespace BE_SWP391_OnDemandTutor.BusinessLogic.Services
             classEntity.ClassLevel = classUpdate.ClassLevel;
             classEntity.ClassFee = classUpdate.ClassFee;
             classEntity.StudentId = classUpdate.StudentId;
+            classEntity.City = classUpdate.City;
+            classEntity.District = classUpdate.District;
+            classEntity.Ward = classUpdate.Ward;
+            classEntity.MeetingLink = classUpdate.MeetingLink;
 
             _context.Classes.Update(classEntity);
             await _context.SaveChangesAsync();
@@ -141,6 +146,38 @@ namespace BE_SWP391_OnDemandTutor.BusinessLogic.Services
             var classViewModels = classEntities.Skip((paging.Page - 1) * paging.Limit).Take(paging.Limit).Select(c => c.Adapt<ClassViewModel>()).ToList();
 
             return classViewModels;
+        }
+        public async Task<(List<ClassViewModel>, int)> SearchClass(SearchClassQuery query)
+        {
+            var result = _context.Classes
+                .Include(c => c.Student)
+                .Include(c => c.Tutor)
+                .Include(c => c.Schedules)
+                .AsQueryable();
+            if (!string.IsNullOrWhiteSpace(query.ClassName))
+            {
+                result = result.Where(c => c.ClassName.Contains(query.ClassName));
+            }
+            if (!string.IsNullOrWhiteSpace(query.City))
+            {
+                result = result.Where(c => c.City.Contains(query.City));
+            }
+            if (!string.IsNullOrWhiteSpace(query.District))
+            {
+                result = result.Where(c => c.District.Contains(query.District));
+            }
+            if (!string.IsNullOrWhiteSpace(query.Ward))
+            {
+                result = result.Where(c => c.Ward.Contains(query.Ward));
+            }
+            if (!string.IsNullOrWhiteSpace(query.ClassMethod) && query.ClassMethod != "All")
+            {
+                result = result.Where(c => c.ClassMethod.Contains(query.ClassMethod));
+            }
+            var totalCount = result.Count();
+            var skipNumber = (query.PageNumber - 1) * query.PageSize;
+            var classResult = await result.Skip(skipNumber).Take(query.PageSize).ToListAsync();
+            return (classResult.Select(c => c.Adapt<ClassViewModel>()).ToList(), totalCount);
         }
         public async Task<List<TutorDetailClassViewModel>> GetClassByTutorId(int userId)
         {
