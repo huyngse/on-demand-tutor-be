@@ -1,0 +1,23 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v8.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v8.0": {
+      "BE_SWP391_OnDemandTutor.Common/1.0.0": {
+        "runtime": {
+          "BE_SWP391_OnDemandTutor.Common.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "BE_SWP391_OnDemandTutor.Common/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}

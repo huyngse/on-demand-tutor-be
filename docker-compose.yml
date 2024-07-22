@@ -1,0 +1,8 @@
+version: '3.4'
+
+services:
+  be_swp391_ondemandtutor.api:
+    image: ${DOCKER_REGISTRY-}beswp391ondemandtutor
+    build:
+      context: .
+      dockerfile: BE_SWP391_OnDemandTutor.API/Dockerfile
