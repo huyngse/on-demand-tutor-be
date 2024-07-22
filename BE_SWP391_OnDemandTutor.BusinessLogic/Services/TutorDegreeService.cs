@@ -17,6 +17,7 @@ namespace BE_SWP391_OnDemandTutor.BusinessLogic.Services
         Task<TutorDegreeViewModel> CreateTutorDegree(CreateTutorDegreeRequestModel scheduleCreate);
         Task<TutorDegreeViewModel> UpdateDegree(UpdateTutorDegreeRequestModel scheduleUpdate);
         Task<bool> DeleteTutorDegree(int idTmp);
+        Task<List<TutorDegreeViewModel>> GetDegreeByTutorId(int tutorId);
     }
 
     public class TutorDegreeService : ITutorDegreeService
@@ -56,8 +57,6 @@ namespace BE_SWP391_OnDemandTutor.BusinessLogic.Services
 
             await _context.SaveChangesAsync();
             return update.Adapt<TutorDegreeViewModel>();
-
-
         }
 
         public async Task<bool> DeleteTutorDegree(int idTmp)
@@ -79,6 +78,11 @@ namespace BE_SWP391_OnDemandTutor.BusinessLogic.Services
 
             return degree.Skip((paging.Page - 1) * paging.Limit).Take(paging.Limit).Adapt<List<TutorDegreeViewModel>>();
         }
+        public async Task<List<TutorDegreeViewModel>> GetDegreeByTutorId(int tutorId)
+        {
+            var degree = await _context.TutorDegrees.Where(t => t.TutorId == tutorId).ToListAsync();
+            return degree.Adapt<List<TutorDegreeViewModel>>();
+        }
 
         public async Task<TutorDegreeViewModel> GetById(int idTmp)
         {
@@ -88,8 +92,6 @@ namespace BE_SWP391_OnDemandTutor.BusinessLogic.Services
                 throw new NotFoundException("Can not find the Degree");
             }
             return degree.Adapt<TutorDegreeViewModel>();
-
-
         }
 
     }
