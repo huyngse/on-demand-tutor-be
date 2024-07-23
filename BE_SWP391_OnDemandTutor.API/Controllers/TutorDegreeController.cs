@@ -11,11 +11,12 @@ namespace BE_SWP391_OnDemandTutor.Presentation.Controllers
     [ApiController]
     [ApiVersion("1")]
     [Route("/api/v1/tutordegrees")]
-    public class TutorDegreeController : ControllerBase {
+    public class TutorDegreeController : ControllerBase
+    {
 
         private ITutorDegreeService _tutordegreeService;
 
-         public TutorDegreeController(ITutorDegreeService tutordegreeService)
+        public TutorDegreeController(ITutorDegreeService tutordegreeService)
         {
             _tutordegreeService = tutordegreeService;
         }
@@ -28,8 +29,7 @@ namespace BE_SWP391_OnDemandTutor.Presentation.Controllers
             {
                 var createdDegree = await _tutordegreeService.CreateTutorDegree(degreeCreate);
                 return CreatedAtAction(nameof(GetById), new { id = createdDegree.DegreeId }, createdDegree);
-            }
-            catch (Exception ex)
+            } catch (Exception ex)
             {
                 return BadRequest(ex.Message);
             }
@@ -40,6 +40,17 @@ namespace BE_SWP391_OnDemandTutor.Presentation.Controllers
         public async Task<ActionResult<List<TutorDegreeViewModel>>> GetAll([FromQuery] PagingSizeModel paging)
         {
             var degree = await _tutordegreeService.GetAll(paging);
+            if (degree == null)
+            {
+                return NotFound("");
+            }
+            return Ok(degree);
+        }
+        [MapToApiVersion("1")]
+        [HttpGet("tutor/{tutorId:int}")]
+        public async Task<ActionResult<List<TutorDegreeViewModel>>> GetDegreeByTutorId([FromRoute] int tutorId)
+        {
+            var degree = await _tutordegreeService.GetDegreeByTutorId(tutorId);
             if (degree == null)
             {
                 return NotFound("");
